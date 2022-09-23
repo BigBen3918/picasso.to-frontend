@@ -58,8 +58,6 @@ export default function NFTLists(props) {
     };
 
     const NFTs = useMemo(() => {
-        console.log(state.collectionNFT);
-        console.log(state.allNFT);
         let res = state.allNFT.filter(filter1).filter(filter2).filter(filter3).sort(sortBy);
         return res;
     }, [state.allNFT, filter1, filter2, filter3, sortBy]);

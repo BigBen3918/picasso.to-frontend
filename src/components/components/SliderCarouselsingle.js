@@ -13,11 +13,11 @@ class CustomSlide extends Component {
 
 const settings = {
     infinite: false,
-    speed: 500,
+    speed: 50000,
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: 0,
-    adaptiveHeight: 300,
+    adaptiveHeight: 400,
     responsive: [
         {
             breakpoint: 1900,
@@ -67,9 +67,9 @@ export default function SlideCarousel() {
     return (
         <div className="nft-big">
             <Slider {...settings}>
-                <CustomSlide className="itm" index={1}>
+                <CustomSlide>
                     <div className="nft_pic">
-                        <div className="nft_pic_wrap">
+                        <div>
                             <img
                                 src={
                                     state.allNFT[Math.floor(Math.random() * state.allNFT.length)]

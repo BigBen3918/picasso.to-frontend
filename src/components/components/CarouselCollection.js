@@ -32,7 +32,7 @@ const settings = {
         {
             breakpoint: 1024,
             settings: {
-                slidesToShow: 3,
+                slidesToShow: 2,
                 slidesToScroll: 1,
                 infinite: false
             }
@@ -61,38 +61,34 @@ export default function CarouselCollection() {
     const [state, {}] = useBlockchainContext();
 
     const NFTItem = (props) => {
-        const { desc, title, coverImage, image, id, address } = props;
+        const { title, coverImage, id, address, nftsCount } = props;
 
         const handle = () => {
             navigate(`/collection/${address}`);
         };
 
         return (
-            <div className="itm" index={id}>
-                <div className="nft_coll">
-                    <span onClick={handle}>
+            <div index={id}>
+                <div className="nft_coll" onClick={handle}>
+                    <span>
                         <div className="nft_wrap">
-                            <span>
-                                <img src={coverImage} className="lazy img-fluid" alt="" />
-                            </span>
-                        </div>
-                        <div className="nft_coll_pp">
-                            <span>
-                                <img className="lazy" src={image} alt="" />
-                            </span>
+                            <img src={coverImage} className="lazy img-fluid" alt="" />
                         </div>
                     </span>
+                    <div className="nft_coll_title">
+                        <button>{title.length > 10 ? title.slice(0, 10) + '...' : title}</button>
+                    </div>
                     <div className="nft_coll_info">
-                        <span>
-                            <h4>{title.length > 10 ? title.slice(0, 10) + '...' : title}</h4>
-                        </span>
-                        <span>
-                            {desc === ''
-                                ? 'No Description'
-                                : desc.length > 50
-                                ? desc.slice(0, 45) + '...'
-                                : desc}
-                        </span>
+                        <div>
+                            <div>
+                                <h4>{nftsCount} items</h4>
+                                <p>Total Items</p>
+                                <div className="spacer-10"></div>
+                            </div>
+                            <div>
+                                <button>View</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -102,15 +98,14 @@ export default function CarouselCollection() {
     return (
         <div>
             <Slider {...settings}>
-                {state.collectionNFT.map((item, index) => (
+                {state.collectionNFT.slice(0, 4).map((item, index) => (
                     <NFTItem
                         key={index}
                         id={index}
                         title={item.metadata.name}
-                        desc={item.metadata.description}
                         coverImage={item.metadata.coverImage}
-                        image={item.metadata.image}
                         address={item.address}
+                        nftsCount={item.items.length}
                     />
                 ))}
             </Slider>

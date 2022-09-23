@@ -1,5 +1,5 @@
-import React from 'react';
-import SliderCarousel from '../components/SliderCarouselsingle';
+import { useEffect, useState } from 'react';
+// import SliderCarousel from '../components/SliderCarouselsingle';
 // import FeatureBox from '../components/FeatureBox';
 import CarouselCollection from '../components/CarouselCollection';
 import Footer from '../menu/footer';
@@ -67,7 +67,24 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 export default function Homethree() {
-    const [state, { translateLang }] = useBlockchainContext();
+    const [state, { translateLang, getCurrency }] = useBlockchainContext();
+    const [floorPrice, setFloorPrice] = useState(0);
+
+    useEffect(() => {
+        let bump = [];
+        state.collectionNFT.map((collectionItem) => {
+            let floorBump = [];
+            for (let i = 0; i < collectionItem.items.length; i++) {
+                if (collectionItem.items[i].marketdata.price !== '') {
+                    floorBump.push(Number(collectionItem.items[i].marketdata.price));
+                }
+            }
+            floorBump.sort();
+            if (floorBump.length === 0) bump.push(0);
+            else bump.push(parseFloat(floorBump[0].toFixed(2)));
+        });
+        setFloorPrice(bump);
+    }, [state.collectionNFT]);
 
     return (
         <div style={{ paddingBottom: '240px' }}>
@@ -105,73 +122,118 @@ export default function Homethree() {
                                 <p className=" lead">{translateLang('home_txt2')}</p>
                             </Reveal>
                             <div className="spacer-30"></div>
-                            <div className="row align-items-center">
-                                <div className="col-lg-3 px-0">
-                                    <SliderCarousel />
-                                </div>
-                                <div className="col-lg-3 px-0">
-                                    <SliderCarousel />
-                                </div>
-                                <div className="col-lg-3 px-0">
-                                    <SliderCarousel />
-                                </div>
-                                <div className="col-lg-3 px-0">
-                                    <SliderCarousel />
-                                </div>
-                            </div>
-                            <div className="spacer-double"></div>
                         </div>
                     </div>
                 </div>
             </section>
 
             <section className="container no-top">
-                <div className="row">
-                    <div className="col-lg-12">
-                        <h2 className="style-2">{translateLang('notablecollection')}</h2>
-                    </div>
-                </div>
                 <div className="container no-top">
                     <div className="row">
                         <div className="col-lg-12 px-0">
-                            <CarouselCollection />
+                            <Reveal
+                                className="onStep"
+                                keyframes={fadeInUp}
+                                delay={900}
+                                duration={800}
+                                triggerOnce>
+                                <CarouselCollection />
+                            </Reveal>
                         </div>
                     </div>
                 </div>
                 <div className="spacer-double"></div>
             </section>
 
-            {/* <section className="container no-top">
-                <div className="row">
-                    <div className="col-lg-12">
-                        <h2 className="style-2">Top collections </h2>
-                    </div>
-                    <div className="col-lg-12">
-                        <AuthorList />
-                    </div>
-                    <div className="spacer-20"></div>
-                    <div className="col-lg-12 centered">
-                        <Link
-                            to="/rangking"
-                            className="btn-main lead rankButton"
-                        >
-                            Go to Rangkings
-                        </Link>
-                    </div>
+            <section className="container no-top">
+                <h2 className="style-2">Top collections</h2>
+                <div className="spacer-20"></div>
+                <div className="row top_collection">
+                    {state.collectionNFT.slice(0, 15).map((item, index) => (
+                        <div className="col-md-6 col-lg-4">
+                            <Link to={`/collection/${item.address}`}>
+                                <div className="top_coll_item">
+                                    <p>{index + 1}</p>
+                                    <img src={item.metadata.image} alt="" />
+                                    <div>
+                                        <h4>
+                                            {item.metadata.name.length > 25
+                                                ? item.metadata.name.slice(0, 10) + '...'
+                                                : item.metadata.name}
+                                        </h4>
+                                        <p>
+                                            {item.items.length} items * {floorPrice[index]} ETH
+                                        </p>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                    ))}
                 </div>
                 <div className="spacer-double"></div>
-            </section> */}
+            </section>
 
-            {/* <section className="container no-top">
+            <section className="container no-top">
+                <h2 className="style-2">{'Discover the latest'}</h2>
                 <div className="row">
-                    <div className="col-lg-12">
-                        <h2 className="style-2">{translateLang('createandsell')}</h2>
-                    </div>
+                    {state.allNFT
+                        .filter((item) => {
+                            return item.marketdata.price !== '';
+                        })
+                        .slice(0, 4)
+                        .map((nft, index) => (
+                            <div
+                                key={index}
+                                className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                <div className="nft__item">
+                                    <div className="nft__item_wrap">
+                                        <span>
+                                            <img
+                                                src={nft.metadata.image}
+                                                className="lazy nft__item_preview"
+                                                alt=""
+                                            />
+                                        </span>
+                                    </div>
+                                    <div className="nft__item_info">
+                                        <span>
+                                            <a>
+                                                {state.collectionNFT.map((item) => {
+                                                    if (item.address === nft.collectionAddress)
+                                                        return item.metadata.name;
+                                                })}
+                                            </a>
+                                        </span>
+                                        <span>
+                                            <h4>{nft.metadata.name}</h4>
+                                        </span>
+                                        <div className="spacer-20"></div>
+                                        <hr />
+                                        <div className="spacer-20"></div>
+                                        <div className="nft__item_price">
+                                            {nft.marketdata.price === ''
+                                                ? null
+                                                : nft.marketdata.price +
+                                                  ' ' +
+                                                  getCurrency(nft.marketdata.acceptedToken)?.label}
+                                        </div>
+                                        <div
+                                            className="nft__item_like"
+                                            id={'like' + index}
+                                            style={
+                                                nft.likes.indexOf(state.auth.address) === -1
+                                                    ? null
+                                                    : { color: '#c5a86a' }
+                                            }>
+                                            <i className="fa fa-heart"></i>
+                                            <span>{nft.likes.length}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                 </div>
-                <div className="container px-0">
-                    <FeatureBox />
-                </div>
-            </section> */}
+            </section>
 
             <Footer />
         </div>
