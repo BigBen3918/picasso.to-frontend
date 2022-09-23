@@ -5072,8 +5072,9 @@ img.img-rounded {
     .collection_name {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         padding: 10px;
+        gap: 10px;
 
         img {
             width: 50px;

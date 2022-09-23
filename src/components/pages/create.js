@@ -23,8 +23,14 @@ export default function Createpage() {
     const [currentCollection, setCurrentCollection] = useState(Addresses.NFT1);
 
     useEffect(() => {
-        setCollections([]);
-        for (let i = 0; i < state.collectionNFT.length; i++) {
+        setCollections([
+            {
+                name: state.collectionNFT[0].metadata.name,
+                owner: state.collectionNFT[0].address
+            }
+        ]);
+
+        for (let i = 1; i < state.collectionNFT.length; i++) {
             if (state.collectionNFT[i].metadata.fee_recipent === state.auth.address) {
                 let data = {
                     name: state.collectionNFT[i].metadata.name,

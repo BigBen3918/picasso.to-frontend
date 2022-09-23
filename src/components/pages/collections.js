@@ -60,8 +60,8 @@ export default function Collections() {
                 <div className="row">
                     <table className="collections_table">
                         <thead>
-                            <th style={{ textAlign: 'right' }}>#</th>
-                            <th style={{ textAlign: 'center' }}>Collection</th>
+                            <th style={{ padding: '0 30px' }}>#</th>
+                            <th>Collection</th>
                             <th>Sales Volume</th>
                             <th>Floor price</th>
                             <th>Items</th>
@@ -69,9 +69,7 @@ export default function Collections() {
                         <tbody>
                             {state.collectionNFT.map((item, index) => (
                                 <tr key={index} onClick={() => handle(item.address)}>
-                                    <td style={{ textAlign: 'right', padding: '5px' }}>
-                                        {index + 1}
-                                    </td>
+                                    <td style={{ padding: '5px 30px' }}>{index + 1}</td>
                                     <td>
                                         <div className="collection_name">
                                             <img
