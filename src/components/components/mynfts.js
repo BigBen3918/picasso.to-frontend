@@ -67,17 +67,19 @@ export default function Responsive() {
                             </div>
                             <div className="nft__item_info">
                                 <span>
+                                    <a>
+                                        {state.collectionNFT.map((item) => {
+                                            if (item.address === nft.collectionAddress)
+                                                return item.metadata.name;
+                                        })}
+                                    </a>
+                                </span>
+                                <span>
                                     <h4>{nft.metadata.name}</h4>
                                 </span>
-                                {/* <div className="nft__item_price">
-                                      {10} ETH
-                                      <span>
-                                          {nft.marketdata.bidders.length}
-                                      </span>
-                                  </div>
-                                  <div className="nft__item_action">
-                                      <span>Place a bid</span>
-                                  </div> */}
+                                <div className="spacer-20"></div>
+                                <hr />
+                                <div className="spacer-single"></div>
                                 <div className="nft__item_like" style={{ color: '#c5a86a' }}>
                                     <i className="fa fa-heart"></i>
                                     <span>{nft.likes.length}</span>

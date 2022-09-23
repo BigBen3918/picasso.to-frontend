@@ -70,7 +70,7 @@ export default function Homethree() {
     const [state, { translateLang }] = useBlockchainContext();
 
     return (
-        <div>
+        <div style={{ paddingBottom: '240px' }}>
             <GlobalStyles />
             <section className="jumbotron no-bg">
                 <div className="container">

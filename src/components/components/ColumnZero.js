@@ -116,20 +116,25 @@ export default function ColumnZero(props) {
                             </div>
                             <div className="nft__item_info">
                                 <span>
+                                    <a>
+                                        {state.collectionNFT.map((item) => {
+                                            if (item.address === nft.collectionAddress)
+                                                return item.metadata.name;
+                                        })}
+                                    </a>
+                                </span>
+                                <span>
                                     <h4>{nft.metadata.name}</h4>
                                 </span>
+                                <div className="spacer-20"></div>
+                                <hr />
+                                <div className="spacer-20"></div>
                                 <div className="nft__item_price">
                                     {nft.marketdata.price === ''
                                         ? null
                                         : nft.marketdata.price +
                                           ' ' +
-                                          getCurrency(nft.marketdata?.acceptedToken)?.label}
-                                    <span>{nft.marketdata.bidders.length} bids</span>
-                                </div>
-                                <div className="nft__item_action">
-                                    {nft.marketdata.price === '' ? null : (
-                                        <span id={'buy' + index}>Buy Now</span>
-                                    )}
+                                          getCurrency(nft.marketdata.acceptedToken)?.label}
                                 </div>
                                 <div
                                     className="nft__item_like"

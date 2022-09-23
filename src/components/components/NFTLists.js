@@ -58,6 +58,8 @@ export default function NFTLists(props) {
     };
 
     const NFTs = useMemo(() => {
+        console.log(state.collectionNFT);
+        console.log(state.allNFT);
         let res = state.allNFT.filter(filter1).filter(filter2).filter(filter3).sort(sortBy);
         return res;
     }, [state.allNFT, filter1, filter2, filter3, sortBy]);
@@ -97,20 +99,26 @@ export default function NFTLists(props) {
                         </div>
                         <div className="nft__item_info">
                             <span>
+                                <a>
+                                    {state.collectionNFT.map((item) => {
+                                        if (item.address === nft.collectionAddress)
+                                            return item.metadata.name;
+                                    })}
+                                </a>
+                            </span>
+                            <span>
                                 <h4>{nft.metadata.name}</h4>
                             </span>
+                            <div className="spacer-20"></div>
+                            <hr />
+                            <div className="spacer-20"></div>
                             <div className="nft__item_price">
-                                {nft.marketdata.price === ''
-                                    ? null
-                                    : nft.marketdata.price +
-                                      getCurrency(nft.marketdata.acceptedToken)?.label}
-                                <span>
-                                    {nft.marketdata.bidders.length} {translateLang('bid')}
-                                </span>
-                            </div>
-                            <div className="nft__item_action">
-                                {nft.marketdata.price === '' ? null : (
-                                    <span id={'buy' + index}>{translateLang('buynow')}</span>
+                                {nft.marketdata.price === '' ? (
+                                    <div className="spacer-20"></div>
+                                ) : (
+                                    nft.marketdata.price +
+                                    ' ' +
+                                    getCurrency(nft.marketdata.acceptedToken)?.label
                                 )}
                             </div>
                             <div

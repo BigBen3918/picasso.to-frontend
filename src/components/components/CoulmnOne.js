@@ -90,8 +90,7 @@ export default function ColumnOne(props) {
                     <div
                         key={index}
                         className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
-                        onClick={(e) => handleItem(e, index, nft)}
-                    >
+                        onClick={(e) => handleItem(e, index, nft)}>
                         <div className="nft__item">
                             <div className="nft__item_wrap" style={{ height: `${height}px` }}>
                                 <Outer>
@@ -107,26 +106,24 @@ export default function ColumnOne(props) {
                             </div>
                             <div className="nft__item_info">
                                 <span>
+                                    <a>
+                                        {state.collectionNFT.map((item) => {
+                                            if (item.address === nft.collectionAddress)
+                                                return item.metadata.name;
+                                        })}
+                                    </a>
+                                </span>
+                                <span>
                                     <h4>{nft.metadata.name}</h4>
                                 </span>
-                                <div className="nft__item_price">
-                                    {nft.marketdata.price === ''
-                                        ? null
-                                        : nft.marketdata.price +
-                                          ' ' +
-                                          getCurrency(nft.marketdata?.acceptedToken)?.label}
-                                    <span>{nft.marketdata.bidders.length} bids</span>
-                                </div>
-                                <div className="nft__item_action">
-                                    {nft.marketdata.price === '' ? null : (
-                                        <span id={'buy' + index}>Buy Now</span>
-                                    )}
-                                </div>
+                                <div className="spacer-20"></div>
+                                <hr />
+                                <div className="spacer-20"></div>
+                                <div className="spacer-20"></div>
                                 <div
                                     className="nft__item_like"
                                     id={'like' + index}
-                                    style={{ color: '#c5a86a' }}
-                                >
+                                    style={{ color: '#c5a86a' }}>
                                     <i className="fa fa-heart"></i>
                                     <span>{nft.likes.length}</span>
                                 </div>

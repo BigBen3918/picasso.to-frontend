@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import Footer from '../menu/footer';
 import { useNavigate } from 'react-router-dom';
 import { useBlockchainContext } from '../../context';
@@ -6,63 +6,97 @@ import { useBlockchainContext } from '../../context';
 export default function Collections() {
     const [state, { translateLang }] = useBlockchainContext();
     const navigate = useNavigate();
+    const [floorPrice, setFloorPrice] = useState(0);
+    const [volumns, setVolumns] = useState([]);
+
+    useEffect(() => {
+        if (state.orderList.length !== 0) {
+            let bump = 0;
+            let bumpArr = [];
+            state.collectionNFT.map((collectionItem) => {
+                const currentVolumn = state.orderList.filter((item) => {
+                    return item.contractAddress === collectionItem && item.status === 'success';
+                });
+
+                currentVolumn.map((item) => {
+                    bump += Number(item.price);
+                });
+                bumpArr.push(parseFloat(bump.toFixed(3)));
+            });
+
+            setVolumns(bumpArr);
+        }
+    }, [state.orderList]);
+
+    useEffect(() => {
+        let bump = [];
+        state.collectionNFT.map((collectionItem) => {
+            let floorBump = [];
+            for (let i = 0; i < collectionItem.items.length; i++) {
+                if (collectionItem.items[i].marketdata.price !== '') {
+                    floorBump.push(Number(collectionItem.items[i].marketdata.price));
+                }
+            }
+            floorBump.sort();
+            if (floorBump.length === 0) bump.push(0);
+            else bump.push(parseFloat(floorBump[0].toFixed(3)));
+        });
+        setFloorPrice(bump);
+    }, [state.collectionNFT]);
 
     const handle = (address) => {
         navigate(`/collection/${address}`);
     };
 
     return (
-        <>
-            <section className="jumbotron breadcumb no-bg">
-                <div className="mainbreadcumb">
-                    <div className="row m-10-hor">
-                        <div className="col-12 text-center">
-                            <h1>{translateLang('allcollection_title')}</h1>
-                        </div>
-                    </div>
+        <div style={{ paddingBottom: '240px' }}>
+            <section className="jumbotron no-bg" style={{ paddingBottom: '30px' }}>
+                <div className="container">
+                    <h1>{translateLang('allcollection_title')}</h1>
                 </div>
             </section>
 
-            <section className="container">
+            <div className="container">
                 <div className="row">
-                    {state.collectionNFT.map((item, index) => (
-                        <div
-                            className="col-lg-4 col-md-6 mb30"
-                            key={index}
-                            onClick={() => handle(item.address)}>
-                            <div className="card">
-                                <div>
-                                    <img
-                                        src={item.metadata.coverImage}
-                                        className="card-img-top"
-                                        style={{ height: '200px' }}
-                                        alt=""
-                                    />
-                                </div>
-                                <div className="card-body">
-                                    <span>
-                                        <img className="lazy" src={item.metadata.image} alt="" />
-                                    </span>
-                                    <div className="spacer-10"></div>
-                                    <h4 className="card-title text-center">{item.metadata.name}</h4>
-                                    <div className="spacer-10"></div>
-                                    <p className="card-text text-center">
-                                        {item.metadata.description === ''
-                                            ? 'No description'
-                                            : item.metadata.description.length > 15
-                                            ? item.metadata.description.slice(0, 15) + '...'
-                                            : item.metadata.description}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+                    <table className="collections_table">
+                        <thead>
+                            <th style={{ textAlign: 'right' }}>#</th>
+                            <th style={{ textAlign: 'center' }}>Collection</th>
+                            <th>Sales Volume</th>
+                            <th>Floor price</th>
+                            <th>Items</th>
+                        </thead>
+                        <tbody>
+                            {state.collectionNFT.map((item, index) => (
+                                <tr key={index} onClick={() => handle(item.address)}>
+                                    <td style={{ textAlign: 'right', padding: '5px' }}>
+                                        {index + 1}
+                                    </td>
+                                    <td>
+                                        <div className="collection_name">
+                                            <img
+                                                className="lazy"
+                                                src={item.metadata.image}
+                                                alt=""
+                                            />
+                                            <h4 className="card-title text-center">
+                                                {item.metadata.name}
+                                            </h4>
+                                        </div>
+                                    </td>
+                                    <td>{volumns[index]} ETH</td>
+                                    <td>{floorPrice[index]} ETH</td>
+                                    <td>{item.items.length}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
 
                 <div className="spacer-single"></div>
-            </section>
+            </div>
 
             <Footer />
-        </>
+        </div>
     );
 }

@@ -146,7 +146,7 @@ export default function LazyCreate() {
     };
 
     return (
-        <div>
+        <div style={{ paddingBottom: '240px' }}>
             <section className="jumbotron breadcumb no-bg">
                 <div className="mainbreadcumb">
                     <div className="container">
@@ -211,9 +211,9 @@ export default function LazyCreate() {
 
                                 <h5>{translateLang('externallink')}</h5>
                                 <p>
-                                    CLOUD9 will include a link to this URL on this item{"'"}s
-                                    detail page, so that users can click to learn more about it. You
-                                    are welcome to link to your own webpage with more details.
+                                    CLOUD9 will include a link to this URL on this item{"'"}s detail
+                                    page, so that users can click to learn more about it. You are
+                                    welcome to link to your own webpage with more details.
                                 </p>
                                 <div className="social">
                                     <span>
@@ -288,8 +288,7 @@ export default function LazyCreate() {
                                             type="button"
                                             className="form-control-button"
                                             style={{ flex: '1 1 0' }}
-                                            onClick={() => deleteItem(item)}
-                                        >
+                                            onClick={() => deleteItem(item)}>
                                             <i className="bg-color-2 i-boxed icon_close" />
                                         </button>
                                         <input
@@ -328,8 +327,7 @@ export default function LazyCreate() {
                                             type="button"
                                             className="form-control-button"
                                             style={{ flex: '1 1 0' }}
-                                            onClick={addItem}
-                                        >
+                                            onClick={addItem}>
                                             <i className="bg-color-2 i-boxed icon_plus" />
                                         </button>
                                     </div>
@@ -348,8 +346,7 @@ export default function LazyCreate() {
                                     <button className="btn-main">
                                         <span
                                             className="spinner-border spinner-border-sm"
-                                            aria-hidden="true"
-                                        ></span>
+                                            aria-hidden="true"></span>
                                     </button>
                                 )}
                             </div>

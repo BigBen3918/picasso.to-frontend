@@ -83,10 +83,12 @@ section {
 }
 
 .wraper {
+    position: relative;
     padding: 0;
     display: block;
     overflow: hidden;
     width: 100%;
+    min-height: 100vh;
     // background-image: url('./background.png');
     background-size: 100% 100%;
     background-position-y: 100%;
@@ -342,7 +344,7 @@ section {
 hr {
     display: block;
     clear: both;
-    border-top: solid 1px #ff693b;
+    border-top: solid 1px $color;
     margin: 0;
 }
 
@@ -1650,6 +1652,22 @@ p.lead {
 }
 
 /*** breadcumb ***/
+.jumbotron {
+    padding: 130px 0 0 0;
+}
+
+.search_group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+
+    @media screen and (max-width: 768px) {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+}
+
 .breadcumb {
     border-radius: 0;
     margin: 0;
@@ -1946,6 +1964,10 @@ p.lead {
 
 /*** footer ***/
 footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
     &.footer-light {
         box-shadow: 0px 0px 6px 0px rgb(0, 148, 138);
         background-color: rgb(0, 0, 0);
@@ -1979,7 +2001,7 @@ footer {
                     }
 
                     &:hover {
-                        background-color: $black;
+                        background-color: $color;
                         color: #2e9bf6;
                     }
                 }
@@ -1991,14 +2013,13 @@ footer {
         }
 
         h2 {
-            color: $color;
+            color: $white;
             padding: 30px;
             margin: 0;
         }
 
-        h4 {
-            color: $white;
-            padding: 30px;
+        p {
+            padding: 10px;
             margin: 0;
         }
     }
@@ -3390,7 +3411,7 @@ i.font60 {
     position: relative;
     padding: 20px;
     margin: 10px;
-    border: solid 1px $color_more;
+    border: 1px solid #7772;
     border-radius: 15px;
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px;
@@ -3893,21 +3914,12 @@ i.font60 {
 
 /*** filter ***/
 .items_filter {
-    width: 100%;
     font-size: 14px;
-    margin-bottom: 30px;
-    margin-top: -14px;
-    display: flex;
-    align-content: center;
-    align-items: center;
-    justify-content: flex-start;
 
     .dropdownSelect {
         display: inline-block;
         width: 200px;
         position: relative;
-        margin-right: 10px;
-        margin-bottom: 5px;
         z-index: 2;
 
         .css-1okebmr-indicatorSeparator {
@@ -3933,17 +3945,20 @@ i.font60 {
         align-items: center;
         justify-content: center;
     }
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+    }
 }
 
 #form_quick_search {
     display: inline-block;
     margin-right: 0px;
     position: relative;
+    width: 100%;
 
     input[type='text'] {
         padding: 8px 8px;
-        width: 400px;
-        float: left;
         color: $color;
         border-radius: 5px 0 0 5px;
         border: solid 1px rgba(255, 255, 255, 0.1);
@@ -4943,28 +4958,41 @@ img.img-rounded {
     }
 }
 
-.card {
-    background: rgb(50, 50, 50);
-    cursor: pointer;
+.collections_table {
+    table,
+    th,
+    td {
+        border-collapse: collapse;
+    }
 
-    > div {
-        img {
-            max-height: 260px;
+    thead {
+        border-bottom: 1px solid rgb(192, 192, 192);
+    }
+
+    tr {
+        transition: 0.2s ease-in-out;
+        border-bottom: 1px solid rgb(192, 192, 192);
+        cursor: pointer;
+
+        &:hover {
+            background-color: #ddd;
         }
     }
 
-    h4 {
-        color: $white;
-    }
+    .collection_name {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
 
-    p {
-        color: #aaa;
+        img {
+            width: 50px;
+            height: 50px;
+        }
     }
 }
 
 .nav-link {
-    color: $white;
-
     &:hover {
         color: $color_more;
     }
@@ -4984,11 +5012,13 @@ img.img-rounded {
     border: solid 1px rgba(255, 255, 255, 0.075);
     margin-bottom: 25px;
     padding: 30px;
+    width: 100%;
     border-radius: 12px;
 
     .de_checkbox {
         position: relative;
         display: block;
+
         padding-left: 25px;
 
         input[type='checkbox'] {
@@ -5313,10 +5343,6 @@ img.img-rounded {
         }
     }
 
-    #form_quick_search input[type='text'] {
-        width: 80%;
-    }
-
     #form_quick_search #btn-submit {
         width: 20%;
     }
@@ -5327,7 +5353,7 @@ img.img-rounded {
 
     .items_filter .dropdownSelect {
         margin-right: 0;
-        width: 96%;
+        width: 100%;
     }
 
     .profile_avatar i {

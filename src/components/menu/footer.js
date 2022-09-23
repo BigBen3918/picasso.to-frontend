@@ -20,7 +20,7 @@ const Footer = () => {
                     </span>
                 </div>
                 <div>
-                    <h4>&copy; Copyright {new Date().getFullYear()} All Right Resserved</h4>
+                    <p>&copy; Copyright {new Date().getFullYear()} All Right Resserved</p>
                 </div>
             </div>
         </footer>

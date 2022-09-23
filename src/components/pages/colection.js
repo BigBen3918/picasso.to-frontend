@@ -92,7 +92,7 @@ export default function Collection() {
     };
 
     return (
-        <div>
+        <div style={{ paddingBottom: '240px' }}>
             <section
                 id="profile_banner"
                 className="jumbotron breadcumb no-bg"

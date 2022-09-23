@@ -78,8 +78,8 @@ export const translations = {
         btn_createitem: 'Create Item',
 
         // All NFTs and collection
-        allnft_title: 'Explore NFTs',
-        allcollection_title: 'Explore Collections',
+        allnft_title: 'Marketplace',
+        allcollection_title: 'Top Collections',
         onsaled: 'on Sale',
         owned: 'Owned',
         by: 'by',

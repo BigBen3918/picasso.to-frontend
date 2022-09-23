@@ -105,19 +105,18 @@ export default function Responsive() {
                             <span>
                                 <h4>{nft.metadata.name}</h4>
                             </span>
+                            <div className="spacer-20"></div>
+                            <hr />
+                            <div className="spacer-20"></div>
                             <div className="nft__item_price">
                                 {nft.marketdata.price === ''
                                     ? null
                                     : nft.marketdata.price +
+                                      ' ' +
                                       getCurrency(nft.marketdata.acceptedToken)?.label}
                                 <span>
                                     {nft.marketdata.bidders.length} {translateLang('bid')}
                                 </span>
-                            </div>
-                            <div className="nft__item_action">
-                                {nft.marketdata.price === '' ? null : (
-                                    <span id={'buy' + index}>{translateLang('buynow')}</span>
-                                )}
                             </div>
                             <div
                                 className="nft__item_like"
