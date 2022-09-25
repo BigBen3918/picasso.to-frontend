@@ -70,21 +70,6 @@ export default function NFTLists(props) {
                     className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4"
                     onClick={(e) => handleItem(e, index, nft)}>
                     <div className="nft__item m-0">
-                        <div className="author_list_pp">
-                            <span>
-                                <img
-                                    className="lazy"
-                                    src={
-                                        state.usersInfo[nft.owner]?.image === undefined
-                                            ? './img/author/author-1.jpg'
-                                            : state.usersInfo[nft.owner].image ||
-                                              './img/author/author-1.jpg'
-                                    }
-                                    alt=""
-                                />
-                                <i className="fa fa-check"></i>
-                            </span>
-                        </div>
                         <div className="nft__item_wrap" style={{ height: `${height}px` }}>
                             <span>
                                 <img

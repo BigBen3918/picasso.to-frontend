@@ -82,11 +82,48 @@ section {
     }
 }
 
+.item_info_like {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+
+    .item_author {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+
+        p {
+            margin: 0;
+        }
+
+        > span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            border-radius: 10px;
+            padding: 5px;
+            cursor: pointer;
+
+            img {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+            }
+
+            &:hover {
+                background-color: #e1e1e1;
+            }
+        }
+    }
+}
+
 .wraper {
     position: relative;
     padding: 0;
     display: block;
-    overflow: hidden;
     width: 100%;
     min-height: 100vh;
     // background-image: url('./background.png');
@@ -778,6 +815,15 @@ p.lead {
         box-shadow: 0px 0px 0px 0px transparent;
         opacity: 0.5;
         cursor: auto;
+    }
+}
+
+.round-button {
+    border-radius: 10px;
+    padding: 20px 30px;
+
+    &:hover {
+        background-color: #424242;
     }
 }
 
@@ -3220,6 +3266,7 @@ i.font60 {
         width: 60px;
         height: 60px;
         object-fit: cover;
+        border-radius: 5px;
     }
 
     > div {
@@ -3617,51 +3664,8 @@ i.font60 {
     }
 }
 
-.author_list_pp {
-    cursor: pointer;
-    position: absolute;
-    display: inline-block;
-    width: 50px;
-    height: auto;
-    background: $color;
-    margin-left: 10px;
-    margin-top: -3px;
-    border-radius: 100% !important;
-    z-index: 0;
-    transition: 0.3s;
-
-    &:hover img {
-        padding: 3px;
-        -webkit-box-shadow: 0px 0px 0px 2px $color;
-        transition: 0.3s;
-    }
-}
-
 .feature-font {
     color: rgb(50, 50, 50);
-}
-
-.author_list_pp img {
-    width: 100%;
-    border-radius: 100% !important;
-    -moz-border-radius: 100% !important;
-    -webkit-border-radius: 100% !important;
-    position: relative;
-    z-index: 1;
-}
-
-.author_list_pp i {
-    color: #ffffff;
-    background: $color;
-    font-size: 10px;
-    padding: 3px;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    border-radius: 100%;
-    -moz-border-radius: 100%;
-    -webkit-border-radius: 100%;
-    z-index: 2;
 }
 
 .nft__item_wrap {
@@ -3693,34 +3697,46 @@ i.font60 {
 
 .nft_attr {
     display: block;
-    padding: 10px;
-    text-align: center;
-    background-color: rgb(0, 151, 141);
-    border: solid 1px rgb(0, 66, 62);
-    border-radius: 5px;
-    margin-bottom: 8px;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border: solid 1px #7772;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: 0.3s ease;
 
-    h5 {
-        color: $color;
-        font-size: 14px;
-        font-weight: 500;
-        margin-bottom: 5px;
-    }
+    > div {
+        display: flex;
+        gap: 5px;
+        align-items: center;
 
-    h4 {
-        font-size: 15px;
-        font-weight: 700;
-        color: $white;
-        margin-bottom: 0;
-    }
+        p {
+            color: $color;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 0px;
+        }
 
-    h3 {
-        color: $black;
+        > div {
+            font-weight: 500;
+            font-size: 13px;
+            font-weight: 700;
+            color: $color;
+            margin-bottom: 0;
+            text-transform: capitalize;
+            line-height: 1.25rem;
+        }
     }
 
     span {
-        font-size: 13px;
-        color: #727272;
+        color: #73767d;
+        margin-bottom: 0;
+        font-size: 0.875rem;
+        text-transform: capitalize;
+        line-height: 1.25rem;
+    }
+
+    &:hover {
+        background-color: #e4e4e4;
     }
 }
 
@@ -3731,30 +3747,6 @@ i.font60 {
 
     li {
         margin-bottom: 30px;
-    }
-
-    .author_list_pp {
-        position: absolute;
-        display: inline-block;
-        width: 50px;
-        height: auto;
-        margin-left: 10px;
-        margin-top: -3px;
-        cursor: pointer;
-        z-index: -10;
-
-        &:hover {
-            img {
-                padding: 1px;
-                background: $gray;
-                box-shadow: 0px 0px 0px 4px rgba(131, 100, 226, 1);
-                transition: 0.2s ease;
-            }
-        }
-
-        img {
-            transition: 0.2s ease;
-        }
     }
 
     .author_list_info {
@@ -4366,9 +4358,41 @@ i.font60 {
     }
 }
 
+.titme_track {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    flex-wrap: wrap;
+    p {
+        margin: 0;
+    }
+
+    > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        h3 {
+            margin: 0
+        }
+    }
+}
+
 /*** item details ***/
 .item_info {
     padding-left: 10px;
+
+    a {
+        text-decoration: none;
+        color: unset;
+        font-size: 1.5rem;
+        text-transform: capitalize;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 
     .de_countdown {
         position: relative;
@@ -4411,14 +4435,6 @@ i.font60 {
     h6 {
         margin-bottom: 15px;
         font-size: 12px;
-    }
-
-    .item_author .author_list_info {
-        padding-top: 10px;
-        padding-left: 70px;
-        color: $color_more;
-        font-weight: bold;
-        word-break: break-all;
     }
 
     .de_nav {
@@ -4503,6 +4519,18 @@ i.font60 {
 
     b {
         color: $white;
+    }
+}
+
+.item_image {
+    width: 100%;
+    min-height: 450px;
+    object-fit: cover;
+    border-radius: 10px;
+
+    @media screen and (max-width: 576px) {
+        width: 100%;
+        min-height: unset;
     }
 }
 

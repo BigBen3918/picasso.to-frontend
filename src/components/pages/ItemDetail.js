@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import Footer from '../menu/footer';
 import moment from 'moment';
 import M_itemdetailRedux from '../components/M_ItemdetailRedex';
@@ -69,12 +69,32 @@ export default function Colection() {
         for (let i = 0; i < state.collectionNFT.length; i++) {
             if (state.collectionNFT[i].address === collection) {
                 setCorrectCollection(state.collectionNFT[i]);
-                if (!state.collectionNFT[i].items[id]) {
-                    //go to 404 page
-                }
                 var itemData = state.collectionNFT[i].items.find((item) => item.tokenID === id);
+
+                let attributeRarityies = itemData?.metadata?.attributes.map((attribute, index) => {
+                    let itemsWithSameAttributes = state.collectionNFT[i].items.filter((item) => {
+                        let hasSameAttribute = item.metadata?.attributes.find((itemAttribute) => {
+                            if (
+                                itemAttribute.key === attribute.key &&
+                                itemAttribute.value === attribute.value
+                            ) {
+                                return true;
+                            }
+                        });
+
+                        if (hasSameAttribute == -1) {
+                            return false;
+                        }
+                        return true;
+                    });
+
+                    return (
+                        (itemsWithSameAttributes.length * 100) / state.collectionNFT[i].items.length
+                    );
+                });
+
                 if (!itemData) navigate('/explorer');
-                else setItemData(itemData);
+                else setItemData({ ...itemData, attributeRarityies });
                 break;
             }
         }
@@ -164,126 +184,45 @@ export default function Colection() {
                     <>
                         <div className="row mt-md-5 pt-md-4">
                             <div className="col-md-6 text-center">
-                                <img
-                                    src={
-                                        itemData?.metadata?.image ||
-                                        '../../img/collections/coll-item-3.jpg'
-                                    }
-                                    className="img-fluid img-rounded mb-sm-30"
-                                    alt=""
-                                />
-                                <div className="social-link">
-                                    {itemData?.metadata?.external_url1 != '' && (
-                                        <a href={itemData?.metadata?.external_url1}>
-                                            <i className="fa fa-twitter-square"></i>
-                                        </a>
-                                    )}
-                                    {itemData?.metadata?.external_url2 != '' && (
-                                        <a href={itemData?.metadata?.external_url2}>
-                                            <i className="fa fa-facebook-square"></i>
-                                        </a>
-                                    )}
-                                    {itemData?.metadata?.external_url3 != '' && (
-                                        <a href={itemData?.metadata?.external_url3}>
-                                            <i className="fa fa-instagram"></i>
-                                        </a>
-                                    )}
-                                    {itemData?.metadata?.external_url4 != '' && (
-                                        <a href={itemData?.metadata?.external_url4}>
-                                            <i className="fa fa-pinterest-square"></i>
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-                            {/* main panel */}
-                            <div className="col-md-6">
-                                <div className="item_info">
-                                    {/* end time */}
-                                    {itemData?.marketdata?.endTime === '' ? null : (
-                                        <span>
-                                            <p>
-                                                {translateLang('saletime')}{' '}
-                                                {moment(
-                                                    Number(itemData?.marketdata?.endTime)
-                                                ).format('lll')}
-                                            </p>
-                                            <div className="spacer-10"></div>
-                                            {timeFlag ? null : (
-                                                <div>
-                                                    <span>
-                                                        <h3>{expireTime[0]}</h3>
-                                                        <p>{translateLang('day')}</p>
-                                                    </span>
-                                                    <span>
-                                                        <h3>{expireTime[1]}</h3>
-                                                        <p>{translateLang('hour')}</p>
-                                                    </span>
-                                                    <span>
-                                                        <h3>{expireTime[2]}</h3>
-                                                        <p>{translateLang('minute')}</p>
-                                                    </span>
-                                                    <span>
-                                                        <h3>{expireTime[3]}</h3>
-                                                        <p>{translateLang('second')}</p>
-                                                    </span>
-                                                </div>
-                                            )}
-                                            <div className="spacer-10"></div>
-                                            <h3 style={{ color: '#a48b57' }}>
-                                                {itemData?.marketdata?.price === ''
-                                                    ? null
-                                                    : itemData?.marketdata?.price +
-                                                      ' ' +
-                                                      getCurrency(
-                                                          itemData.marketdata?.acceptedToken
-                                                      )?.label}
-                                            </h3>
-                                            <hr />
-                                        </span>
-                                    )}
-                                    <h2>{itemData?.metadata?.name || 'unknown'}</h2>
-                                    <div className="spacer-10"></div>
-                                    <div className="item_info_counts">
-                                        {/* <div className="item_info_type">
-                                            <i className="fa fa-image"></i>NFT
-                                        </div>
-                                        <div className="item_info_views">
-                                            <i className="fa fa-eye"></i>250
-                                        </div> */}
-                                        <div className="item_info_like">
+                                <div style={{ position: 'sticky', top: '120px' }}>
+                                    <img
+                                        src={
+                                            itemData?.metadata?.image ||
+                                            '../../img/collections/coll-item-3.jpg'
+                                        }
+                                        className="mb-sm-30 item_image"
+                                        alt=""
+                                    />
+                                    {/* <div className="social-link">
+                                        {itemData?.metadata?.external_url1 != '' && (
+                                            <a href={itemData?.metadata?.external_url1}>
+                                                <i className="fa fa-twitter-square"></i>
+                                            </a>
+                                        )}
+                                        {itemData?.metadata?.external_url2 != '' && (
+                                            <a href={itemData?.metadata?.external_url2}>
+                                                <i className="fa fa-facebook-square"></i>
+                                            </a>
+                                        )}
+                                        {itemData?.metadata?.external_url3 != '' && (
+                                            <a href={itemData?.metadata?.external_url3}>
+                                                <i className="fa fa-instagram"></i>
+                                            </a>
+                                        )}
+                                        {itemData?.metadata?.external_url4 != '' && (
+                                            <a href={itemData?.metadata?.external_url4}>
+                                                <i className="fa fa-pinterest-square"></i>
+                                            </a>
+                                        )}
+                                    </div> */}
+                                    <div className="item_info_like">
+                                        <div>
                                             <i className="fa fa-heart"></i>
+                                            {'  '}
                                             {itemData?.likes?.length}
                                         </div>
-                                    </div>
-                                    <p>{itemData?.metadata?.description}</p>
-                                    <div className="spacer-10"></div>
-                                    <h5>{translateLang('creator')}</h5>
-                                    <div className="item_author">
-                                        <div className="author_list_pp">
-                                            <span>
-                                                <img
-                                                    className="lazy"
-                                                    src={
-                                                        state.usersInfo[itemData?.creator]
-                                                            ?.image === undefined
-                                                            ? '../../img/author/author-1.jpg'
-                                                            : state.usersInfo[itemData?.creator]
-                                                                  .image ||
-                                                              '../../img/author/author-1.jpg'
-                                                    }
-                                                    alt=""
-                                                />
-                                                <i className="fa fa-check"></i>
-                                            </span>
-                                        </div>
-                                        <div className="author_list_info">
-                                            <span>{styledAddress(itemData?.creator)}</span>
-                                        </div>
-                                    </div>
-                                    <div className="spacer-30"></div>
-                                    <h5>{'Owner'}</h5>
-                                    <div className="item_author">
-                                        <div className="author_list_pp">
+                                        <div className="item_author">
+                                            <p>{'Owned by'}</p>
                                             <span>
                                                 <img
                                                     className="lazy"
@@ -297,21 +236,145 @@ export default function Colection() {
                                                     }
                                                     alt=""
                                                 />
-                                                <i className="fa fa-check"></i>
+                                                <div className="author_list_info">
+                                                    <span>{styledAddress(itemData?.owner)}</span>
+                                                </div>
                                             </span>
                                         </div>
-                                        <div className="author_list_info">
-                                            <span>{styledAddress(itemData?.owner)}</span>
-                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* main panel */}
+                            <div className="col-md-6">
+                                <div className="item_info">
+                                    {/* end time */}
+                                    <Link to={`/collection/${correctCollection.address}`}>
+                                        {state.collectionNFT.map((item) => {
+                                            if (item.address === itemData.collectionAddress)
+                                                return item.metadata.name;
+                                        })}
+                                    </Link>
+                                    <h2>{itemData?.metadata?.name || 'unknown'}</h2>
+                                    <div className="spacer-10"></div>
+                                    <h3>
+                                        <span style={{ color: 'grey' }}>Listed for</span>{' '}
+                                        {itemData?.marketdata?.price === ''
+                                            ? null
+                                            : itemData?.marketdata?.price +
+                                              ' ' +
+                                              getCurrency(itemData.marketdata?.acceptedToken)
+                                                  ?.label}
+                                    </h3>
+                                    <p>{itemData?.metadata?.description}</p>
+                                    <div>
+                                        {itemData === null ? (
+                                            'Loading...'
+                                        ) : (
+                                            <div className="mainside">
+                                                {pageFlag === 1 ? (
+                                                    <div className="attribute">
+                                                        <button
+                                                            className="btn-main round-button"
+                                                            onClick={handleSell}>
+                                                            {translateLang('btn_sell')}
+                                                        </button>
+                                                    </div>
+                                                ) : pageFlag === 2 ? (
+                                                    <div>
+                                                        {loading ? (
+                                                            <button className="btn-main round-button">
+                                                                <span
+                                                                    className="spinner-border spinner-border-sm"
+                                                                    aria-hidden="true"></span>
+                                                            </button>
+                                                        ) : (
+                                                            <button
+                                                                className="btn-main round-button"
+                                                                onClick={handleCancel}>
+                                                                {translateLang('btn_cancel')}
+                                                            </button>
+                                                        )}
+                                                        {loading ? (
+                                                            <button className="btn-main round-button">
+                                                                <span
+                                                                    className="spinner-border spinner-border-sm"
+                                                                    aria-hidden="true"></span>
+                                                            </button>
+                                                        ) : (
+                                                            <button
+                                                                className="btn-main round-button"
+                                                                onClick={handleApproveBid}>
+                                                                {translateLang('btn_approvebid')}
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                ) : pageFlag === 3 ? null : (
+                                                    <div>
+                                                        {loading ? (
+                                                            <button className="btn-main round-button">
+                                                                <span
+                                                                    className="spinner-border spinner-border-sm"
+                                                                    aria-hidden="true"></span>
+                                                            </button>
+                                                        ) : (
+                                                            <button
+                                                                className="btn-main round-button"
+                                                                onClick={handleBuy}>
+                                                                {translateLang('btn_buynow')}
+                                                            </button>
+                                                        )}
+                                                        {loading ? (
+                                                            <button className="btn-main round-button">
+                                                                <span
+                                                                    className="spinner-border spinner-border-sm"
+                                                                    aria-hidden="true"></span>
+                                                            </button>
+                                                        ) : (
+                                                            <button
+                                                                className="btn-main round-button"
+                                                                onClick={() => setModalShow(true)}>
+                                                                {translateLang('btn_makeoffer')}
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
                                     <div className="spacer-40"></div>
+                                    <hr />
+                                    <div className="spacer-20"></div>
+                                    {itemData?.marketdata?.endTime === '' ? null : (
+                                        <>
+                                            <div className="titme_track">
+                                                <p>{translateLang('saletime')}</p>
+                                                <div>
+                                                    {timeFlag ? null : (
+                                                        <>
+                                                            <h3>{expireTime[0]}d : </h3>
+                                                            <h3>{expireTime[1]}h : </h3>
+                                                            <h3>{expireTime[2]}m : </h3>
+                                                            <h3>{expireTime[3]}s</h3>
+                                                        </>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <div className="spacer-double"></div>
+                                        </>
+                                    )}
+                                    {itemData?.metadata?.attributes.length > 0 && (
+                                        <p style={{ fontSize: '20px' }}>Attributes</p>
+                                    )}
                                     <div className="de_tab">
                                         <div className="row">
                                             {itemData?.metadata?.attributes.map((item, index) => (
                                                 <M_itemdetailRedux
                                                     key={index}
                                                     type={item.key}
-                                                    per={'+' + item.value}
+                                                    per={item.value}
+                                                    percent={
+                                                        itemData.attributeRarityies[index] + '%'
+                                                    }
                                                 />
                                             ))}
                                         </div>
@@ -402,81 +465,6 @@ export default function Colection() {
                                         ) : null}
                                     </div>
                                     <div className="spacer-40"></div>
-                                    <div>
-                                        {itemData === null ? (
-                                            'Loading...'
-                                        ) : (
-                                            <div className="mainside">
-                                                {pageFlag === 1 ? (
-                                                    <div className="attribute">
-                                                        <button
-                                                            className="btn-main"
-                                                            onClick={handleSell}>
-                                                            {translateLang('btn_sell')}
-                                                        </button>
-                                                    </div>
-                                                ) : pageFlag === 2 ? (
-                                                    <div>
-                                                        {loading ? (
-                                                            <button className="btn-main">
-                                                                <span
-                                                                    className="spinner-border spinner-border-sm"
-                                                                    aria-hidden="true"></span>
-                                                            </button>
-                                                        ) : (
-                                                            <button
-                                                                className="btn-main"
-                                                                onClick={handleCancel}>
-                                                                {translateLang('btn_cancel')}
-                                                            </button>
-                                                        )}
-                                                        {loading ? (
-                                                            <button className="btn-main">
-                                                                <span
-                                                                    className="spinner-border spinner-border-sm"
-                                                                    aria-hidden="true"></span>
-                                                            </button>
-                                                        ) : (
-                                                            <button
-                                                                className="btn-main"
-                                                                onClick={handleApproveBid}>
-                                                                {translateLang('btn_approvebid')}
-                                                            </button>
-                                                        )}
-                                                    </div>
-                                                ) : pageFlag === 3 ? null : (
-                                                    <div>
-                                                        {loading ? (
-                                                            <button className="btn-main">
-                                                                <span
-                                                                    className="spinner-border spinner-border-sm"
-                                                                    aria-hidden="true"></span>
-                                                            </button>
-                                                        ) : (
-                                                            <button
-                                                                className="btn-main"
-                                                                onClick={handleBuy}>
-                                                                {translateLang('btn_buynow')}
-                                                            </button>
-                                                        )}
-                                                        {loading ? (
-                                                            <button className="btn-main">
-                                                                <span
-                                                                    className="spinner-border spinner-border-sm"
-                                                                    aria-hidden="true"></span>
-                                                            </button>
-                                                        ) : (
-                                                            <button
-                                                                className="btn-main"
-                                                                onClick={() => setModalShow(true)}>
-                                                                {translateLang('btn_makeoffer')}
-                                                            </button>
-                                                        )}
-                                                    </div>
-                                                )}
-                                            </div>
-                                        )}
-                                    </div>
                                 </div>
                             </div>
                         </div>
