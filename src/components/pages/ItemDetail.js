@@ -13,7 +13,6 @@ export default function Colection() {
     const navigate = useNavigate();
     const [state, { buyNFT, cancelOrder, translateLang, bidApprove, getCurrency }] =
         useBlockchainContext();
-    const [openMenu, setOpenMenu] = useState(true);
     const [correctCollection, setCorrectCollection] = useState(null);
     const [pageFlag, setPageFlag] = useState(0); // 1 is mine, 2 is saled mine, 3 is others, 4 is saled others
     const [modalShow, setModalShow] = useState(false);
@@ -140,18 +139,6 @@ export default function Colection() {
         }
     };
 
-    const handleBtnClick = () => {
-        setOpenMenu(true);
-        document.getElementById('Mainbtn').classList.add('active');
-        document.getElementById('Mainbtn1').classList.remove('active');
-    };
-
-    const handleBtnClick1 = () => {
-        setOpenMenu(false);
-        document.getElementById('Mainbtn1').classList.add('active');
-        document.getElementById('Mainbtn').classList.remove('active');
-    };
-
     const handleSell = () => {
         navigate(`/Auction/${collection}/${id}`);
     };
@@ -183,7 +170,7 @@ export default function Colection() {
                 ) : (
                     <>
                         <div className="row mt-md-5 pt-md-4">
-                            <div className="col-md-6 text-center">
+                            <div className="col-md-5 text-center">
                                 <div style={{ position: 'sticky', top: '120px' }}>
                                     <img
                                         src={
@@ -245,7 +232,7 @@ export default function Colection() {
                                 </div>
                             </div>
                             {/* main panel */}
-                            <div className="col-md-6">
+                            <div className="col-md-7">
                                 <div className="item_info">
                                     {/* end time */}
                                     <Link to={`/collection/${correctCollection.address}`}>
@@ -257,13 +244,22 @@ export default function Colection() {
                                     <h2>{itemData?.metadata?.name || 'unknown'}</h2>
                                     <div className="spacer-10"></div>
                                     <h3>
-                                        <span style={{ color: 'grey' }}>Listed for</span>{' '}
-                                        {itemData?.marketdata?.price === ''
-                                            ? null
-                                            : itemData?.marketdata?.price +
-                                              ' ' +
-                                              getCurrency(itemData.marketdata?.acceptedToken)
-                                                  ?.label}
+                                        {itemData?.marketdata?.price === '' ? (
+                                            <span style={{ color: 'grey' }}>
+                                                Not listed for sale
+                                            </span>
+                                        ) : (
+                                            <span style={{ color: 'grey' }}>
+                                                Listed for{' '}
+                                                <b style={{ color: 'black' }}>
+                                                    {itemData?.marketdata?.price +
+                                                        ' ' +
+                                                        getCurrency(
+                                                            itemData.marketdata?.acceptedToken
+                                                        )?.label}
+                                                </b>
+                                            </span>
+                                        )}
                                     </h3>
                                     <p>{itemData?.metadata?.description}</p>
                                     <div>
@@ -344,6 +340,18 @@ export default function Colection() {
                                     <div className="spacer-40"></div>
                                     <hr />
                                     <div className="spacer-20"></div>
+                                    {itemData.marketdata.bidders.length > 0 && (
+                                        <p>
+                                            Current High Bid{' '}
+                                            {itemData?.marketdata?.bidPrices[0] +
+                                                ' ' +
+                                                itemData?.marketdata?.bidTokens[0]}{' '}
+                                            by{' '}
+                                            {itemData?.marketdata?.bidders[0].slice(0, 4) +
+                                                '...' +
+                                                itemData?.marketdata?.bidders[0].slice(-4)}
+                                        </p>
+                                    )}
                                     {itemData?.marketdata?.endTime === '' ? null : (
                                         <>
                                             <div className="titme_track">
@@ -359,11 +367,14 @@ export default function Colection() {
                                                     )}
                                                 </div>
                                             </div>
-                                            <div className="spacer-double"></div>
+                                            <div className="spacer-10"></div>
                                         </>
                                     )}
                                     {itemData?.metadata?.attributes.length > 0 && (
-                                        <p style={{ fontSize: '20px' }}>Attributes</p>
+                                        <>
+                                            <div className="spacer-10"></div>
+                                            <p style={{ fontSize: '20px' }}>Attributes</p>
+                                        </>
                                     )}
                                     <div className="de_tab">
                                         <div className="row">
@@ -378,24 +389,15 @@ export default function Colection() {
                                                 />
                                             ))}
                                         </div>
-                                        <div className="spacer-40"></div>
+                                        <div className="spacer-10"></div>
                                         {pageFlag === 2 || pageFlag === 4 ? (
                                             <>
-                                                <ul className="de_nav">
-                                                    <li id="Mainbtn" className="active">
-                                                        <span onClick={handleBtnClick}>
-                                                            {translateLang('bid')}
-                                                        </span>
-                                                    </li>
-                                                    <li id="Mainbtn1" className="">
-                                                        <span onClick={handleBtnClick1}>
-                                                            {translateLang('history')}
-                                                        </span>
-                                                    </li>
-                                                </ul>
-                                                {/* bidder tab */}
-                                                <div className="de_tab_content">
-                                                    {openMenu && (
+                                                <div className="spacer-10"></div>
+                                                <p style={{ fontSize: '20px' }}>Bid History</p>
+                                                <hr />
+                                                <div className="spacer-20"></div>
+                                                {itemData.marketdata.bidders.length > 0 ? (
+                                                    <div className="de_tab_content">
                                                         <div className="tab-1 onStep fadeIn">
                                                             {itemData?.marketdata?.bidders.map(
                                                                 (bidder, index) => (
@@ -416,7 +418,6 @@ export default function Colection() {
                                                                             </span>
                                                                         </div>
                                                                         <div className="p_list_info">
-                                                                            {translateLang('bid')}{' '}
                                                                             <b>
                                                                                 {
                                                                                     itemData
@@ -425,19 +426,25 @@ export default function Colection() {
                                                                                         index
                                                                                     ]
                                                                                 }{' '}
-                                                                            </b>
-                                                                            <span>
-                                                                                {translateLang(
-                                                                                    'by'
-                                                                                )}{' '}
-                                                                                <b>
-                                                                                    {styledAddress(
-                                                                                        bidder
-                                                                                    )}
-                                                                                </b>{' '}
-                                                                                {translateLang(
-                                                                                    'at'
-                                                                                )}{' '}
+                                                                                {
+                                                                                    itemData
+                                                                                        ?.marketdata
+                                                                                        ?.bidTokens[
+                                                                                        index
+                                                                                    ]
+                                                                                }
+                                                                            </b>{' '}
+                                                                            {translateLang('bid')}
+                                                                            {translateLang(
+                                                                                'by'
+                                                                            )}{' '}
+                                                                            <b>
+                                                                                {styledAddress(
+                                                                                    bidder
+                                                                                )}
+                                                                            </b>{' '}
+                                                                            {translateLang('at')}{' '}
+                                                                            <b>
                                                                                 {itemData
                                                                                     ?.marketdata
                                                                                     ?.bidTime
@@ -453,14 +460,16 @@ export default function Colection() {
                                                                                           'lll'
                                                                                       )
                                                                                     : ''}
-                                                                            </span>
+                                                                            </b>
                                                                         </div>
                                                                     </div>
                                                                 )
                                                             )}
                                                         </div>
-                                                    )}
-                                                </div>
+                                                    </div>
+                                                ) : (
+                                                    'No bid history'
+                                                )}
                                             </>
                                         ) : null}
                                     </div>

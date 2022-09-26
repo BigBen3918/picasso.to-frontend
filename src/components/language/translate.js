@@ -45,7 +45,7 @@ export const translations = {
         amount: 'Amount',
         btn_buynow: 'Buy Now',
         btn_makeoffer: 'Make Offer',
-        bid: 'bids',
+        bid: 'bid ',
         history: 'History',
         saletime: 'Auction ends in',
         day: 'Day',

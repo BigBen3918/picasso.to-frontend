@@ -51,7 +51,6 @@ export default function Explore() {
     const [searchWord, setSearchWord] = useState('');
 
     const [selectedOption2, setSelectedOption2] = useState(options2[0]);
-    const [selectedOption3, setSelectedOption3] = useState(null);
     const [option1, setOption1] = useState('OnSaled');
 
     // status filter
@@ -134,7 +133,7 @@ export default function Explore() {
             </div>
 
             <section className="container" style={{ paddingTop: '30px' }}>
-                <div className="search_group">
+                {/* <div className="search_group">
                     <form className="form-dark" id="form_quick_search" name="form_quick_search">
                         <input
                             type="text"
@@ -158,7 +157,7 @@ export default function Explore() {
                         </div>
                     </div>
                 </div>
-                <div className="spacer-single"></div>
+                <div className="spacer-single"></div> */}
                 <Tabs
                     activeKey={option1}
                     onSelect={(k) => {

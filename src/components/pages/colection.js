@@ -8,17 +8,18 @@ import { useBlockchainContext } from '../../context';
 import { copyToClipboard } from '../../utils';
 import { NotificationManager } from 'react-notifications';
 import { BsTwitter, BsFacebook, BsInstagram } from 'react-icons/bs';
+import { Tab, Tabs } from 'react-bootstrap';
 
 export default function Collection() {
     const navigate = useNavigate();
     const { collection } = useParams();
     const [state, { translateLang }] = useBlockchainContext();
-    const [openMenu, setOpenMenu] = useState(true);
     const [correctItem, setCorrectItem] = useState(null);
     const [owners, setOwners] = useState([]);
     const [avgAmount, setAvgAmount] = useState(0);
     const [floorPrice, setFloorPrice] = useState(0);
     const [volumn, setVolumn] = useState(0);
+    const [option1, setOption1] = useState('OnSaled');
 
     useEffect(() => {
         if (state.orderList.length !== 0) {
@@ -69,18 +70,6 @@ export default function Collection() {
         }
     }, [correctItem]);
 
-    const handleBtnClick = () => {
-        setOpenMenu(true);
-        document.getElementById('Mainbtn').classList.add('active');
-        document.getElementById('Mainbtn1').classList.remove('active');
-    };
-
-    const handleBtnClick1 = () => {
-        setOpenMenu(false);
-        document.getElementById('Mainbtn1').classList.add('active');
-        document.getElementById('Mainbtn').classList.remove('active');
-    };
-
     const handleaddressCopy = () => {
         copyToClipboard(correctItem.address)
             .then((res) => {
@@ -107,72 +96,69 @@ export default function Collection() {
                     <section className="container d_coll no-top no-bottom">
                         <div className="row">
                             <div className="col-md-12">
-                                <div className="d_profile">
-                                    <div className="profile_avatar">
-                                        <div className="d_profile_img">
-                                            <img src={correctItem.metadata.image} alt="" />
-                                            <i className="fa fa-check"></i>
-                                        </div>
+                                <div className="profile_avatar">
+                                    <div className="d_profile_img">
+                                        <img src={correctItem.metadata.image} alt="" />
+                                    </div>
 
-                                        <div className="profile_name">
-                                            <h4>
-                                                <h2>{correctItem.metadata.name}</h2>
-                                                <div className="clearfix"></div>
-                                                <span id="wallet" className="profile_wallet">
-                                                    <span>
-                                                        {correctItem.address.slice(0, 20) + '...'}
-                                                    </span>
-                                                    <button
-                                                        id="btn_copy"
-                                                        title="Copy Text"
-                                                        onClick={handleaddressCopy}>
-                                                        <FaRegCopy />
-                                                    </button>
+                                    <div className="profile_name">
+                                        <h4>
+                                            <h2>{correctItem.metadata.name}</h2>
+                                            <span id="wallet" className="profile_wallet">
+                                                <span>
+                                                    {correctItem.address.slice(0, 20) + '...'}
                                                 </span>
-                                            </h4>
-                                            <div>
-                                                {correctItem.metadata?.external_url1 != '' && (
-                                                    <a href={correctItem.metadata?.external_url1}>
-                                                        <BsTwitter />
-                                                    </a>
-                                                )}
-                                                {correctItem.metadata?.external_url2 != '' && (
-                                                    <a href={correctItem.metadata?.external_url2}>
-                                                        <BsFacebook />
-                                                    </a>
-                                                )}
-                                                {correctItem.metadata?.external_url3 != '' && (
-                                                    <a href={correctItem.metadata?.external_url3}>
-                                                        <BsInstagram />
-                                                    </a>
-                                                )}
-                                            </div>
+                                                <button
+                                                    id="btn_copy"
+                                                    title="Copy Text"
+                                                    onClick={handleaddressCopy}>
+                                                    <FaRegCopy />
+                                                </button>
+                                            </span>
+                                        </h4>
+                                        <div>
+                                            {correctItem.metadata?.external_url1 != '' && (
+                                                <a href={correctItem.metadata?.external_url1}>
+                                                    <BsTwitter />
+                                                </a>
+                                            )}
+                                            {correctItem.metadata?.external_url2 != '' && (
+                                                <a href={correctItem.metadata?.external_url2}>
+                                                    <BsFacebook />
+                                                </a>
+                                            )}
+                                            {correctItem.metadata?.external_url3 != '' && (
+                                                <a href={correctItem.metadata?.external_url3}>
+                                                    <BsInstagram />
+                                                </a>
+                                            )}
                                         </div>
+                                    </div>
 
-                                        <div className="collection_info">
-                                            {/* <p className="text-center">
+                                    <div className="collection_info">
+                                        {/* <p className="text-center">
                                                 {translateLang('by')}{' '}
                                                 <b className="color">CLOUD9</b>
                                             </p> */}
-                                            <div className="spacer-10"></div>
-                                            <span>
-                                                <div>
-                                                    <h3>{correctItem.items.length}</h3>
-                                                    <p>{translateLang('items')}</p>
-                                                </div>
-                                                <div>
-                                                    <h3>{owners.length}</h3>
-                                                    <p>{translateLang('owners')}</p>
-                                                </div>
-                                                <div>
-                                                    <h3>{volumn}</h3>
-                                                    <p>{'Volumn'}</p>
-                                                </div>
-                                                <div>
-                                                    <h3>{floorPrice}</h3>
-                                                    <p>{'Floor'}</p>
-                                                </div>
-                                                {/* <div>
+                                        <div className="spacer-10"></div>
+                                        <span>
+                                            <div>
+                                                <h3>{correctItem.items.length}</h3>
+                                                <p>{translateLang('items')}</p>
+                                            </div>
+                                            <div>
+                                                <h3>{owners.length}</h3>
+                                                <p>{translateLang('owners')}</p>
+                                            </div>
+                                            <div>
+                                                <h3>{volumn}</h3>
+                                                <p>{'Volumn'}</p>
+                                            </div>
+                                            <div>
+                                                <h3>{floorPrice}</h3>
+                                                <p>{'Floor'}</p>
+                                            </div>
+                                            {/* <div>
                                                     <h3>
                                                         {isNaN(avgAmount)
                                                             ? 0
@@ -181,8 +167,7 @@ export default function Collection() {
                                                     </h3>
                                                     <p>{translateLang('prices')}</p>
                                                 </div> */}
-                                            </span>
-                                        </div>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -193,31 +178,24 @@ export default function Collection() {
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="items_filter">
-                                    <ul className="de_nav">
-                                        <li id="Mainbtn" className="active">
-                                            <span onClick={handleBtnClick}>
-                                                {translateLang('onsaled')}
-                                            </span>
-                                        </li>
-                                        <li id="Mainbtn1" className="">
-                                            <span onClick={handleBtnClick1}>
-                                                {translateLang('owned')}
-                                            </span>
-                                        </li>
-                                    </ul>
+                                    <Tabs
+                                        activeKey={option1}
+                                        onSelect={(k) => {
+                                            setOption1(k);
+                                        }}
+                                        className="mb-3">
+                                        <Tab eventKey="OnSaled" title="OnSaled">
+                                            <div className="spacer-20"></div>
+                                            <ColumnZero correctItem={correctItem} />
+                                        </Tab>
+                                        <Tab eventKey="Owned" title="Owned">
+                                            <div className="spacer-20"></div>
+                                            <CoulmnOne correctItem={correctItem} />
+                                        </Tab>
+                                    </Tabs>
                                 </div>
                             </div>
                         </div>
-
-                        {openMenu ? (
-                            <div id="zero1" className="onStep fadeIn">
-                                <ColumnZero correctItem={correctItem} />
-                            </div>
-                        ) : (
-                            <div id="zero2" className="onStep fadeIn">
-                                <CoulmnOne correctItem={correctItem} />
-                            </div>
-                        )}
                     </section>
                 </div>
             ) : (

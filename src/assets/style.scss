@@ -3546,7 +3546,7 @@ i.font60 {
     display: flex;
     flex-direction: column;
     position: relative;
-    padding: 20px;
+    padding: 15px;
     margin: 10px;
     border: 1px solid #7772;
     border-radius: 15px;
@@ -3558,8 +3558,12 @@ i.font60 {
     box-shadow: 0px 0px 8px 0px $white;
 
     &:hover {
-        box-shadow: 2px 2px 30px 0px $white;
+        box-shadow: 0px 0px 10px #0000004d;
         transition: 0.7s;
+
+        .item__user__info {
+            opacity: 1;
+        }
     }
 }
 
@@ -3571,6 +3575,18 @@ i.font60 {
 .nft__item_info {
     line-height: 28px;
     margin-bottom: -22px;
+    padding-left: 7px;
+
+    > span {
+        > a {
+            color: unset;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
 }
 
 .nft__item h4 {
@@ -3582,13 +3598,22 @@ i.font60 {
 .nft__item_price {
     font-size: 14px;
     font-weight: 600;
-    display: block;
-}
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 20px 0;
 
-.nft__item_price span {
-    margin-left: 10px;
-    color: $color_more;
-    font-weight: 700;
+    button {
+        border: 1px solid #dbdce1;
+        outline: 0;
+        background: $white;
+        padding: 3px 10px;
+        border-radius: 30px;
+
+        &:hover {
+            background: #f4f4f6;
+        }
+    }
 }
 
 .nft__item_action {
@@ -3673,12 +3698,60 @@ i.font60 {
     text-align: center;
     display: flex;
     align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
     justify-content: center;
 
-    > div {
-        height: 100%;
+    > span {
+        position: relative;
+
+        > div {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            padding: 0 10px;
+            align-items: center;
+            opacity: 0;
+
+            button:first-child {
+                outline: none;
+                border: none;
+                background: #00000070;
+                backdrop-filter: blur(20px);
+                padding: 4px 10px;
+                border-radius: 20px;
+                color: $white;
+
+                &:hover {
+                    background: #00000055;
+                }
+            }
+
+            button:last-child {
+                outline: none;
+                border: none;
+                background: #00000070;
+                backdrop-filter: blur(20px);
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                position: relative;
+
+                &:hover {
+                    background: #00000055;
+                }
+
+                i {
+                    position: absolute;
+                    font-size: 15px;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    color: $white;
+                }
+            }
+        }
     }
 }
 
@@ -3689,10 +3762,23 @@ i.font60 {
 
 .nft__item img {
     width: 100%;
-    height: auto !important;
+    height: 250px;
+    object-fit: cover;
     border-radius: 8px;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
+
+    @media screen and (max-width: 1400px) {
+        height: 200px;
+    }
+
+    @media screen and (max-width: 1200px) {
+        height: 150px;
+    }
+
+    @media screen and (max-width: 576px) {
+        height: 55vw;
+    }
 }
 
 .nft_attr {
@@ -4182,7 +4268,6 @@ i.font60 {
 .d_coll .profile_avatar img {
     display: inline-block;
     margin-top: -100px;
-    margin-bottom: 30px;
 }
 
 .profile_avatar i {
@@ -4210,6 +4295,14 @@ i.font60 {
 
 .profile_name {
     margin-left: 20px;
+
+    h2 {
+        margin: 0;
+    }
+
+    h4 {
+        margin: 0;
+    }
 
     > div {
         display: flex;
@@ -4374,7 +4467,7 @@ i.font60 {
         gap: 10px;
 
         h3 {
-            margin: 0
+            margin: 0;
         }
     }
 }
@@ -4475,20 +4568,18 @@ i.font60 {
 }
 
 .p_list {
-    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .p_list_pp {
-    position: absolute;
-    display: inline-block;
-    width: 50px;
-    height: auto;
-    margin-left: 0px;
-    margin-top: -3px;
+    width: 30px;
+    height: 30px;
     z-index: 10;
 
     img {
-        width: 100%;
+        width: 30px;
         border-radius: 100% !important;
     }
 
@@ -4508,7 +4599,6 @@ i.font60 {
 
 .p_list_info {
     font-weight: 400;
-    padding-left: 70px;
 
     span {
         display: block;
@@ -4518,7 +4608,7 @@ i.font60 {
     }
 
     b {
-        color: $white;
+        color: $color;
     }
 }
 
@@ -5118,11 +5208,12 @@ img.img-rounded {
 }
 
 .d-item {
+    padding: 15px;
     transition: 0.5s all;
     cursor: pointer;
 
     &:hover {
-        transform: scale(1.03);
+        transform: translateY(-5px);
     }
 }
 

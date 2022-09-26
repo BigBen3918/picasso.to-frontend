@@ -1,60 +1,35 @@
-import React, { useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useBlockchainContext } from '../../context';
 import Action from '../../service';
 
 export default function NFTLists(props) {
     const { filter1, filter2, filter3, sortBy } = props;
     const navigate = useNavigate();
-    const [height, setHeight] = useState(0);
     const [state, { getCurrency, translateLang }] = useBlockchainContext();
-    const [currentItem, setCurrentItem] = useState(null);
 
-    const onImgLoad = (e) => {
-        let currentHeight = height;
-        if (currentHeight < e.target.offsetHeight) {
-            setHeight(e.target.offsetHeight);
+    const HandleLike = (item) => {
+        if (state.auth.address === undefined) {
+            navigate('/signPage');
+            return;
         }
+        Action.nft_like({
+            collectAddress: item.collectionAddress,
+            tokenId: item.tokenID,
+            currentAddress: state.auth.address
+        })
+            .then((res) => {
+                if (res) {
+                    console.log(res);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
-    const handleItem = (e, param, item) => {
-        var buyButton = document.getElementById('buy' + param);
-        var likeButton = document.getElementById('like' + param);
-
-        if (buyButton) {
-            var isClickBuyButton = buyButton.contains(e.target);
-        }
-        var isClickLikeButton = likeButton.contains(e.target);
-
-        if (isClickBuyButton) {
-            setCurrentItem(item);
-        } else if (isClickLikeButton) {
-            if (state.auth.address === undefined) {
-                navigate('/signPage');
-                return;
-            }
-            Action.nft_like({
-                collectAddress: item.collectionAddress,
-                tokenId: item.tokenID,
-                currentAddress: state.auth.address
-            })
-                .then((res) => {
-                    if (res) {
-                        console.log(res);
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-            return;
-        } else {
-            // if (!state.auth.isAuth) {
-            //   navigate('/signPage');
-            //   return;
-            // }
-            navigate(`/ItemDetail/${item.collectionAddress}/${item.tokenID}`);
-            return;
-        }
+    const handleItem = (item) => {
+        navigate(`/ItemDetail/${item.collectionAddress}/${item.tokenID}`);
     };
 
     const NFTs = useMemo(() => {
@@ -67,58 +42,70 @@ export default function NFTLists(props) {
             {NFTs.map((nft, index) => (
                 <div
                     key={index}
-                    className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4"
-                    onClick={(e) => handleItem(e, index, nft)}>
+                    className="d-item col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                    onClick={() => handleItem(nft)}>
                     <div className="nft__item m-0">
-                        <div className="nft__item_wrap" style={{ height: `${height}px` }}>
+                        <div className="nft__item_wrap">
                             <span>
                                 <img
-                                    onLoad={(e) => onImgLoad(e)}
                                     src={nft.metadata.image || './img/collections/coll-item-3.jpg'}
                                     className="lazy nft__item_preview"
                                     alt=""
                                 />
+
+                                <div className="item__user__info">
+                                    <button>0x348d...3ba3</button>
+
+                                    <button>
+                                        <i className="fa fa-heart-o"></i>
+                                    </button>
+                                </div>
                             </span>
                         </div>
                         <div className="nft__item_info">
+                            <div className="spacer-20"></div>
                             <span>
-                                <a>
+                                <Link to={`/collection/${nft.collectionAddress}`}>
                                     {state.collectionNFT.map((item) => {
                                         if (item.address === nft.collectionAddress)
                                             return item.metadata.name;
                                     })}
-                                </a>
+                                </Link>
                             </span>
                             <span>
                                 <h4>{nft.metadata.name}</h4>
                             </span>
                             <div className="spacer-20"></div>
                             <hr />
-                            <div className="spacer-20"></div>
+                            <div className="spacer-10"></div>
                             <div className="nft__item_price">
-                                {nft.marketdata.price === '' ? (
-                                    <div className="spacer-20"></div>
+                                <span>
+                                    {nft.marketdata.price === '' ? (
+                                        <div className="spacer-20"></div>
+                                    ) : (
+                                        nft.marketdata.price +
+                                        ' ' +
+                                        getCurrency(nft.marketdata.acceptedToken)?.label
+                                    )}
+                                </span>
+
+                                {nft.marketdata.price !== '' ? (
+                                    <button>Buy Now</button>
                                 ) : (
-                                    nft.marketdata.price +
-                                    ' ' +
-                                    getCurrency(nft.marketdata.acceptedToken)?.label
+                                    <button>Detail</button>
                                 )}
-                            </div>
-                            <div
-                                className="nft__item_like"
-                                id={'like' + index}
-                                style={
-                                    nft.likes.indexOf(state.auth.address) === -1
-                                        ? null
-                                        : { color: '#c5a86a' }
-                                }>
-                                <i className="fa fa-heart"></i>
-                                <span>{nft.likes.length}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             ))}
+
+            {/* <div
+                className="nft__item_like"
+                id={'like' + index}
+                style={nft.likes.indexOf(state.auth.address) === -1 ? null : { color: '#c5a86a' }}>
+                <i className="fa fa-heart"></i>
+            </div> */}
 
             <div className="spacer-30"></div>
             {/* <ul className="pagination">

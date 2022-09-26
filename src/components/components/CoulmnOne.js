@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import Reveal from 'react-awesome-reveal';
 import { keyframes } from '@emotion/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useBlockchainContext } from '../../context';
 import Action from '../../service';
@@ -32,15 +32,7 @@ export default function ColumnOne(props) {
     const navigate = useNavigate();
     const { correctItem } = props;
     const [state, { getCurrency }] = useBlockchainContext();
-    const [height, setHeight] = useState(0);
     const [filter, setFilter] = useState(null);
-
-    const onImgLoad = (e) => {
-        let currentHeight = height;
-        if (currentHeight < e.target.offsetHeight) {
-            setHeight(e.target.offsetHeight);
-        }
-    };
 
     const NFTs = useMemo(() => {
         if (!filter)
@@ -54,33 +46,8 @@ export default function ColumnOne(props) {
         }
     }, [correctItem, filter]);
 
-    const handleItem = (e, param, item) => {
-        var likeButton = document.getElementById('like' + param);
-        var isClickLikeButton = likeButton.contains(e.target);
-
-        if (isClickLikeButton) {
-            if (!state.auth.isAuth) {
-                navigate('/signPage');
-                return;
-            }
-            Action.nft_like({
-                collectAddress: item.collectionAddress,
-                tokenId: item.tokenID,
-                currentAddress: state.auth.address
-            })
-                .then((res) => {
-                    if (res) {
-                        console.log(res);
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-            return;
-        } else {
-            navigate(`/ItemDetail/${item.collectionAddress}/${item.tokenID}`);
-            return;
-        }
+    const handleItem = (item) => {
+        navigate(`/ItemDetail/${item.collectionAddress}/${item.tokenID}`);
     };
 
     return (
@@ -90,42 +57,57 @@ export default function ColumnOne(props) {
                     <div
                         key={index}
                         className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
-                        onClick={(e) => handleItem(e, index, nft)}>
+                        onClick={() => handleItem(nft)}>
                         <div className="nft__item">
-                            <div className="nft__item_wrap" style={{ height: `${height}px` }}>
-                                <Outer>
-                                    <span>
-                                        <img
-                                            onLoad={(e) => onImgLoad(e)}
-                                            src={nft.metadata.image}
-                                            className="lazy nft__item_preview"
-                                            alt=""
-                                        />
-                                    </span>
-                                </Outer>
+                            <div className="nft__item_wrap">
+                                <span>
+                                    <img
+                                        src={nft.metadata.image}
+                                        className="lazy nft__item_preview"
+                                        alt=""
+                                    />
+
+                                    <div className="item__user__info">
+                                        <button>0x348d...3ba3</button>
+
+                                        <button>
+                                            <i className="fa fa-heart-o"></i>
+                                        </button>
+                                    </div>
+                                </span>
                             </div>
                             <div className="nft__item_info">
+                                <div className="spacer-20"></div>
                                 <span>
-                                    <a>
+                                    <Link to={`/collection/${nft.collectionAddress}`}>
                                         {state.collectionNFT.map((item) => {
                                             if (item.address === nft.collectionAddress)
                                                 return item.metadata.name;
                                         })}
-                                    </a>
+                                    </Link>
                                 </span>
                                 <span>
                                     <h4>{nft.metadata.name}</h4>
                                 </span>
                                 <div className="spacer-20"></div>
                                 <hr />
-                                <div className="spacer-20"></div>
-                                <div className="spacer-20"></div>
-                                <div
-                                    className="nft__item_like"
-                                    id={'like' + index}
-                                    style={{ color: '#c5a86a' }}>
-                                    <i className="fa fa-heart"></i>
-                                    <span>{nft.likes.length}</span>
+                                <div className="spacer-10"></div>
+                                <div className="nft__item_price">
+                                    <span>
+                                        {nft.marketdata.price === '' ? (
+                                            <div className="spacer-20"></div>
+                                        ) : (
+                                            nft.marketdata.price +
+                                            ' ' +
+                                            getCurrency(nft.marketdata.acceptedToken)?.label
+                                        )}
+                                    </span>
+
+                                    {nft.marketdata.price !== '' ? (
+                                        <button>Buy Now</button>
+                                    ) : (
+                                        <button>Detail</button>
+                                    )}
                                 </div>
                             </div>
                         </div>
