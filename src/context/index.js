@@ -90,8 +90,21 @@ export default function Provider({ children }) {
                     type: 'signer',
                     payload: null
                 });
+
                 NotificationManager.warning('Please connect metamask to Rinkeby Testnet');
             } else {
+                dispatch({
+                    type: 'auth',
+                    payload: {
+                        isAuth: false,
+                        name: '',
+                        email: '',
+                        bio: '',
+                        address: '',
+                        image: ''
+                    }
+                });
+
                 dispatch({
                     type: 'signer',
                     payload: null

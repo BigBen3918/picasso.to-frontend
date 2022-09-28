@@ -1,16 +1,19 @@
+import { useWallet } from 'use-wallet';
 import React, { useMemo } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useBlockchainContext } from '../../context';
 import Action from '../../service';
 
 export default function NFTLists(props) {
+    const wallet = useWallet();
     const { filter1, filter2, filter3, sortBy } = props;
     const navigate = useNavigate();
     const [state, { getCurrency, translateLang }] = useBlockchainContext();
 
     const HandleLike = (item) => {
         if (state.auth.address === undefined) {
-            navigate('/signPage');
+            wallet.connect();
+            // navigate('/signPage');
             return;
         }
         Action.nft_like({

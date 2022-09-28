@@ -5,8 +5,10 @@ import DateTimeField from '@1stquad/react-bootstrap-datetimepicker';
 import { NotificationManager } from 'react-notifications';
 import { useBlockchainContext } from '../../context';
 import moment from 'moment';
+import { useWallet } from 'use-wallet';
 
 export default function BuyModal(props) {
+    const wallet = useWallet();
     const { show, setShow, correctItem } = props;
     const [state, { bidNFT, translateLang }] = useBlockchainContext();
     const [price, setPrice] = useState(0);
@@ -20,7 +22,7 @@ export default function BuyModal(props) {
 
     const handleBid = async () => {
         if (!state.signer) {
-            navigate('/signPage');
+            wallet.connect();
             return;
         }
         try {

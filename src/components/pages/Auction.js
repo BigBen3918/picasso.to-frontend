@@ -9,7 +9,7 @@ export default function Auction() {
     const [state, { translateLang }] = useBlockchainContext();
 
     return (
-        <div style={{ paddingBottom: '240px' }}>
+        <div style={{ paddingBottom: '260px' }}>
             <section className="jumbotron breadcumb no-bg">
                 <div className="mainbreadcumb">
                     <div className="container">

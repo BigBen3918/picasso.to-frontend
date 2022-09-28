@@ -12,7 +12,7 @@ import Explore from './pages/explore';
 import Collection from './pages/colection';
 import ItemDetail from './pages/ItemDetail';
 import Author from './pages/Author';
-import Wallet from './pages/wallet';
+// import Wallet from './pages/wallet';
 import CreateCollection from './pages/createcollection';
 import Create from './pages/create';
 import LazyCreate from './pages/lazycreate';
@@ -48,7 +48,7 @@ const PrivateRoute = ({ children }) => {
     const [state, {}] = useBlockchainContext();
 
     if (!state.auth.isAuth) {
-        return <Navigate to="/signPage" replace state={{ from: location }} />;
+        return <Navigate to="/home" replace state={{ from: location }} />;
     }
 
     return children;
@@ -73,7 +73,7 @@ export default function App() {
                                 <Route exact path="/" element={<Home />} />
                                 <Route path="/explore" element={<Explore />} />
                                 <Route path="/Collections" element={<Collections />} />
-                                <Route path="/signPage" element={<Wallet />} />
+                                {/* <Route path="/signPage" element={<Wallet />} /> */}
                                 <Route
                                     exact
                                     path="/collection/:collection"

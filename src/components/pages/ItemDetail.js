@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import Footer from '../menu/footer';
 import moment from 'moment';
@@ -7,8 +7,10 @@ import { useBlockchainContext } from '../../context';
 import BuyModal from '../components/BuyModal';
 import { styledAddress } from '../../utils';
 import { NotificationManager } from 'react-notifications';
+import { useWallet } from 'use-wallet';
 
 export default function Colection() {
+    const wallet = useWallet();
     const { id, collection } = useParams();
     const navigate = useNavigate();
     const [state, { buyNFT, cancelOrder, translateLang, bidApprove, getCurrency }] =
@@ -56,7 +58,6 @@ export default function Colection() {
                     ? setPageFlag(2)
                     : setPageFlag(4);
             } else {
-                console.log('itemData', 'on user', itemData.owner?.toLowerCase());
                 itemData.owner?.toLowerCase() === state.auth?.address?.toLowerCase()
                     ? setPageFlag(1)
                     : setPageFlag(3);
@@ -101,7 +102,8 @@ export default function Colection() {
 
     const handleBuy = async () => {
         if (!state.signer) {
-            navigate('/signPage');
+            wallet.connect();
+            // navigate('/signPage');
             return;
         }
         try {
@@ -125,6 +127,8 @@ export default function Colection() {
         try {
             if (itemData !== null) {
                 setLoading(true);
+                console.log(itemData.marketdata.bidPrice);
+
                 await bidApprove({
                     address: collection,
                     id: id,
@@ -135,6 +139,7 @@ export default function Colection() {
             }
         } catch (err) {
             console.log(err.message);
+            setLoading(false);
             NotificationManager.error(translateLang('approve_error'));
         }
     };
@@ -163,7 +168,7 @@ export default function Colection() {
     };
 
     return (
-        <div style={{ paddingBottom: '240px' }}>
+        <div style={{ paddingBottom: '260px' }}>
             <section className="container">
                 {correctCollection === null ? (
                     'Loading...'

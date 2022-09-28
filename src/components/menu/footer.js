@@ -1,26 +1,28 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { BsTwitter, BsTelegram, BsDiscord } from 'react-icons/bs';
-import { useBlockchainContext } from '../../context';
+// import { useBlockchainContext } from '../../context';
 
 const Footer = () => {
-    const [state, {}] = useBlockchainContext();
     return (
         <footer className="footer-light">
             <div className="container">
-                <h2>Follow Us</h2>
                 <div>
+                    <h3>See what's minting now</h3>
                     <span>
-                        <BsTwitter />
-                    </span>
-                    <span>
-                        <BsTelegram />
-                    </span>
-                    <span>
-                        <BsDiscord />
+                        <Link to="/create/nft">Explore new collections</Link>
                     </span>
                 </div>
                 <div>
                     <p>&copy; Copyright {new Date().getFullYear()} All Right Resserved</p>
+                    <div>
+                        <a href="/#">
+                            <BsTwitter />
+                        </a>
+                        <a href="/#">
+                            <BsDiscord />
+                        </a>
+                    </div>
                 </div>
             </div>
         </footer>

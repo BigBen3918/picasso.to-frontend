@@ -87,7 +87,7 @@ export default function Homethree() {
     }, [state.collectionNFT]);
 
     return (
-        <div style={{ paddingBottom: '240px' }}>
+        <div style={{ paddingBottom: '260px' }}>
             <GlobalStyles />
             <section className="jumbotron no-bg">
                 <div className="container">
