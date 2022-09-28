@@ -20,6 +20,7 @@ import Auction from './pages/Auction';
 import Collections from './pages/collections';
 import { useBlockchainContext } from '../context';
 import Provider from '../context';
+import { NotificationManager } from 'react-notifications';
 
 const httpLink = createHttpLink({
     uri: process.env.REACT_APP_GRAPQLENDPOINT
@@ -48,6 +49,7 @@ const PrivateRoute = ({ children }) => {
     const [state, {}] = useBlockchainContext();
 
     if (!state.auth.isAuth) {
+        NotificationManager.warning('Please connect wallet');
         return <Navigate to="/home" replace state={{ from: location }} />;
     }
 
