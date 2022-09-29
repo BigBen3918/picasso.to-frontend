@@ -6,7 +6,7 @@ import Footer from '../menu/footer';
 import { createGlobalStyle } from 'styled-components';
 import Reveal from 'react-awesome-reveal';
 import { keyframes } from '@emotion/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useBlockchainContext } from '../../context';
 
 const fadeInUp = keyframes`
@@ -67,6 +67,7 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 export default function Homethree() {
+    const navigate = useNavigate();
     const [state, { translateLang, getCurrency }] = useBlockchainContext();
     const [floorPrice, setFloorPrice] = useState(0);
 
@@ -85,6 +86,10 @@ export default function Homethree() {
         });
         setFloorPrice(bump);
     }, [state.collectionNFT]);
+
+    const handleClick = (nft) => {
+        navigate(`/ItemDetail/${nft.collectionAddress}/${nft.tokenID}`);
+    };
 
     return (
         <div style={{ paddingBottom: '260px' }}>
@@ -185,7 +190,7 @@ export default function Homethree() {
                             <div
                                 key={index}
                                 className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                <div className="nft__item">
+                                <div className="nft__item" onClick={() => handleClick(nft)}>
                                     <div className="nft__item_wrap">
                                         <span>
                                             <img
@@ -196,13 +201,12 @@ export default function Homethree() {
                                         </span>
                                     </div>
                                     <div className="nft__item_info">
+                                        <div className="spacer-10"></div>
                                         <span>
-                                            <a>
-                                                {state.collectionNFT.map((item) => {
-                                                    if (item.address === nft.collectionAddress)
-                                                        return item.metadata.name;
-                                                })}
-                                            </a>
+                                            {state.collectionNFT.map((item) => {
+                                                if (item.address === nft.collectionAddress)
+                                                    return item.metadata.name;
+                                            })}
                                         </span>
                                         <span>
                                             <h4>{nft.metadata.name}</h4>
