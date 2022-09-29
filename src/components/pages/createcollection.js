@@ -165,7 +165,7 @@ export default function CreateCollection() {
     };
 
     return (
-        <div style={{ paddingBottom: '260px' }}>
+        <div style={{ paddingBottom: '500px' }}>
             <section className="jumbotron breadcumb no-bg">
                 <div className="mainbreadcumb">
                     <div className="container">

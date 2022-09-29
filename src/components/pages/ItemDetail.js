@@ -168,7 +168,7 @@ export default function Colection() {
     };
 
     return (
-        <div style={{ paddingBottom: '260px' }}>
+        <div style={{ paddingBottom: '500px' }}>
             <section className="container">
                 {correctCollection === null ? (
                     'Loading...'

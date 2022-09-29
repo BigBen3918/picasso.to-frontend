@@ -92,7 +92,7 @@ export default function Homethree() {
     };
 
     return (
-        <div style={{ paddingBottom: '260px' }}>
+        <div style={{ paddingBottom: '500px' }}>
             <GlobalStyles />
             <section className="jumbotron no-bg">
                 <div className="container">

@@ -28,7 +28,7 @@ export default function Author() {
     };
 
     return (
-        <div style={{ paddingBottom: '260px' }}>
+        <div style={{ paddingBottom: '500px' }}>
             <GlobalStyles />
 
             <section className="container no-bottom">

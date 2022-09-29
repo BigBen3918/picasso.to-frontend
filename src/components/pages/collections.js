@@ -49,7 +49,7 @@ export default function Collections() {
     };
 
     return (
-        <div style={{ paddingBottom: '260px' }}>
+        <div style={{ paddingBottom: '500px' }}>
             <section className="jumbotron no-bg" style={{ paddingBottom: '30px' }}>
                 <div className="container">
                     <h1>{translateLang('allcollection_title')}</h1>
