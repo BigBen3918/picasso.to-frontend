@@ -36,6 +36,7 @@ export default function NFTLists(props) {
     };
 
     const NFTs = useMemo(() => {
+        console.log(state.allNFT);
         let res = state.allNFT.filter(filter1).filter(filter2).filter(filter3).sort(sortBy);
         return res;
     }, [state.allNFT, filter1, filter2, filter3, sortBy]);
@@ -76,7 +77,7 @@ export default function NFTLists(props) {
                                 </Link>
                             </span>
                             <span>
-                                <h4>{nft.metadata.name}</h4>
+                                <h4>{nft.metadata.name || `#${nft.tokenID}`}</h4>
                             </span>
                             <div className="spacer-20"></div>
                             <hr />

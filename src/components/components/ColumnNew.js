@@ -103,7 +103,7 @@ export default function Responsive() {
                         </div>
                         <div className="nft__item_info">
                             <span>
-                                <h4>{nft.metadata.name}</h4>
+                                <h4>{nft.metadata.name || `#${nft.tokenID}`}</h4>
                             </span>
                             <div className="spacer-20"></div>
                             <hr />

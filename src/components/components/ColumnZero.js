@@ -87,7 +87,7 @@ export default function ColumnZero(props) {
                                     </Link>
                                 </span>
                                 <span>
-                                    <h4>{nft.metadata.name}</h4>
+                                    <h4>{nft.metadata.name || `#${nft.tokenID}`}</h4>
                                 </span>
                                 <div className="spacer-20"></div>
                                 <hr />

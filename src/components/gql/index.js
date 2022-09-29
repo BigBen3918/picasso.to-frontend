@@ -28,6 +28,7 @@ const GET_COLLECTIONNFTS = gql`
                     attributes {
                         value
                         key
+                        trait_type
                     }
                 }
                 tokenID
@@ -77,6 +78,7 @@ const GET_ALLNFTS = gql`
                 attributes {
                     key
                     value
+                    trait_type
                 }
             }
             marketdata {

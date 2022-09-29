@@ -137,7 +137,6 @@ export default function Responsive(props) {
                                         <p
                                             className="form-control"
                                             style={{
-                                                backgroundColor: '#00423e',
                                                 boxShadow: '0 0 5 0 #d05e3c',
                                                 display: 'flex',
                                                 alignItems: 'center',
@@ -198,7 +197,7 @@ export default function Responsive(props) {
                                         />
                                     </div>
 
-                                    <hr />
+                                    <div className="spacer-20"></div>
                                     <h5>{translateLang('fees')}</h5>
                                     <div className="fee">
                                         <p>{translateLang('servicefee')}</p>
@@ -237,7 +236,7 @@ export default function Responsive(props) {
                                 <h5>{translateLang('previewitem')}</h5>
                                 <div className="nft__item m-0">
                                     <div className="author_list_pp">
-                                        <span>
+                                        {/* <span>
                                             <img
                                                 className="lazy"
                                                 src={
@@ -251,7 +250,7 @@ export default function Responsive(props) {
                                                 alt=""
                                             />
                                             <i className="fa fa-check"></i>
-                                        </span>
+                                        </span> */}
                                     </div>
                                     <div className="nft__item_wrap">
                                         <span>

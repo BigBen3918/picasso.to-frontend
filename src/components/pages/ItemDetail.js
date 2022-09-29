@@ -75,17 +75,17 @@ export default function Colection() {
                     let itemsWithSameAttributes = state.collectionNFT[i].items.filter((item) => {
                         let hasSameAttribute = item.metadata?.attributes.find((itemAttribute) => {
                             if (
-                                itemAttribute.key === attribute.key &&
+                                (itemAttribute.key === attribute.key ||
+                                    itemAttribute.trait_type === attribute.trait_type) &&
                                 itemAttribute.value === attribute.value
                             ) {
                                 return true;
                             }
                         });
-
-                        if (hasSameAttribute == -1) {
-                            return false;
+                        if (!!hasSameAttribute) {
+                            return true;
                         }
-                        return true;
+                        return false;
                     });
 
                     return (
@@ -246,7 +246,7 @@ export default function Colection() {
                                                 return item.metadata.name;
                                         })}
                                     </Link>
-                                    <h2>{itemData?.metadata?.name || 'unknown'}</h2>
+                                    <h2>{itemData?.metadata?.name || `#${itemData.tokenID}`}</h2>
                                     <div className="spacer-10"></div>
                                     <h3>
                                         {itemData?.marketdata?.price === '' ? (
@@ -386,10 +386,12 @@ export default function Colection() {
                                             {itemData?.metadata?.attributes.map((item, index) => (
                                                 <M_itemdetailRedux
                                                     key={index}
-                                                    type={item.key}
+                                                    type={item.key || item.trait_type}
                                                     per={item.value}
                                                     percent={
-                                                        itemData.attributeRarityies[index] + '%'
+                                                        Number(
+                                                            itemData.attributeRarityies[index]
+                                                        ).toFixed(3) + '%'
                                                     }
                                                 />
                                             ))}
