@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NotificationManager } from 'react-notifications';
+import { FaDiscord } from 'react-icons/fa';
 
 import Footer from '../menu/footer';
 import Action from '../../service';
@@ -15,6 +16,7 @@ export default function Createpage() {
     const [extLink2, setExtLink2] = useState('');
     const [extLink3, setExtLink3] = useState('');
     const [extLink4, setExtLink4] = useState('');
+    const [extLink5, setExtLink5] = useState('');
     const [desc, setDesc] = useState('');
     const [attrItem, setAttrItem] = useState({ 0: { key: '', value: '' } });
     const [count, setCount] = useState(1);
@@ -80,6 +82,7 @@ export default function Createpage() {
             formData.append('extlink2', extLink2);
             formData.append('extlink3', extLink3);
             formData.append('extlink4', extLink4);
+            formData.append('extlink5', extLink5);
             formData.append('desc', desc);
             formData.append('attribute', JSON.stringify(attrItem));
 
@@ -274,14 +277,25 @@ export default function Createpage() {
                                         />
                                     </span>
                                     <span>
-                                        <i className="fa fa-pinterest"></i>
+                                        <FaDiscord />
                                         <input
                                             type="text"
                                             name="item_link"
                                             className="form-control"
-                                            placeholder="https://pinterest.com/"
+                                            placeholder="https://discord.com/"
                                             onChange={(e) => setExtLink4(e.target.value)}
                                             value={extLink4}
+                                        />
+                                    </span>
+                                    <span>
+                                        <i className="fa fa-telegram"></i>
+                                        <input
+                                            type="text"
+                                            name="item_link"
+                                            className="form-control"
+                                            placeholder="https://telegram.org/"
+                                            onChange={(e) => setExtLink5(e.target.value)}
+                                            value={extLink5}
                                         />
                                     </span>
                                 </div>

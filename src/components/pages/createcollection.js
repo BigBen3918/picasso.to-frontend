@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NotificationManager } from 'react-notifications';
 import axios from 'axios';
 
+import { FaDiscord } from 'react-icons/fa';
 import Footer from '../menu/footer';
 import Action from '../../service';
 import { useBlockchainContext } from '../../context';
@@ -17,6 +18,8 @@ export default function CreateCollection() {
     const [extLink1, setExtLink1] = useState('');
     const [extLink2, setExtLink2] = useState('');
     const [extLink3, setExtLink3] = useState('');
+    const [extLink4, setExtLink4] = useState('');
+    const [extLink5, setExtLink5] = useState('');
     const [desc, setDesc] = useState('');
     const [address, setAddress] = useState('');
     const [loading, setLoading] = useState(false);
@@ -78,6 +81,8 @@ export default function CreateCollection() {
             formData.append('extUrl1', extLink1.trim());
             formData.append('extUrl2', extLink2.trim());
             formData.append('extUrl3', extLink3.trim());
+            formData.append('extUrl4', extLink4.trim());
+            formData.append('extUrl5', extLink5.trim());
             formData.append('desc', desc.trim());
 
             const uploadData = await Action.create_collection(formData);
@@ -332,6 +337,28 @@ export default function CreateCollection() {
                                             placeholder="https://instagram.com/"
                                             onChange={(e) => setExtLink3(e.target.value)}
                                             value={extLink3}
+                                        />
+                                    </span>
+                                    <span>
+                                        <FaDiscord />
+                                        <input
+                                            type="text"
+                                            name="item_link"
+                                            className="form-control"
+                                            placeholder="https://discord.com/"
+                                            onChange={(e) => setExtLink4(e.target.value)}
+                                            value={extLink4}
+                                        />
+                                    </span>
+                                    <span>
+                                        <i className="fa fa-telegram"></i>
+                                        <input
+                                            type="text"
+                                            name="item_link"
+                                            className="form-control"
+                                            placeholder="https://telegram.org/"
+                                            onChange={(e) => setExtLink5(e.target.value)}
+                                            value={extLink5}
                                         />
                                     </span>
                                 </div>

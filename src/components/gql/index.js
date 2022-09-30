@@ -13,6 +13,8 @@ const GET_COLLECTIONNFTS = gql`
                 external_url1
                 external_url2
                 external_url3
+                external_url4
+                external_url5
                 fee
                 fee_recipent
             }
@@ -23,6 +25,7 @@ const GET_COLLECTIONNFTS = gql`
                     external_url2
                     external_url3
                     external_url4
+                    external_url5
                     description
                     name
                     attributes {
@@ -73,6 +76,7 @@ const GET_ALLNFTS = gql`
                 external_url2
                 external_url3
                 external_url4
+                external_url5
                 description
                 name
                 attributes {

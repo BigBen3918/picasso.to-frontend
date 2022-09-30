@@ -95,7 +95,7 @@ export const translations = {
         profile: 'Profile',
         create: 'Create',
         createnft: 'Create NFT',
-        createcollection: 'Create Collection',
+        createcollection: 'Submit Collection',
         lazymint: 'Lazy Mint',
         btn_login: 'Login',
         btn_logout: 'Log Out',

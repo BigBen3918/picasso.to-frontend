@@ -2107,7 +2107,7 @@ footer {
                             line-height: 17px;
                             letter-spacing: 0.01em;
                             padding: 17px 24px;
-                            
+
                             &:hover {
                                 background-color: rgb(53, 146, 240);
                             }
@@ -5483,6 +5483,11 @@ img.img-rounded {
         align-items: center;
         i {
             font-size: 20px;
+            padding: 10px;
+        }
+
+        svg {
+            font-size: 38px;
             padding: 10px;
         }
     }
