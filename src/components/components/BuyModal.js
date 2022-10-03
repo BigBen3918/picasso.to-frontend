@@ -72,7 +72,7 @@ export default function BuyModal(props) {
                         style={{
                             flex: '1 1 0'
                         }}>
-                        <span>{'ETH'}</span>
+                        <span>{'FTM'}</span>
                     </div>
                     <input
                         type="number"

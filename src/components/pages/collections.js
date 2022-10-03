@@ -82,8 +82,8 @@ export default function Collections() {
                                             </h4>
                                         </div>
                                     </td>
-                                    <td>{volumns[index]} ETH</td>
-                                    <td>{floorPrice[index]} ETH</td>
+                                    <td>{volumns[index]} FTM</td>
+                                    <td>{floorPrice[index]} FTM</td>
                                     <td>{item.items.length}</td>
                                 </tr>
                             ))}

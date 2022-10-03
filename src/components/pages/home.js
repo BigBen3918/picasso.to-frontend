@@ -167,7 +167,7 @@ export default function Homethree() {
                                                 : item.metadata.name}
                                         </h4>
                                         <p>
-                                            {item.items.length} items * {floorPrice[index]} ETH
+                                            {item.items.length} items * {floorPrice[index]} FTM
                                         </p>
                                     </div>
                                 </div>

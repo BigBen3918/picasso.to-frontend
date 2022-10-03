@@ -280,10 +280,10 @@ export default function Responsive(props) {
                                             <div>
                                                 <p>
                                                     {price === ''
-                                                        ? '0  ETH'
+                                                        ? '0  FTM'
                                                         : price?.length > 15
-                                                        ? price.slice(0, 15) + '...' + '  ETH'
-                                                        : price + '  ETH'}
+                                                        ? price.slice(0, 15) + '...' + '  FTM'
+                                                        : price + '  FTM'}
                                                 </p>
                                             </div>
                                         </div>
