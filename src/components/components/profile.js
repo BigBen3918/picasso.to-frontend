@@ -46,10 +46,10 @@ export default function Profile() {
     const handleSave = async () => {
         setLoadItem(true);
         try {
-            if (!selectedFile) {
-                NotificationManager.warn('Please choose image');
-                return;
-            }
+            // if (!selectedFile) {
+            //     NotificationManager.warn('Please choose image');
+            //     return;
+            // }
 
             const signMessage = await state.signer.signMessage(newName);
 
@@ -62,10 +62,10 @@ export default function Profile() {
             formData.append('signature', signMessage);
 
             var res = await axios.post('/api/user-update', formData);
-            console.log(res);
             updateAuth(res.data.data);
 
             NotificationManager.success(translateLang('update_success'));
+            setEdit(false);
         } catch (err) {
             console.log(err.message);
             NotificationManager.error(translateLang('operation_error'));

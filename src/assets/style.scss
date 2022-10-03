@@ -88,6 +88,16 @@ section {
     align-items: center;
     padding: 10px 0;
 
+    .like {
+        padding: 5px 10px;
+        border-radius: 10px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #e1e1e1;
+        }
+    }
+
     .item_author {
         display: flex;
         align-items: center;
@@ -2016,8 +2026,9 @@ footer {
     padding: 20px;
 
     &.footer-light {
-        box-shadow: 0px 0px 5px rgb(24, 104, 183);
-        background-color: rgb(24, 104, 183);
+        box-shadow: 0px 0px 5px #320670;
+        background: linear-gradient(45deg, black, blue);
+        // background-color: #320670;
         color: $white;
 
         > div {
@@ -2091,7 +2102,7 @@ footer {
                         }
 
                         button {
-                            background-color: rgb(32, 129, 226);
+                            background-color: #6100e9;
                             color: $white;
                             border: none;
                             outline: none;
@@ -2109,7 +2120,7 @@ footer {
                             padding: 17px 24px;
 
                             &:hover {
-                                background-color: rgb(53, 146, 240);
+                                background-color: #730ffd;
                             }
                         }
                     }
@@ -2140,7 +2151,7 @@ footer {
                             width: 50px;
                             height: 50px;
                             border-radius: 10px;
-                            background-color: rgb(32, 129, 226);
+                            background-color: #6100e9;
 
                             a {
                                 color: $white;
@@ -2148,7 +2159,7 @@ footer {
                             }
 
                             &:hover {
-                                background-color: rgb(47, 140, 233);
+                                background-color: #730ffd;
                             }
                         }
                     }
@@ -4385,12 +4396,15 @@ i.font60 {
     -moz-border-radius: 100%;
     -webkit-border-radius: 100%;
     width: 150px;
-    height: auto;
+    height: 150px;
+    object-fit: cover;
 }
 
 .d_coll .profile_avatar img {
     display: inline-block;
     margin-top: -100px;
+    width: 150px;
+    height: 150px;
 }
 
 .profile_avatar i {
@@ -4694,6 +4708,10 @@ i.font60 {
     display: flex;
     align-items: center;
     gap: 20px;
+
+    .btn-main {
+        padding: 6px 20px;
+    }
 }
 
 .p_list_pp {

@@ -184,11 +184,11 @@ export default function Collection() {
                                             setOption1(k);
                                         }}
                                         className="mb-3">
-                                        <Tab eventKey="OnSaled" title="OnSaled">
+                                        <Tab eventKey="OnSaled" title="for sale">
                                             <div className="spacer-20"></div>
                                             <ColumnZero correctItem={correctItem} />
                                         </Tab>
-                                        <Tab eventKey="Owned" title="Owned">
+                                        <Tab eventKey="Owned" title="all nft">
                                             <div className="spacer-20"></div>
                                             <CoulmnOne correctItem={correctItem} />
                                         </Tab>

@@ -8,6 +8,7 @@ import BuyModal from '../components/BuyModal';
 import { styledAddress } from '../../utils';
 import { NotificationManager } from 'react-notifications';
 import { useWallet } from 'use-wallet';
+import Action from '../../service';
 
 export default function Colection() {
     const wallet = useWallet();
@@ -167,6 +168,26 @@ export default function Colection() {
         }
     };
 
+    const HandleLike = async () => {
+        if (!state.auth.isAuth) {
+            navigate('/signPage');
+            return;
+        }
+        Action.nft_like({
+            collectAddress: collection,
+            tokenId: id,
+            currentAddress: state.auth.address
+        })
+            .then((res) => {
+                if (res) {
+                    console.log(res);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
     return (
         <div style={{ paddingBottom: '500px' }}>
             <section className="container">
@@ -208,7 +229,7 @@ export default function Colection() {
                                         )}
                                     </div> */}
                                     <div className="item_info_like">
-                                        <div>
+                                        <div onClick={HandleLike} className="like">
                                             <i className="fa fa-heart"></i>
                                             {'  '}
                                             {itemData?.likes?.length}
@@ -293,19 +314,6 @@ export default function Colection() {
                                                                 className="btn-main round-button"
                                                                 onClick={handleCancel}>
                                                                 {translateLang('btn_cancel')}
-                                                            </button>
-                                                        )}
-                                                        {loading ? (
-                                                            <button className="btn-main round-button">
-                                                                <span
-                                                                    className="spinner-border spinner-border-sm"
-                                                                    aria-hidden="true"></span>
-                                                            </button>
-                                                        ) : (
-                                                            <button
-                                                                className="btn-main round-button"
-                                                                onClick={handleApproveBid}>
-                                                                {translateLang('btn_approvebid')}
                                                             </button>
                                                         )}
                                                     </div>
@@ -408,68 +416,95 @@ export default function Colection() {
                                                         <div className="tab-1 onStep fadeIn">
                                                             {itemData?.marketdata?.bidders.map(
                                                                 (bidder, index) => (
-                                                                    <div className="p_list">
-                                                                        <div className="p_list_pp">
-                                                                            <span>
-                                                                                <img
-                                                                                    className="lazy"
-                                                                                    src={
-                                                                                        state
-                                                                                            .usersInfo[
-                                                                                            bidder
-                                                                                        ]?.image ||
-                                                                                        '../../img/author/author-1.jpg'
+                                                                    <>
+                                                                        <div className="p_list">
+                                                                            <div className="p_list_pp">
+                                                                                <span>
+                                                                                    <img
+                                                                                        className="lazy"
+                                                                                        src={
+                                                                                            state
+                                                                                                .usersInfo[
+                                                                                                bidder
+                                                                                            ]
+                                                                                                ?.image ||
+                                                                                            '../../img/author/author-1.jpg'
+                                                                                        }
+                                                                                        alt=""
+                                                                                    />
+                                                                                </span>
+                                                                            </div>
+                                                                            <div className="p_list_info">
+                                                                                <b>
+                                                                                    {
+                                                                                        itemData
+                                                                                            ?.marketdata
+                                                                                            ?.bidPrices[
+                                                                                            index
+                                                                                        ]
+                                                                                    }{' '}
+                                                                                    {
+                                                                                        itemData
+                                                                                            ?.marketdata
+                                                                                            ?.bidTokens[
+                                                                                            index
+                                                                                        ]
                                                                                     }
-                                                                                    alt=""
-                                                                                />
-                                                                            </span>
-                                                                        </div>
-                                                                        <div className="p_list_info">
-                                                                            <b>
-                                                                                {
-                                                                                    itemData
-                                                                                        ?.marketdata
-                                                                                        ?.bidPrices[
-                                                                                        index
-                                                                                    ]
-                                                                                }{' '}
-                                                                                {
-                                                                                    itemData
-                                                                                        ?.marketdata
-                                                                                        ?.bidTokens[
-                                                                                        index
-                                                                                    ]
-                                                                                }
-                                                                            </b>{' '}
-                                                                            {translateLang('bid')}
-                                                                            {translateLang(
-                                                                                'by'
-                                                                            )}{' '}
-                                                                            <b>
-                                                                                {styledAddress(
-                                                                                    bidder
+                                                                                </b>{' '}
+                                                                                {translateLang(
+                                                                                    'bid'
                                                                                 )}
-                                                                            </b>{' '}
-                                                                            {translateLang('at')}{' '}
-                                                                            <b>
-                                                                                {itemData
-                                                                                    ?.marketdata
-                                                                                    ?.bidTime
-                                                                                    ? moment(
-                                                                                          Number(
-                                                                                              itemData
-                                                                                                  ?.marketdata
-                                                                                                  ?.bidTime[
-                                                                                                  index
-                                                                                              ]
+                                                                                {translateLang(
+                                                                                    'by'
+                                                                                )}{' '}
+                                                                                <b>
+                                                                                    {styledAddress(
+                                                                                        bidder
+                                                                                    )}
+                                                                                </b>{' '}
+                                                                                {translateLang(
+                                                                                    'at'
+                                                                                )}{' '}
+                                                                                <b>
+                                                                                    {itemData
+                                                                                        ?.marketdata
+                                                                                        ?.bidTime
+                                                                                        ? moment(
+                                                                                              Number(
+                                                                                                  itemData
+                                                                                                      ?.marketdata
+                                                                                                      ?.bidTime[
+                                                                                                      index
+                                                                                                  ]
+                                                                                              )
+                                                                                          ).format(
+                                                                                              'lll'
                                                                                           )
-                                                                                      ).format(
-                                                                                          'lll'
-                                                                                      )
-                                                                                    : ''}
-                                                                            </b>
+                                                                                        : ''}
+                                                                                </b>
+                                                                            </div>
+                                                                            {index === 0 ? (
+                                                                                loading ? (
+                                                                                    <button className="btn-main round-button">
+                                                                                        <span
+                                                                                            className="spinner-border spinner-border-sm"
+                                                                                            aria-hidden="true"></span>
+                                                                                    </button>
+                                                                                ) : (
+                                                                                    <button
+                                                                                        className="btn-main round-button"
+                                                                                        onClick={
+                                                                                            handleApproveBid
+                                                                                        }>
+                                                                                        {translateLang(
+                                                                                            'btn_approvebid'
+                                                                                        )}
+                                                                                    </button>
+                                                                                )
+                                                                            ) : null}
                                                                         </div>
-                                                                    </div>
+                                                                        <div className="spacer-10"></div>
+                                                                    </>
                                                                 )
                                                             )}
                                                         </div>

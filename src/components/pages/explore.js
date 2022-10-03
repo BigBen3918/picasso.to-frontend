@@ -164,7 +164,7 @@ export default function Explore() {
                         setOption1(k);
                     }}
                     className="mb-3">
-                    <Tab eventKey="OnSaled" title="OnSaled">
+                    <Tab eventKey="OnSaled" title="for sale">
                         <div className="spacer-20"></div>
                         <NFTLists
                             filter1={filter1}
@@ -173,7 +173,7 @@ export default function Explore() {
                             sortBy={sortBy}
                         />
                     </Tab>
-                    <Tab eventKey="Owned" title="Owned">
+                    <Tab eventKey="Owned" title="all nft">
                         <div className="spacer-20"></div>
                         <NFTLists
                             filter1={filter1}
