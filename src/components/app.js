@@ -62,7 +62,7 @@ export default function App() {
             <Router>
                 <ApolloProvider client={client}>
                     <UseWalletProvider
-                        chainId={4002}
+                        chainId={250}
                         connectors={{
                             walletconnect: {
                                 rpcUrl: 'https://rpc.testnet.fantom.network/'
