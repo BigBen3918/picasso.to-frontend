@@ -33,7 +33,7 @@ function reducer(state, { type, payload }) {
 
 const Currency = [
     {
-        label: 'ETH',
+        label: 'FTM',
         value: addresses.WETH
     },
     {
@@ -91,7 +91,7 @@ export default function Provider({ children }) {
                     payload: null
                 });
 
-                NotificationManager.warning('Please connect metamask to Rinkeby Testnet');
+                NotificationManager.warning('Please connect metamask to Fantom Opera');
             } else {
                 dispatch({
                     type: 'auth',
