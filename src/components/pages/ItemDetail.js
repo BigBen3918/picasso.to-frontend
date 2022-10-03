@@ -483,7 +483,11 @@ export default function Colection() {
                                                                                         : ''}
                                                                                 </b>
                                                                             </div>
-                                                                            {index === 0 ? (
+                                                                            {index === 0 &&
+                                                                            itemData?.marketdata
+                                                                                .owner ===
+                                                                                state.auth
+                                                                                    .address ? (
                                                                                 loading ? (
                                                                                     <button className="btn-main round-button">
                                                                                         <span
