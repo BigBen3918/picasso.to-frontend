@@ -4,6 +4,7 @@ import MyNFT from '../components/mynfts';
 import Profile from '../components/profile';
 import Footer from '../menu/footer';
 import { createGlobalStyle } from 'styled-components';
+import Jazzicon from 'react-jazzicon';
 import { useBlockchainContext } from '../../context';
 
 const GlobalStyles = createGlobalStyle`
@@ -38,10 +39,23 @@ export default function Author() {
                         <div className="d_profile de-flex">
                             <div className="de-flex-col">
                                 <div className="profile_avatar">
-                                    <img
-                                        src={state.auth.image || 'img/author/author-1.jpg'}
-                                        alt=""
-                                    />
+                                    {state.auth.image ? (
+                                        <img
+                                            src={state.auth.image || 'img/author/author-1.jpg'}
+                                            alt=""
+                                        />
+                                    ) : (
+                                        <Jazzicon
+                                            diameter={100}
+                                            seed={Math.round(
+                                                (Number(state.auth.address) /
+                                                    Number(
+                                                        '0xffffffffffffffffffffffffffffffffffffffffff'
+                                                    )) *
+                                                    10000000
+                                            )}
+                                        />
+                                    )}
                                     <div className="profile_name">
                                         <h4>
                                             {state.auth.name}

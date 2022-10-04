@@ -9,6 +9,7 @@ import { styledAddress } from '../../utils';
 import { NotificationManager } from 'react-notifications';
 import { useWallet } from 'use-wallet';
 import Action from '../../service';
+import Jazzicon from 'react-jazzicon';
 
 export default function Colection() {
     const wallet = useWallet();
@@ -237,18 +238,24 @@ export default function Colection() {
                                         <div className="item_author">
                                             <p>{'Owned by'}</p>
                                             <span>
-                                                <img
-                                                    className="lazy"
-                                                    src={
-                                                        state.usersInfo[itemData?.owner]?.image ===
-                                                        undefined
-                                                            ? '../../img/author/author-1.jpg'
-                                                            : state.usersInfo[itemData?.owner]
-                                                                  .image ||
-                                                              '../../img/author/author-1.jpg'
-                                                    }
-                                                    alt=""
-                                                />
+                                                {state.usersInfo[itemData?.owner]?.image ? (
+                                                    <img
+                                                        className="lazy"
+                                                        src={state.usersInfo[itemData?.owner].image}
+                                                        alt=""
+                                                    />
+                                                ) : (
+                                                    <Jazzicon
+                                                        diameter={100}
+                                                        seed={Math.round(
+                                                            (Number(itemData?.owner) /
+                                                                Number(
+                                                                    '0xffffffffffffffffffffffffffffffffffffffffff'
+                                                                )) *
+                                                                10000000
+                                                        )}
+                                                    />
+                                                )}
                                                 <div className="author_list_info">
                                                     <span>{styledAddress(itemData?.owner)}</span>
                                                 </div>
@@ -420,18 +427,37 @@ export default function Colection() {
                                                                         <div className="p_list">
                                                                             <div className="p_list_pp">
                                                                                 <span>
-                                                                                    <img
-                                                                                        className="lazy"
-                                                                                        src={
-                                                                                            state
-                                                                                                .usersInfo[
-                                                                                                bidder
-                                                                                            ]
-                                                                                                ?.image ||
-                                                                                            '../../img/author/author-1.jpg'
-                                                                                        }
-                                                                                        alt=""
-                                                                                    />
+                                                                                    {state
+                                                                                        .usersInfo[
+                                                                                        bidder
+                                                                                    ]?.image ? (
+                                                                                        <img
+                                                                                            className="lazy"
+                                                                                            src={
+                                                                                                state
+                                                                                                    .usersInfo[
+                                                                                                    bidder
+                                                                                                ]
+                                                                                                    ?.image
+                                                                                            }
+                                                                                            alt=""
+                                                                                        />
+                                                                                    ) : (
+                                                                                        <Jazzicon
+                                                                                            diameter={
+                                                                                                100
+                                                                                            }
+                                                                                            seed={Math.round(
+                                                                                                (Number(
+                                                                                                    bidder
+                                                                                                ) /
+                                                                                                    Number(
+                                                                                                        '0xffffffffffffffffffffffffffffffffffffffffff'
+                                                                                                    )) *
+                                                                                                    10000000
+                                                                                            )}
+                                                                                        />
+                                                                                    )}
                                                                                 </span>
                                                                             </div>
                                                                             <div className="p_list_info">

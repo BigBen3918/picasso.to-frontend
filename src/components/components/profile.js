@@ -4,6 +4,7 @@ import { NotificationManager } from 'react-notifications';
 import axios from 'axios';
 import { useBlockchainContext } from '../../context';
 import { copyToClipboard } from '../../utils';
+import Jazzicon from 'react-jazzicon';
 
 const Outer = styled.div`
     display: flex;
@@ -227,12 +228,34 @@ export default function Profile() {
                             <div className="nft__item">
                                 <div className="nft__item_wrap">
                                     <Outer>
-                                        <img
-                                            src={image || './img/author/author-1.jpg'}
-                                            className="lazy nft__item_preview noselect"
-                                            alt=""
-                                            onClick={handleSelect}
-                                        />
+                                        {selectedFile ? (
+                                            <img
+                                                src={image}
+                                                className="lazy nft__item_preview noselect"
+                                                alt=""
+                                                onClick={handleSelect}
+                                            />
+                                        ) : state.auth.image ? (
+                                            <img
+                                                src={state.auth.image}
+                                                className="lazy nft__item_preview noselect"
+                                                alt=""
+                                                onClick={handleSelect}
+                                            />
+                                        ) : (
+                                            <div onClick={handleSelect}>
+                                                <Jazzicon
+                                                    diameter={100}
+                                                    seed={Math.round(
+                                                        (Number(state.auth.address) /
+                                                            Number(
+                                                                '0xffffffffffffffffffffffffffffffffffffffffff'
+                                                            )) *
+                                                            10000000
+                                                    )}
+                                                />
+                                            </div>
+                                        )}
                                         <input
                                             ref={fileRef}
                                             id="fileUpload"
@@ -252,11 +275,24 @@ export default function Profile() {
                         <div className="nft__item">
                             <div className="nft__item_wrap">
                                 <Outer>
-                                    <img
-                                        src={image || './img/author/author-1.jpg'}
-                                        className="lazy nft__item_preview noselect"
-                                        alt=""
-                                    />
+                                    {state.auth.image ? (
+                                        <img
+                                            src={state.auth.image}
+                                            className="lazy nft__item_preview noselect"
+                                            alt=""
+                                        />
+                                    ) : (
+                                        <Jazzicon
+                                            diameter={100}
+                                            seed={Math.round(
+                                                (Number(state.auth.address) /
+                                                    Number(
+                                                        '0xffffffffffffffffffffffffffffffffffffffffff'
+                                                    )) *
+                                                    10000000
+                                            )}
+                                        />
+                                    )}
                                 </Outer>
                             </div>
                         </div>
