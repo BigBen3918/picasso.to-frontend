@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react';
-import Select from 'react-select';
 import { Tab, Tabs } from 'react-bootstrap';
 
 import NFTLists from '../components/NFTLists';
