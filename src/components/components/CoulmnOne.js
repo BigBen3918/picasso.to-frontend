@@ -68,7 +68,9 @@ export default function ColumnOne(props) {
                                     />
 
                                     <div className="item__user__info">
-                                        <button>0x348d...3ba3</button>
+                                        <button>
+                                            {nft.owner.slice(0, 4) + '...' + nft.owner.slice(-4)}
+                                        </button>
 
                                         <button>
                                             <i className="fa fa-heart-o"></i>

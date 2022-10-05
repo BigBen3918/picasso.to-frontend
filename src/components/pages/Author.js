@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Tab, Tabs } from 'react-bootstrap';
+import { FaCog, FaShareAlt, FaTwitter, FaFacebook, FaCopy } from 'react-icons/fa';
 
 import MyNFT from '../components/mynfts';
 import Profile from '../components/profile';
@@ -15,95 +17,113 @@ const GlobalStyles = createGlobalStyle`
 
 export default function Author() {
     const [state, { translateLang }] = useBlockchainContext();
-    const [openMenu, setOpenMenu] = useState(0);
+    const [openMenu, setOpenMenu] = useState('collected');
+    const [openShare, setOpenShare] = useState(false);
+    const [copyStatus, setCopyStatus] = useState('Copy');
 
-    const handleBtnClick = () => {
-        setOpenMenu(0);
-        document.getElementById('Mainbtn0').classList.add('active');
-        document.getElementById('Mainbtn1').classList.remove('active');
+    const HandleCopy = () => {
+        console.log('clicked');
     };
-    const handleBtnClick1 = () => {
-        setOpenMenu(1);
-        document.getElementById('Mainbtn0').classList.remove('active');
-        document.getElementById('Mainbtn1').classList.add('active');
+
+    const HandleAddressCopy = () => {
+        setCopyStatus('Copied');
+
+        setTimeout(() => {
+            setCopyStatus('Copy');
+        }, 2000);
     };
 
     return (
         <div style={{ paddingBottom: '500px' }}>
             <GlobalStyles />
 
-            <section className="container no-bottom">
-                <div className="row">
-                    <div className="spacer-double"></div>
-                    <div className="col-md-12">
-                        <div className="d_profile de-flex">
-                            <div className="de-flex-col">
-                                <div className="profile_avatar">
-                                    {state.auth.image ? (
-                                        <img
-                                            src={state.auth.image || 'img/author/author-1.jpg'}
-                                            alt=""
-                                        />
-                                    ) : (
-                                        <Jazzicon
-                                            diameter={100}
-                                            seed={Math.round(
-                                                (Number(state.auth.address) /
-                                                    Number(
-                                                        '0xffffffffffffffffffffffffffffffffffffffffff'
-                                                    )) *
-                                                    10000000
-                                            )}
-                                        />
-                                    )}
-                                    <div className="profile_name">
-                                        <h4>
-                                            {state.auth.name}
-                                            <span className="profile_username">
-                                                {state.auth.email === ''
-                                                    ? 'unknown'
-                                                    : state.auth.email}
-                                            </span>
-                                            <span id="wallet" className="profile_wallet">
-                                                {state.auth.address.slice(0, 20) + '...'}
-                                            </span>
-                                        </h4>
-                                    </div>
+            <div className="profile_image">
+                <img src="img/background/1.jpg" alt="" />
+                <div>
+                    {state.auth.image ? (
+                        <img src={state.auth.image || ''} alt="" />
+                    ) : (
+                        <Jazzicon
+                            diameter={100}
+                            seed={Math.round(
+                                (Number(state.auth.address) /
+                                    Number('0xffffffffffffffffffffffffffffffffffffffffff')) *
+                                    10000000
+                            )}
+                        />
+                    )}
+                </div>
+            </div>
+            <div className="container">
+                <div className="spacer-40"></div>
+                <div className="profile_name">
+                    <div>
+                        <h2>{state.auth.name}</h2>
+                        <div
+                            onBlur={() =>
+                                setTimeout(() => {
+                                    setOpenShare(false);
+                                }, 100)
+                            }>
+                            <button onClick={() => setOpenShare(!openShare)}>
+                                <FaShareAlt />
+                            </button>
+                            <button>
+                                <FaCog />
+                            </button>
+                            {openShare && (
+                                <div>
+                                    <span>
+                                        <span onClick={HandleCopy}>
+                                            <FaCopy />
+                                            <p>Copy Link</p>
+                                        </span>
+                                        <a href="#">
+                                            <FaFacebook />
+                                            <p>Share on Facebook</p>
+                                        </a>
+                                        <a href="#">
+                                            <FaTwitter />
+                                            <p>Share on Twitter</p>
+                                        </a>
+                                    </span>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
+                    <span className="profile_wallet">
+                        <div onClick={HandleAddressCopy}>
+                            <span>{copyStatus}</span>
+                            {state.auth.address.slice(0, 6) + '...' + state.auth.address.slice(-4)}
+                        </div>
+                    </span>
+                    <span className="profile_username">
+                        {state.auth.bio === '' ? '' : state.auth.bio}
+                    </span>
                 </div>
-            </section>
+                <div className="spacer-20"></div>
+            </div>
 
             <section className="container no-top">
-                <div className="row">
-                    <div className="col-lg-12">
-                        <div className="items_filter">
-                            <ul className="de_nav text-left">
-                                <li id="Mainbtn0" className="active">
-                                    <span onClick={handleBtnClick}>{translateLang('mynft')}</span>
-                                </li>
-                                <li id="Mainbtn1">
-                                    <span onClick={handleBtnClick1}>
-                                        {translateLang('profile')}
-                                    </span>
-                                </li>
-                            </ul>
+                <Tabs
+                    activeKey={openMenu}
+                    onSelect={(k) => {
+                        setOpenMenu(k);
+                    }}
+                    className="mb-3">
+                    <Tab eventKey="collected" title="Collected">
+                        <div className="spacer-20"></div>
+                        <div id="zero0" className="onStep fadeIn">
+                            <MyNFT />
                         </div>
-                    </div>
-                </div>
-
-                {openMenu === 0 && (
-                    <div id="zero0" className="onStep fadeIn">
-                        <MyNFT />
-                    </div>
-                )}
-                {openMenu === 1 && (
-                    <div id="zero1" className="onStep fadeIn">
-                        <Profile />
-                    </div>
-                )}
+                    </Tab>
+                    <Tab eventKey="forsale" title="For sale">
+                        <div className="spacer-20"></div>
+                        <div id="zero1" className="onStep fadeIn">
+                            <Profile />
+                        </div>
+                    </Tab>
+                </Tabs>
             </section>
 
             <Footer />

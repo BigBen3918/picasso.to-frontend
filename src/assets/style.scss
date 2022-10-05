@@ -4304,6 +4304,45 @@ i.font60 {
     }
 }
 
+.profile_image {
+    width: 100%;
+    position: relative;
+
+    img {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+
+        @media screen and (max-width: 768px) {
+            height: 350px;
+        }
+    }
+
+    div {
+        background-color: $white;
+        border-radius: 50%;
+        padding: 7px;
+        position: absolute;
+        bottom: -20px;
+        left: 15%;
+
+        img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+        }
+
+        @media screen and (max-width: 768px) {
+            padding: 4px;
+
+            img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    }
+}
+
 .select1 {
     .css-wenqhu-control {
         background-color: #0f0f0f;
@@ -4382,20 +4421,6 @@ i.font60 {
     }
 }
 
-.profile_avatar img,
-.profile_name {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-
-    .profile_username {
-        font-size: 16px;
-        display: block;
-        color: $color;
-    }
-}
-
 .d_coll .profile_avatar img,
 .d_coll .profile_name {
     text-align: left;
@@ -4412,7 +4437,6 @@ i.font60 {
 
 .d_coll .profile_avatar img {
     display: inline-block;
-    margin-top: -100px;
     width: 150px;
     height: 150px;
 }
@@ -4441,10 +4465,107 @@ i.font60 {
 }
 
 .profile_name {
-    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.8rem;
 
-    h2 {
-        margin: 0;
+    > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h2 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        > div {
+            display: flex;
+            position: relative;
+            gap: 5px;
+
+            > div {
+                position: absolute;
+                width: 210px;
+                top: 110%;
+                right: 50%;
+                background-color: $white;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.215);
+                border-radius: 6px;
+
+                > span {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: flex-start;
+
+                    @mixin common_attr {
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                        gap: 10px;
+                        width: 100%;
+                        padding: 10px 15px;
+                        font-size: 15px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        text-decoration: none;
+                        transition: 0.3s ease;
+
+                        svg {
+                            font-size: 22px;
+                            color: rgb(30, 106, 206);
+                        }
+
+                        p {
+                            margin: 0;
+                            font-size: 15px;
+                        }
+
+                        &:hover {
+                            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+                            color: rgb(30, 106, 206);
+                        }
+                    }
+
+                    > span {
+                        @include common_attr;
+                        border-radius: 6px 6px 0 0;
+                    }
+
+                    a {
+                        @include common_attr;
+                    }
+
+                    a:last-child {
+                        border-radius: 0 0 6px 6px;
+                    }
+                }
+            }
+
+            button {
+                outline: 0;
+                border: none;
+                border-radius: 50%;
+                height: 40px;
+                width: 40px;
+                position: relative;
+                background-color: $white;
+                transition: 0.4s all;
+
+                svg {
+                    font-size: 22px;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+
+                &:hover {
+                    background-color: rgb(201, 201, 201);
+                }
+            }
+        }
     }
 
     h4 {
@@ -4468,23 +4589,48 @@ i.font60 {
     }
 }
 
-.profile_name h4 {
-    font-size: 24px;
-    line-height: 1.3em;
-}
-
 .profile_wallet {
     font-size: 16px;
     display: flex;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     color: #727272;
-}
 
-.d_coll .profile_wallet {
-    display: inline-block;
-    float: none;
+    > div {
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+
+        > span {
+            visibility: hidden;
+            position: absolute;
+            background-color: rgb(17, 17, 17);
+            color: #fff;
+            text-align: center;
+            border-radius: 12px;
+            padding: 10px 15px;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: #111 transparent transparent transparent;
+            }
+        }
+
+        &:hover {
+            color: #bebebe;
+            > span {
+                visibility: visible;
+            }
+        }
+    }
 }
 
 #btn_copy {
@@ -4730,8 +4876,8 @@ i.font60 {
     z-index: 10;
 
     div {
-        width: unset!important;
-        height: unset!important;
+        width: unset !important;
+        height: unset !important;
 
         svg {
             width: 30px;
@@ -5751,12 +5897,6 @@ img.img-rounded {
         .de-flex-col {
             display: block;
         }
-    }
-
-    .profile_name {
-        margin-left: 0;
-        margin-top: 20px;
-        width: 100%;
     }
 
     .profile_follow {
