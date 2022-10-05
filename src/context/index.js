@@ -90,8 +90,6 @@ export default function Provider({ children }) {
                     type: 'signer',
                     payload: null
                 });
-
-                NotificationManager.warning('Please connect metamask to Fantom Opera');
             } else {
                 dispatch({
                     type: 'auth',
@@ -119,7 +117,7 @@ export default function Provider({ children }) {
         loading: nftsLoading,
         error: nftsError
     } = useQuery(GET_ALLNFTS, {
-        pollInterval: 500
+        pollInterval: 1000
     });
 
     const {
@@ -127,7 +125,7 @@ export default function Provider({ children }) {
         loading: nftsCollectionLoading,
         error: nftsCollectionError
     } = useQuery(GET_COLLECTIONNFTS, {
-        pollInterval: 500
+        pollInterval: 1000
     });
 
     const {
@@ -135,7 +133,7 @@ export default function Provider({ children }) {
         loading: usersLoading,
         error: usersError
     } = useQuery(GET_USERSINFO, {
-        pollInterval: 500
+        pollInterval: 1000
     });
 
     const {
@@ -143,7 +141,7 @@ export default function Provider({ children }) {
         loading: orderLoading,
         error: orderError
     } = useQuery(GET_ORDER, {
-        pollInterval: 500
+        pollInterval: 1000
     });
     /** End GraphQL Query */
 

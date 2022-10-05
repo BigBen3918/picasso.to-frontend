@@ -5,6 +5,7 @@ import useOnclickOutside from 'react-cool-onclickoutside';
 import { useBlockchainContext } from '../../context';
 import { useWallet } from 'use-wallet';
 import SearchModal from '../components/searchModal';
+import { changeNetwork } from '../../utils';
 
 setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
 
@@ -67,7 +68,7 @@ export default function Header() {
                 try {
                     return (
                         item[newItem]?.toString().toLowerCase().indexOf(searchKey.toLowerCase()) >
-                            -1 ||
+                        -1 ||
                         item['metadata'][newItem]
                             ?.toString()
                             .toLowerCase()
@@ -113,8 +114,25 @@ export default function Header() {
             });
             localStorage.setItem('isConnected', false);
         } else {
-            wallet.connect();
-            localStorage.setItem('isConnected', true);
+            wallet.connect().then((res) => {
+                (async () => {
+                    try {
+                        //if metamask is connected and wallet is not connected ( chain error))
+                        if (wallet.status === "error") {
+                            var accounts = await window.ethereum.request({
+                                method: "eth_accounts",
+                            });
+                            if (accounts.length > 0) {
+                                await changeNetwork("fantom");
+                                wallet.connect();
+                            }
+                        }
+                        localStorage.setItem('isConnected', true);
+                    } catch (err) {
+                        console.log(err.message);
+                    }
+                })();
+            });
         }
     };
 
@@ -221,8 +239,8 @@ export default function Header() {
                                             onClick={handleConnect}>
                                             {wallet.status == 'connected'
                                                 ? wallet.account?.slice(0, 4) +
-                                                  '...' +
-                                                  wallet.account?.slice(-4)
+                                                '...' +
+                                                wallet.account?.slice(-4)
                                                 : 'Connect'}
                                         </button>
 
@@ -398,8 +416,8 @@ export default function Header() {
                             <button className="btn-main" onClick={handleConnect}>
                                 {wallet.status == 'connected'
                                     ? wallet.account?.slice(0, 4) +
-                                      '...' +
-                                      wallet.account?.slice(-4)
+                                    '...' +
+                                    wallet.account?.slice(-4)
                                     : 'Connect'}
                             </button>
                         </div>

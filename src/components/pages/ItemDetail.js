@@ -65,7 +65,7 @@ export default function Colection() {
                     : setPageFlag(3);
             }
         }
-    }, [itemData]);
+    }, [itemData,state.auth?.address]);
 
     useEffect(() => {
         for (let i = 0; i < state.collectionNFT.length; i++) {
