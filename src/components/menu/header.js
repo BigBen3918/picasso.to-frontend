@@ -68,7 +68,7 @@ export default function Header() {
                 try {
                     return (
                         item[newItem]?.toString().toLowerCase().indexOf(searchKey.toLowerCase()) >
-                        -1 ||
+                            -1 ||
                         item['metadata'][newItem]
                             ?.toString()
                             .toLowerCase()
@@ -118,12 +118,12 @@ export default function Header() {
                 (async () => {
                     try {
                         //if metamask is connected and wallet is not connected ( chain error))
-                        if (wallet.status === "error") {
+                        if (wallet.status === 'error') {
                             var accounts = await window.ethereum.request({
-                                method: "eth_accounts",
+                                method: 'eth_accounts'
                             });
                             if (accounts.length > 0) {
-                                await changeNetwork("fantom");
+                                await changeNetwork('fantom');
                                 wallet.connect();
                             }
                         }
@@ -239,8 +239,8 @@ export default function Header() {
                                             onClick={handleConnect}>
                                             {wallet.status == 'connected'
                                                 ? wallet.account?.slice(0, 4) +
-                                                '...' +
-                                                wallet.account?.slice(-4)
+                                                  '...' +
+                                                  wallet.account?.slice(-4)
                                                 : 'Connect'}
                                         </button>
 
@@ -274,7 +274,7 @@ export default function Header() {
                                         </div>
                                         <div className="navbar-item">
                                             <NavLink
-                                                to="/Author"
+                                                to={`/${state.auth.address}`}
                                                 onClick={() => btn_icon(!showmenu)}>
                                                 {translateLang('profile')}
                                                 <span className="lines"></span>
@@ -371,7 +371,7 @@ export default function Header() {
                                         </div>
                                     </div>
                                     <div className="navbar-item">
-                                        <NavLink to="/Author">
+                                        <NavLink to={`/${state.auth.address}`}>
                                             {translateLang('profile')}
                                             <span className="lines"></span>
                                         </NavLink>
@@ -416,8 +416,8 @@ export default function Header() {
                             <button className="btn-main" onClick={handleConnect}>
                                 {wallet.status == 'connected'
                                     ? wallet.account?.slice(0, 4) +
-                                    '...' +
-                                    wallet.account?.slice(-4)
+                                      '...' +
+                                      wallet.account?.slice(-4)
                                     : 'Connect'}
                             </button>
                         </div>

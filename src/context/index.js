@@ -10,13 +10,18 @@ import {
     provider
 } from '../contracts';
 import { toBigNum } from '../utils';
-import { GET_ALLNFTS, GET_USERSINFO, GET_COLLECTIONNFTS, GET_ORDER } from '../components/gql';
+import {
+    GET_ALLNFTS,
+    GET_USERSINFO,
+    GET_COLLECTIONNFTS,
+    GET_ORDER,
+    GET_ACTIVITIES
+} from '../components/gql';
 import addresses from '../contracts/contracts/addresses.json';
 import Action from '../service';
 
 import { translations } from '../components/language/translate';
 import { useWallet } from 'use-wallet';
-import { NotificationManager } from 'react-notifications';
 
 const BlockchainContext = createContext();
 
@@ -46,6 +51,7 @@ const INIT_STATE = {
     allNFT: [],
     collectionNFT: [],
     orderList: [],
+    activities: [],
     usersInfo: {},
     provider: provider,
     auth: {
@@ -53,7 +59,8 @@ const INIT_STATE = {
         user: '',
         address: '',
         bio: '',
-        image: ''
+        image: '',
+        bannerImage: ''
     },
     lang: 'en',
     currencies: Currency,
@@ -99,7 +106,10 @@ export default function Provider({ children }) {
                         email: '',
                         bio: '',
                         address: '',
-                        image: ''
+                        image: '',
+                        bannerImage: '',
+                        link1: '',
+                        link2: ''
                     }
                 });
 
@@ -141,6 +151,14 @@ export default function Provider({ children }) {
         loading: orderLoading,
         error: orderError
     } = useQuery(GET_ORDER, {
+        pollInterval: 1000
+    });
+
+    const {
+        data: activityData,
+        loading: activityLoading,
+        error: activityError
+    } = useQuery(GET_ACTIVITIES, {
         pollInterval: 1000
     });
     /** End GraphQL Query */
@@ -192,6 +210,18 @@ export default function Provider({ children }) {
         });
     }, [orderData, orderLoading, orderError]);
 
+    useEffect(() => {
+        if (activityLoading || activityError) {
+            return;
+        }
+
+        console.log(activityData);
+        dispatch({
+            type: 'activities',
+            payload: activityData.getActivity
+        });
+    }, [activityData, activityLoading, activityError]);
+
     // set language
     const setLanguage = (props) => {
         const { newLang } = props;
@@ -217,7 +247,10 @@ export default function Provider({ children }) {
                 email: data.email,
                 bio: data.bio,
                 address: wallet.account,
-                image: data.image
+                image: data.image,
+                bannerImage: data.bannerImage,
+                link1: data.link1,
+                link2: data.link2
             }
         });
 

@@ -408,16 +408,6 @@ export default function Createpage() {
                     <div className="col-lg-3 col-sm-12 col-xs-12">
                         <h5>{translateLang('previewitem')}</h5>
                         <div className="nft__item m-0">
-                            {/* <div className="author_list_pp">
-                                <span>
-                                    <img
-                                        className="lazy"
-                                        src={state.auth.image || './../img/author/author-1.jpg'}
-                                        alt=""
-                                    />
-                                    <i className="fa fa-check"></i>
-                                </span>
-                            </div> */}
                             <div className="nft__item_wrap">
                                 <span>
                                     <img

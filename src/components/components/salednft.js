@@ -2,14 +2,14 @@ import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBlockchainContext } from '../../context';
 
-export default function MyNFTs(props) {
+export default function SaledNFTs(props) {
     const navigate = useNavigate();
     const { address } = props;
     const [state, {}] = useBlockchainContext();
 
-    const mynfts = useMemo(() => {
+    const salednfts = useMemo(() => {
         return state.allNFT.filter((item) => {
-            if (item.owner === address || item.marketdata.owner === address) {
+            if (item.marketdata?.owner === address) {
                 return item;
             }
         });
@@ -21,11 +21,11 @@ export default function MyNFTs(props) {
 
     return (
         <div className="row">
-            {mynfts !== null && mynfts.length !== 0 ? (
-                mynfts.map((nft, index) => (
+            {salednfts !== null && salednfts.length !== 0 ? (
+                salednfts.map((nft, index) => (
                     <div
                         key={index}
-                        className="d-item col-2-5 col-lg-3 col-md-6 col-sm-6 col-xs-12"
+                        className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
                         onClick={() => handleItem(nft)}>
                         <div className="nft__item">
                             <div className="nft__item_wrap">
@@ -38,7 +38,6 @@ export default function MyNFTs(props) {
                                 </span>
                             </div>
                             <div className="nft__item_info">
-                                <div className="spacer-10"></div>
                                 <span>
                                     <a>
                                         {state.collectionNFT.map((item) => {

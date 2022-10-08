@@ -12,7 +12,7 @@ import Explore from './pages/explore';
 import Collection from './pages/colection';
 import ItemDetail from './pages/ItemDetail';
 import Author from './pages/Author';
-// import Wallet from './pages/wallet';
+import Profile from './pages/profile';
 import CreateCollection from './pages/createcollection';
 import Create from './pages/create';
 import LazyCreate from './pages/lazycreate';
@@ -50,7 +50,7 @@ const PrivateRoute = ({ children }) => {
 
     if (!state.auth.isAuth) {
         NotificationManager.warning('Please connect wallet');
-        return <Navigate to="/home" replace state={{ from: location }} />;
+        return <Navigate to="/" replace state={{ from: location }} />;
     }
 
     return children;
@@ -87,11 +87,12 @@ export default function App() {
                                     path="/ItemDetail/:collection/:id"
                                     element={<ItemDetail />}
                                 />
+                                <Route exact path="/:address" element={<Author />} />
                                 <Route
-                                    path="/Author"
+                                    path="/account/profile"
                                     element={
                                         <PrivateRoute>
-                                            <Author />
+                                            <Profile />
                                         </PrivateRoute>
                                     }
                                 />
@@ -128,7 +129,7 @@ export default function App() {
                                         </PrivateRoute>
                                     }
                                 />
-                                <Route path="*" element={<Home />} />
+                                <Route path="*" element={<Navigate to={'/'} />} />
                             </Routes>
                             <ScrollToTopBtn />
                         </Provider>

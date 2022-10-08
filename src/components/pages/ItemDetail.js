@@ -65,7 +65,7 @@ export default function Colection() {
                     : setPageFlag(3);
             }
         }
-    }, [itemData,state.auth?.address]);
+    }, [itemData, state.auth?.address]);
 
     useEffect(() => {
         for (let i = 0; i < state.collectionNFT.length; i++) {
@@ -237,7 +237,7 @@ export default function Colection() {
                                         </div>
                                         <div className="item_author">
                                             <p>{'Owned by'}</p>
-                                            <span>
+                                            <span onClick={() => navigate(`/${itemData?.owner}`)}>
                                                 {state.usersInfo[itemData?.owner]?.image ? (
                                                     <img
                                                         className="lazy"

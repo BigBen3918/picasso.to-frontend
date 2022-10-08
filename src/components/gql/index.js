@@ -143,4 +143,18 @@ const GET_ORDER = gql`
     }
 `;
 
-export { GET_COLLECTIONNFTS, GET_ALLNFTS, GET_USERSINFO, GET_PRICES, GET_ORDER };
+const GET_ACTIVITIES = gql`
+    query GetActivity {
+        getActivity {
+            event
+            contractAddress
+            tokenID
+            price
+            acceptedToken
+            timeStamp
+            userAddress
+        }
+    }
+`;
+
+export { GET_COLLECTIONNFTS, GET_ALLNFTS, GET_USERSINFO, GET_PRICES, GET_ORDER, GET_ACTIVITIES };

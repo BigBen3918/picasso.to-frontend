@@ -46,7 +46,7 @@ export default function NFTLists(props) {
             {NFTs.map((nft, index) => (
                 <div
                     key={index}
-                    className="d-item col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                    className="d-item col-2-5 col-lg-3 col-md-4 col-sm-6 col-xs-12"
                     onClick={() => handleItem(nft)}>
                     <div className="nft__item m-0">
                         <div className="nft__item_wrap">
