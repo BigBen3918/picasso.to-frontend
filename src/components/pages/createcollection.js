@@ -111,6 +111,7 @@ export default function CreateCollection() {
         setExtLink2('');
         setExtLink3('');
         setDesc('');
+        setVerify(false);
     };
 
     const handleLogoImgChange = async (event) => {

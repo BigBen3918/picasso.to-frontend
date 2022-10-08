@@ -70,8 +70,8 @@ export default function Author() {
             <GlobalStyles />
 
             <div className="profile_image">
-                {state.auth?.bannerImage ? (
-                    <img src={state.auth?.bannerImage} alt="" />
+                {state.usersInfo[address]?.bannerImage ? (
+                    <img src={state.usersInfo[address]?.bannerImage} alt="" />
                 ) : (
                     <>
                         <img
