@@ -70,69 +70,76 @@ export default function Responsive() {
 
     return (
         <div className="row">
-            {NFTs.map((nft, index) => (
-                <div
-                    key={index}
-                    className="d-item col-2-5 col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4"
-                    onClick={(e) => handleItem(e, index, nft)}>
-                    <div className="nft__item m-0">
-                        <div className="author_list_pp">
-                            <span>
-                                <img
-                                    className="lazy"
-                                    src={
-                                        state.usersInfo[nft.owner]?.image === undefined
-                                            ? state.collectionNFT[0]?.metadata.image
-                                            : state.usersInfo[nft.owner].image ||
-                                              './img/author/author-1.jpg'
-                                    }
-                                    alt=""
-                                />
-                                <i className="fa fa-check"></i>
-                            </span>
-                        </div>
-                        <div className="nft__item_wrap" style={{ height: `${height}px` }}>
-                            <span>
-                                <img
-                                    onLoad={(e) => onImgLoad(e)}
-                                    src={nft.metadata.image || './img/collections/coll-item-3.jpg'}
-                                    className="lazy nft__item_preview"
-                                    alt=""
-                                />
-                            </span>
-                        </div>
-                        <div className="nft__item_info">
-                            <span>
-                                <h4>{nft.metadata.name || `#${nft.tokenID}`}</h4>
-                            </span>
-                            <div className="spacer-20"></div>
-                            <hr />
-                            <div className="spacer-20"></div>
-                            <div className="nft__item_price">
-                                {nft.marketdata.price === ''
-                                    ? null
-                                    : nft.marketdata.price +
-                                      ' ' +
-                                      getCurrency(nft.marketdata.acceptedToken)?.label}
+            {NFTs.length > 0 ? (
+                NFTs.map((nft, index) => (
+                    <div
+                        key={index}
+                        className="d-item col-2-5 col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4"
+                        onClick={(e) => handleItem(e, index, nft)}>
+                        <div className="nft__item m-0">
+                            <div className="author_list_pp">
                                 <span>
-                                    {nft.marketdata.bidders.length} {translateLang('bid')}
+                                    <img
+                                        className="lazy"
+                                        src={
+                                            state.usersInfo[nft.owner]?.image === undefined
+                                                ? state.collectionNFT[0]?.metadata.image
+                                                : state.usersInfo[nft.owner].image ||
+                                                  './img/author/author-1.jpg'
+                                        }
+                                        alt=""
+                                    />
+                                    <i className="fa fa-check"></i>
                                 </span>
                             </div>
-                            <div
-                                className="nft__item_like"
-                                id={'like' + index}
-                                style={
-                                    nft.likes.indexOf(state.auth.address) === -1
+                            <div className="nft__item_wrap" style={{ height: `${height}px` }}>
+                                <span>
+                                    <img
+                                        onLoad={(e) => onImgLoad(e)}
+                                        src={
+                                            nft.metadata.image ||
+                                            './img/collections/coll-item-3.jpg'
+                                        }
+                                        className="lazy nft__item_preview"
+                                        alt=""
+                                    />
+                                </span>
+                            </div>
+                            <div className="nft__item_info">
+                                <span>
+                                    <h4>{nft.metadata.name || `#${nft.tokenID}`}</h4>
+                                </span>
+                                <div className="spacer-20"></div>
+                                <hr />
+                                <div className="spacer-20"></div>
+                                <div className="nft__item_price">
+                                    {nft.marketdata.price === ''
                                         ? null
-                                        : { color: '#c5a86a' }
-                                }>
-                                <i className="fa fa-heart"></i>
-                                <span>{nft.likes.length}</span>
+                                        : nft.marketdata.price +
+                                          ' ' +
+                                          getCurrency(nft.marketdata.acceptedToken)?.label}
+                                    <span>
+                                        {nft.marketdata.bidders.length} {translateLang('bid')}
+                                    </span>
+                                </div>
+                                <div
+                                    className="nft__item_like"
+                                    id={'like' + index}
+                                    style={
+                                        nft.likes.indexOf(state.auth.address) === -1
+                                            ? null
+                                            : { color: '#c5a86a' }
+                                    }>
+                                    <i className="fa fa-heart"></i>
+                                    <span>{nft.likes.length}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            ))}
+                ))
+            ) : (
+                <h1 style={{ textAlign: 'center', padding: '73px' }}>No Data</h1>
+            )}
 
             <div className="spacer-30"></div>
             {/* <ul className="pagination">

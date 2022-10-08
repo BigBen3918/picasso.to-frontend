@@ -215,7 +215,6 @@ export default function Provider({ children }) {
             return;
         }
 
-        console.log(activityData);
         dispatch({
             type: 'activities',
             payload: activityData.getActivity

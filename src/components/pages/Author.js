@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Tab, Tabs } from 'react-bootstrap';
 import { FaCog, FaShareAlt, FaTwitter, FaFacebook, FaCopy } from 'react-icons/fa';
@@ -32,6 +32,14 @@ export default function Author() {
         if (address === state.auth.address) setOwnFlag(true);
         else setOwnFlag(false);
     }, [address]);
+
+    const activitiesData = useMemo(() => {
+        return state.activities.filter((item) => {
+            if (item.userAddress === address) {
+                return item;
+            }
+        });
+    }, [address, state.activities]);
 
     const HandleCopy = () => {
         copyToClipboard(process.env.REACT_APP_DOMAIN + location.pathname)
@@ -192,7 +200,7 @@ export default function Author() {
                     <Tab eventKey="activity" title="Activity">
                         <div className="spacer-20"></div>
                         <div id="zero2" className="onStep fadeIn">
-                            <Acitivity address={address} />
+                            <Acitivity activitiesData={activitiesData} />
                         </div>
                     </Tab>
                 </Tabs>

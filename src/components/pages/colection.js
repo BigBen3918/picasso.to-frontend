@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaRegCopy } from 'react-icons/fa';
 import ColumnZero from '../components/ColumnZero';
@@ -9,6 +9,7 @@ import { copyToClipboard } from '../../utils';
 import { NotificationManager } from 'react-notifications';
 import { BsTwitter, BsFacebook, BsInstagram } from 'react-icons/bs';
 import { Tab, Tabs } from 'react-bootstrap';
+import Acitivity from './Activity';
 
 export default function Collection() {
     const navigate = useNavigate();
@@ -69,6 +70,14 @@ export default function Collection() {
             setAvgAmount(sum / count / 1000);
         }
     }, [correctItem]);
+
+    const activitiesData = useMemo(() => {
+        return state.activities.filter((item) => {
+            if (item.contractAddress === collection) {
+                return item;
+            }
+        });
+    }, [collection, state.activities]);
 
     const handleaddressCopy = () => {
         copyToClipboard(correctItem.address)
@@ -184,13 +193,17 @@ export default function Collection() {
                                             setOption1(k);
                                         }}
                                         className="mb-3">
-                                        <Tab eventKey="OnSaled" title="for sale">
+                                        <Tab eventKey="OnSaled" title="For sale">
                                             <div className="spacer-20"></div>
                                             <ColumnZero correctItem={correctItem} />
                                         </Tab>
-                                        <Tab eventKey="Owned" title="all nft">
+                                        <Tab eventKey="Owned" title="All nft">
                                             <div className="spacer-20"></div>
                                             <CoulmnOne correctItem={correctItem} />
+                                        </Tab>
+                                        <Tab eventKey="activity" title="Activity">
+                                            <div className="spacer-20"></div>
+                                            <Acitivity activitiesData={activitiesData} />
                                         </Tab>
                                     </Tabs>
                                 </div>
