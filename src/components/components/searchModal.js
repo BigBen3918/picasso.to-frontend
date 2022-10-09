@@ -11,7 +11,7 @@ export default function SearchModal(props) {
             <div className="row">
                 {collectionDatas.map((item, index) => (
                     <CollectionItem
-                        image={item.metadata.coverImage}
+                        image={item.metadata.image}
                         address={item.address}
                         itemcount={item.items.length}
                     />
