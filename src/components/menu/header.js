@@ -109,7 +109,8 @@ export default function Header() {
                     email: '',
                     bio: '',
                     address: '',
-                    image: null
+                    image: null,
+                    bannerImage: null
                 }
             });
             localStorage.setItem('isConnected', false);

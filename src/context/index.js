@@ -253,7 +253,7 @@ export default function Provider({ children }) {
             }
         });
 
-        const origin = location.state?.from?.pathname || '/';
+        // const origin = location.state?.from?.pathname || '/';
         // navigate(origin);
     };
 

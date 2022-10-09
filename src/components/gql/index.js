@@ -111,10 +111,11 @@ const GET_USERSINFO = gql`
             bio
             email
             image
-            coverimage
-            backgroundimage
-            follow
-            description
+            bannerImage
+            link1
+            link2
+            link3
+            link4
         }
     }
 `;

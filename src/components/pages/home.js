@@ -185,11 +185,11 @@ export default function Homethree() {
                         .filter((item) => {
                             return item.marketdata.price !== '';
                         })
-                        .slice(0, 4)
+                        .slice(0, 10)
                         .map((nft, index) => (
                             <div
                                 key={index}
-                                className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                className="d-item col-2-5 col-lg-3 col-md-6 col-sm-6 col-xs-12">
                                 <div className="nft__item" onClick={() => handleClick(nft)}>
                                     <div className="nft__item_wrap">
                                         <span>
