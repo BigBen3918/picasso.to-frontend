@@ -42,6 +42,8 @@ export default function CreateCollection() {
             if (result.data.success) {
                 setVerify(result.data.success);
                 NotificationManager.success('Successfully Verified');
+            } else {
+                NotificationManager.success('Invalid address');
             }
             setLoading(false);
         } catch (err) {
