@@ -148,14 +148,14 @@ export default function Author() {
                                             <FaCopy />
                                             <p>Copy Link</p>
                                         </span>
-                                        {state.auth.link2 && (
-                                            <a href={state.auth.link2}>
+                                        {state.usersInfo[address]?.link2 && (
+                                            <a href={state.usersInfo[address]?.link2}>
                                                 <FaFacebook />
                                                 <p>Share on Facebook</p>
                                             </a>
                                         )}
-                                        {state.auth.link1 && (
-                                            <a href={state.auth.link1}>
+                                        {state.usersInfo[address]?.link1 && (
+                                            <a href={state.usersInfo[address]?.link1}>
                                                 <FaTwitter />
                                                 <p>Share on Twitter</p>
                                             </a>

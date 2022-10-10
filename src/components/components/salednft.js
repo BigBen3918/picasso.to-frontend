@@ -1,65 +1,38 @@
-import React, { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useMemo, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useBlockchainContext } from '../../context';
+import NFTList from './nfts';
 
 export default function SaledNFTs(props) {
-    const navigate = useNavigate();
     const { address } = props;
     const [state, {}] = useBlockchainContext();
+    const [renderCount, setRenderCount] = useState(10);
+    const [hasMore, setHasMore] = useState(false);
 
     const salednfts = useMemo(() => {
-        return state.allNFT.filter((item) => {
+        let res = state.allNFT.filter((item) => {
             if (item.marketdata?.owner === address) {
                 return item;
             }
         });
+        let result = res.slice(0, renderCount);
+        if (result.length === res.length) setHasMore(false);
+        else setHasMore(true);
+
+        return result;
     }, [state.allNFT, address]);
 
-    const handleItem = (item) => {
-        navigate(`/ItemDetail/${item.collectionAddress}/${item.tokenID}`);
-    };
-
     return (
-        <div className="row">
+        <div>
             {salednfts !== null && salednfts.length !== 0 ? (
-                salednfts.map((nft, index) => (
-                    <div
-                        key={index}
-                        className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
-                        onClick={() => handleItem(nft)}>
-                        <div className="nft__item">
-                            <div className="nft__item_wrap">
-                                <span>
-                                    <img
-                                        src={nft.metadata.image}
-                                        className="lazy nft__item_preview"
-                                        alt=""
-                                    />
-                                </span>
-                            </div>
-                            <div className="nft__item_info">
-                                <span>
-                                    <a>
-                                        {state.collectionNFT.map((item) => {
-                                            if (item.address === nft.collectionAddress)
-                                                return item.metadata.name;
-                                        })}
-                                    </a>
-                                </span>
-                                <span>
-                                    <h4>{nft.metadata.name}</h4>
-                                </span>
-                                <div className="spacer-20"></div>
-                                <hr />
-                                <div className="spacer-single"></div>
-                                <div className="nft__item_like" style={{ color: '#c5a86a' }}>
-                                    <i className="fa fa-heart"></i>
-                                    <span>{nft.likes.length}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ))
+                <InfiniteScroll
+                    dataLength={salednfts.length}
+                    next={() => setRenderCount(renderCount + 10)}
+                    hasMore={hasMore}
+                    loader={<h4 style={{ textAlign: 'center' }}>Loading...</h4>}
+                    style={{ overflowX: 'hidden' }}>
+                    <NFTList nfts={salednfts} />
+                </InfiniteScroll>
             ) : (
                 <h1 style={{ textAlign: 'center', padding: '73px' }}>No Data</h1>
             )}
