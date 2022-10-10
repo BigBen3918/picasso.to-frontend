@@ -405,7 +405,7 @@ export default function Createpage() {
                         </div>
                     </div>
 
-                    <div className="col-lg-3 col-sm-12 col-xs-12">
+                    <div className="col-2-5 col-sm-12 col-xs-12">
                         <h5>{translateLang('previewitem')}</h5>
                         <div className="nft__item m-0">
                             <div className="nft__item_wrap">

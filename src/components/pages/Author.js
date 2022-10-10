@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState, useMemo, useLayoutEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Tab, Tabs } from 'react-bootstrap';
 import { FaCog, FaShareAlt, FaTwitter, FaFacebook, FaCopy } from 'react-icons/fa';
@@ -28,10 +28,10 @@ export default function Author() {
     const [copyStatus, setCopyStatus] = useState('Copy');
     const [ownFlag, setOwnFlag] = useState(false);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (address === state.auth.address) setOwnFlag(true);
         else setOwnFlag(false);
-    }, [address]);
+    }, [address, state.auth.address]);
 
     const activitiesData = useMemo(() => {
         return state.activities.filter((item) => {
@@ -200,7 +200,11 @@ export default function Author() {
                     <Tab eventKey="activity" title="Activity">
                         <div className="spacer-20"></div>
                         <div id="zero2" className="onStep fadeIn">
-                            <Acitivity activitiesData={activitiesData} />
+                            {activitiesData.length > 0 ? (
+                                <Acitivity activitiesData={activitiesData} />
+                            ) : (
+                                <h1 style={{ textAlign: 'center', padding: '73px' }}>No Data</h1>
+                            )}
                         </div>
                     </Tab>
                 </Tabs>

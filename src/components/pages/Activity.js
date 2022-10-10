@@ -1,3 +1,4 @@
+import { useState, useMemo } from 'react';
 import { useBlockchainContext } from '../../context';
 import { Link } from 'react-router-dom';
 import { styledText } from '../../utils';
@@ -5,6 +6,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import { BiPurchaseTag, BiX, BiCheckCircle } from 'react-icons/bi';
 import Jazzicon from 'react-jazzicon';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const StyledSpan = styled.span`
     display: flex;
@@ -15,14 +17,28 @@ const StyledSpan = styled.span`
 export default function Acitivity(props) {
     const { activitiesData } = props;
     const [state, { getCurrency }] = useBlockchainContext();
+    const [renderCount, setRenderCount] = useState(6);
+    const [hasMore, setHasMore] = useState(false);
+
+    const activeData = useMemo(() => {
+        var result = activitiesData.slice(0, renderCount);
+        if (result.length === activitiesData.length) setHasMore(false);
+        else setHasMore(true);
+        return result;
+    }, [activitiesData, renderCount]);
 
     return (
         <div className="container">
-            <div className="row activity">
-                {activitiesData.length > 0 ? (
+            <InfiniteScroll
+                dataLength={activeData.length}
+                next={() => setRenderCount(renderCount + 6)}
+                hasMore={hasMore}
+                loader={<h4 style={{ textAlign: 'center' }}>Loading...</h4>}
+                style={{ overflowX: 'hidden' }}>
+                <div className="row activity">
                     <table>
                         <tbody>
-                            {activitiesData.map((item, index) => (
+                            {activeData.map((item, index) => (
                                 <tr key={index}>
                                     <td>
                                         <div className="active_info">
@@ -124,10 +140,8 @@ export default function Acitivity(props) {
                             ))}
                         </tbody>
                     </table>
-                ) : (
-                    <h1 style={{ textAlign: 'center', padding: '73px' }}>No Data</h1>
-                )}
-            </div>
+                </div>
+            </InfiniteScroll>
         </div>
     );
 }

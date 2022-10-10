@@ -231,27 +231,11 @@ export default function Responsive(props) {
                             </div>
                         </div>
 
-                        <div className="col-lg-3 col-sm-12 col-xs-12">
+                        <div className="col-2-5 col-sm-12 col-xs-12">
                             <div style={{ position: 'sticky', top: '162px' }}>
                                 <h5>{translateLang('previewitem')}</h5>
                                 <div className="nft__item m-0">
-                                    <div className="author_list_pp">
-                                        {/* <span>
-                                            <img
-                                                className="lazy"
-                                                src={
-                                                    state.usersInfo[correctCollection.owner]
-                                                        ?.image === undefined
-                                                        ? state.collectionNFT[0]?.metadata.image
-                                                        : state.usersInfo[correctCollection.owner]
-                                                              .image ||
-                                                          '../../img/author/author-1.jpg'
-                                                }
-                                                alt=""
-                                            />
-                                            <i className="fa fa-check"></i>
-                                        </span> */}
-                                    </div>
+                                    <div className="author_list_pp"></div>
                                     <div className="nft__item_wrap">
                                         <span>
                                             <img

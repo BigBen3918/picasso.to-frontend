@@ -1,24 +1,26 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
+import Select from 'react-select';
 
 import NFTLists from '../components/NFTLists';
+import Acitivity from './Activity';
 import Footer from '../menu/footer';
 import { useBlockchainContext } from '../../context';
 
 const customStyles = {
     option: (base, state) => ({
         ...base,
-        background: '#0f0f0f',
-        color: '#fff',
-        borderRadius: state.isFocused ? '0' : 0,
+        background: '#fff',
+        color: '#000',
+        borderRadius: 0,
         '&:hover': {
-            background: '#0f0f0f'
+            background: '#ddd'
         }
     }),
     menu: (base) => ({
         ...base,
-        background: '#0f0f0f !important',
-        borderRadius: 0,
+        background: '#fff !important',
+        borderRadius: '20px',
         marginTop: 0
     }),
     menuList: (base) => ({
@@ -50,17 +52,17 @@ export default function Explore() {
     const [searchWord, setSearchWord] = useState('');
 
     const [selectedOption2, setSelectedOption2] = useState(options2[0]);
-    const [option1, setOption1] = useState('OnSaled');
+    const [option1, setOption1] = useState('forsale');
 
     // status filter
     const filter1 = useCallback(
         (item) => {
             switch (option1) {
-                case 'OnSaled':
+                case 'forsale':
                     return (
                         item?.owner?.toUpperCase() === state.addresses?.Marketplace?.toUpperCase()
                     );
-                case 'Owned':
+                case 'all':
                     return (
                         item?.owner?.toUpperCase() !== state.addresses?.Marketplace?.toUpperCase()
                     );
@@ -131,7 +133,7 @@ export default function Explore() {
                 </div>
             </div>
 
-            <section className="container" style={{ paddingTop: '30px' }}>
+            <section className="container" style={{ paddingTop: '30px', position: 'relative' }}>
                 {/* <div className="search_group">
                     <form className="form-dark" id="form_quick_search" name="form_quick_search">
                         <input
@@ -144,26 +146,23 @@ export default function Explore() {
                             value={searchWord}
                         />
                     </form>
-                    <div className="items_filter">
-                        <div className="dropdownSelect three">
-                            <Select
-                                className="select1"
-                                styles={customStyles}
-                                defaultValue={options2[0]}
-                                options={options2}
-                                onChange={setSelectedOption2}
-                            />
-                        </div>
-                    </div>
-                </div>
                 <div className="spacer-single"></div> */}
+                <div className="dropdownSelect">
+                    <Select
+                        className="select1"
+                        styles={customStyles}
+                        defaultValue={options2[0]}
+                        options={options2}
+                        onChange={setSelectedOption2}
+                    />
+                </div>
                 <Tabs
                     activeKey={option1}
                     onSelect={(k) => {
                         setOption1(k);
                     }}
                     className="mb-3">
-                    <Tab eventKey="OnSaled" title="for sale">
+                    <Tab eventKey="forsale" title="For Sale">
                         <div className="spacer-20"></div>
                         <NFTLists
                             filter1={filter1}
@@ -172,7 +171,7 @@ export default function Explore() {
                             sortBy={sortBy}
                         />
                     </Tab>
-                    <Tab eventKey="Owned" title="all nft">
+                    <Tab eventKey="all" title="All NFT">
                         <div className="spacer-20"></div>
                         <NFTLists
                             filter1={filter1}
@@ -180,6 +179,10 @@ export default function Explore() {
                             filter3={filter3}
                             sortBy={sortBy}
                         />
+                    </Tab>
+                    <Tab eventKey="activity" title="Activity">
+                        <div className="spacer-20"></div>
+                        <Acitivity activitiesData={state.activities} />
                     </Tab>
                 </Tabs>
             </section>
