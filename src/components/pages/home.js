@@ -8,6 +8,7 @@ import Reveal from 'react-awesome-reveal';
 import { keyframes } from '@emotion/react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useBlockchainContext } from '../../context';
+import NewNotable from '../components/SliderCarousel';
 
 const fadeInUp = keyframes`
   0% {
@@ -239,6 +240,10 @@ export default function Homethree() {
                 </div>
             </section>
 
+            <section className="container no-top">
+                <h2 className="style-2">New and notable</h2>
+                <NewNotable />
+            </section>
             <Footer />
         </div>
     );

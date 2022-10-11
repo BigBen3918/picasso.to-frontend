@@ -414,6 +414,7 @@ export default function Header() {
                         </BreakpointProvider>
 
                         <div className="mainside lg-style">
+                            <button className="btn-main">Switch Network</button>
                             <button className="btn-main" onClick={handleConnect}>
                                 {wallet.status == 'connected'
                                     ? wallet.account?.slice(0, 4) +

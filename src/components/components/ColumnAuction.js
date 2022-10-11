@@ -201,7 +201,7 @@ export default function Responsive(props) {
                                     <h5>{translateLang('fees')}</h5>
                                     <div className="fee">
                                         <p>{translateLang('servicefee')}</p>
-                                        <p>0.2%</p>
+                                        <p>0%</p>
                                     </div>
 
                                     <div className="spacer-40"></div>

@@ -1366,6 +1366,8 @@ p.lead {
     }
 
     .mainside {
+        display: flex;
+        gap: 10px;
         width: max-content;
         padding-left: 0;
         padding-right: 0;
@@ -2065,169 +2067,58 @@ footer {
     padding: 20px;
 
     &.footer-light {
-        box-shadow: 0px 0px 5px #320670;
-        background: linear-gradient(45deg, black, blue);
-        // background-color: #320670;
+        // box-shadow: 0px 0px 5px #320670;
+        // background: linear-gradient(45deg, black, blue);
+        background-color: $black;
         color: $white;
 
         > div {
             width: 100%;
+           
 
             .part_1 {
-                display: flex;
-                flex-wrap: wrap;
-
-                h4 {
-                    font-size: 20px;
-                    font-weight: 600;
-                    margin-bottom: 8px;
-                    margin-top: 8px;
-                    color: $white;
-                }
-
-                div:first-child {
-                    width: 50%;
-                    padding-right: 64px;
-
-                    p {
-                        color: $white;
-                        font-size: 16px;
-                        margin: 0;
-                        line-height: 1.7rem;
-                    }
-
-                    span {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        gap: 20px;
-
-                        input {
-                            cursor: text;
-                            display: flex;
-                            -webkit-box-align: center;
-                            align-items: center;
-                            border-radius: 12px;
-                            border: none;
-                            outline: none;
-                            color: $color;
-                            width: 100%;
-                            padding: 12px;
-                            height: 48px;
-                            font-size: 16px;
-                        }
-
-                        button {
-                            background-color: #6100e9;
-                            color: $white;
-                            border: none;
-                            outline: none;
-                            display: inline-flex;
-                            flex-direction: row;
-                            -webkit-box-align: center;
-                            align-items: center;
-                            border-radius: 15px;
-                            -webkit-box-pack: center;
-                            justify-content: center;
-                            font-size: 16px;
-                            font-weight: 600;
-                            line-height: 17px;
-                            letter-spacing: 0.01em;
-                            padding: 17px 24px;
-
-                            &:hover {
-                                background-color: #730ffd;
-                            }
-                        }
-                    }
-
-                    @media screen and (max-width: 1200px) {
-                        width: 100%;
-                    }
-                }
-
-                div:last-child {
-                    padding-left: 64px;
-                    width: 50%;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 10px;
-
-                    > div {
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        padding: 0;
-                        gap: 13px;
-
-                        span {
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            width: 50px;
-                            height: 50px;
-                            border-radius: 10px;
-                            background-color: #6100e9;
-
-                            a {
-                                color: $white;
-                                font-size: 20px;
-                            }
-
-                            &:hover {
-                                background-color: #730ffd;
-                            }
-                        }
-                    }
-
-                    @media screen and (max-width: 1200px) {
-                        width: 100%;
-                        padding: 0;
-                        align-items: center;
-                        justify-content: center;
-                    }
-                }
-            }
-            .part_2 {
-                h5 {
-                    color: $white;
-                }
+                width: 100%;
+                border-bottom: 1px solid $white;
 
                 > div {
-                    div {
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: center;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    gap: 30px;
 
-                        a {
-                            text-decoration: none;
-                            color: #ddd;
+                    a {
+                        text-decoration: none;
+                        color: $white;
+                        font-size: 20px;
+
+                        &:hover {
+                            color: $general;
                         }
                     }
                 }
 
-                line-height: 2.2rem;
+                h2 {
+                    color: $white;
+                }
             }
-            .part_3 {
+
+            .part_2 {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                padding: 10px 0;
 
                 > div {
                     display: flex;
-                    align-items: center;
                     justify-content: center;
+                    align-items: center;
                     gap: 20px;
-
                     a {
-                        color: $white;
                         text-decoration: none;
-                        font-size: 20px;
-                    }
+                        color: white;
 
-                    @media screen and (max-width: 300px) {
-                        gap: 10px;
+                        &:hover {
+                            color: $general;
+                        }
                     }
                 }
             }
@@ -3642,6 +3533,7 @@ i.font60 {
     img {
         width: 100%;
         height: 100%;
+        transform: scale(1.3);
         object-fit: cover;
         min-height: 330px !important;
         max-height: 330px !important;
@@ -4978,6 +4870,14 @@ i.font60 {
             margin: 0;
         }
     }
+}
+
+.nft_pic_wrap {
+    height: 300px;
+}
+
+.img-fluid {
+    object-fit: cover;
 }
 
 .titme_track {
