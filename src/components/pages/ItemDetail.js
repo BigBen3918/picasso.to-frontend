@@ -129,7 +129,6 @@ export default function Colection() {
         try {
             if (itemData !== null) {
                 setLoading(true);
-                console.log(itemData.marketdata.bidPrice);
 
                 await bidApprove({
                     address: collection,

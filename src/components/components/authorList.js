@@ -4,10 +4,6 @@ import { useBlockchainContext } from '../../context';
 export default function Authorlist() {
     const [state, {}] = useBlockchainContext();
 
-    useEffect(() => {
-        console.log(state.usersInfo);
-    }, [state.usersInfo]);
-
     return (
         <div>
             <ol className="author_list">

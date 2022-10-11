@@ -67,7 +67,7 @@ export default function NewNotable() {
         <div className="nft-big">
             <Slider {...settings}>
                 {state.collectionNFT.slice(-5).map((item, index) => (
-                    <div index={index + 1}>
+                    <div index={index + 1} key={index}>
                         <div className="nft_pic" onClick={() => handle(item.address)}>
                             <span>
                                 <span className="nft_pic_info">

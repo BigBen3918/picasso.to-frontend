@@ -111,7 +111,7 @@ export default function Collection() {
                                     </div>
 
                                     <div className="profile_name">
-                                        <h4>
+                                        <span>
                                             <h2>{correctItem.metadata.name}</h2>
                                             <span id="wallet" className="profile_wallet">
                                                 <span>
@@ -124,7 +124,7 @@ export default function Collection() {
                                                     <FaRegCopy />
                                                 </button>
                                             </span>
-                                        </h4>
+                                        </span>
                                         <div>
                                             {correctItem.metadata?.external_url1 != '' && (
                                                 <a href={correctItem.metadata?.external_url1}>

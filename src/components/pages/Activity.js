@@ -46,6 +46,7 @@ export default function Acitivity(props) {
                                                 if (collect.address === item.contractAddress) {
                                                     return (
                                                         <img
+                                                            key={index}
                                                             src={
                                                                 collect.items[item.tokenID].metadata
                                                                     .image

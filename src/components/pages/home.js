@@ -156,7 +156,7 @@ export default function Homethree() {
                 <div className="spacer-20"></div>
                 <div className="row top_collection">
                     {state.collectionNFT.slice(0, 15).map((item, index) => (
-                        <div className="col-md-6 col-lg-4">
+                        <div className="col-md-6 col-lg-4" key={index}>
                             <Link to={`/collection/${item.address}`}>
                                 <div className="top_coll_item">
                                     <p>{index + 1}</p>

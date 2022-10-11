@@ -75,7 +75,7 @@ export default function Profile() {
 
             NotificationManager.success(translateLang('update_success'));
         } catch (err) {
-            console.log(err.message);
+            console.log(err);
             NotificationManager.error(translateLang('operation_error'));
             setLoadItem(false);
         }

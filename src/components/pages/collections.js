@@ -60,11 +60,13 @@ export default function Collections() {
                 <div className="row">
                     <table className="collections_table">
                         <thead>
-                            <th style={{ padding: '0 30px' }}>#</th>
-                            <th>Collection</th>
-                            <th>Sales Volume</th>
-                            <th>Floor price</th>
-                            <th>Items</th>
+                            <tr>
+                                <th style={{ padding: '0 30px' }}>#</th>
+                                <th>Collection</th>
+                                <th>Sales Volume</th>
+                                <th>Floor price</th>
+                                <th>Items</th>
+                            </tr>
                         </thead>
                         <tbody>
                             {state.collectionNFT.map((item, index) => (
