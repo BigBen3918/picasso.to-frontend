@@ -1435,6 +1435,12 @@ p.lead {
     }
 }
 
+.breakpoint__xl-only {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .slide {
     background-size: cover !important;
 }

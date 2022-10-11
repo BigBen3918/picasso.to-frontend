@@ -404,7 +404,6 @@ export default function Header() {
                                         </div>
                                     </div>
                                 </div>
-
                                 <div className="mainside lg-style">
                                     {wallet.status == 'connected' && (
                                         <div
