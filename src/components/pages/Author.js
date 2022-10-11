@@ -203,7 +203,9 @@ export default function Author() {
                             {activitiesData.length > 0 ? (
                                 <Acitivity activitiesData={activitiesData} />
                             ) : (
-                                <h1 style={{ textAlign: 'center', padding: '73px' }}>No Data</h1>
+                                <h1 style={{ textAlign: 'center', padding: '73px' }}>
+                                    No items to display
+                                </h1>
                             )}
                         </div>
                     </Tab>
