@@ -9,11 +9,11 @@ export default function NewNotable() {
     const navigate = useNavigate();
     const [state] = useBlockchainContext();
     const settings = {
-        infinite: false,
+        infinite: true,
         speed: 500,
         slidesToShow: 3,
         slidesToScroll: 1,
-        initialSlide: 0,
+        initialSlide: 1,
         adaptiveHeight: 400,
         responsive: [
             {
@@ -52,7 +52,7 @@ export default function NewNotable() {
                 breakpoint: 480,
                 settings: {
                     slidesToShow: 1,
-                    slidesToScroll: 1,
+                    slidesToScroll: 2,
                     dots: true
                 }
             }

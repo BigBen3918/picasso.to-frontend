@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useBlockchainContext } from '../../context';
 
 const settings = {
-    infinite: false,
+    infinite: true,
     dots: true,
     speed: 500,
     slidesToShow: 4,

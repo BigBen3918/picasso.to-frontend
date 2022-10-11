@@ -30,6 +30,7 @@ export default function Header() {
     const [searchModal, setSearchModal] = useState(false);
     const [searchKey, setSearchKey] = useState('');
     const [focused, setFocused] = useState(false);
+    const [switchFocus, setSwitchFocus] = useState(false);
     const wallet = useWallet();
 
     useEffect(() => {
@@ -402,27 +403,39 @@ export default function Header() {
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    {/* <div className="navbar-item">
-                                    <NavLink to="/lazy-mint">
-                                        {translateLang('lazymint')}
-                                        <span className="lines"></span>
-                                    </NavLink>
-                                </div> */}
+                                <div className="mainside lg-style">
+                                    {wallet.status == 'connected' && (
+                                        <div
+                                            className="switch_network"
+                                            onBlur={() =>
+                                                setTimeout(() => setSwitchFocus(false), [100])
+                                            }>
+                                            <button
+                                                className="btn-main"
+                                                onClick={() => setSwitchFocus(!switchFocus)}>
+                                                Switch Network
+                                            </button>
+                                            {switchFocus && (
+                                                <div>
+                                                    <span>Bitcoin evm</span>
+                                                    <span>Spagetti testnet</span>
+                                                    <span>Fantom</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                    <button className="btn-main" onClick={handleConnect}>
+                                        {wallet.status == 'connected'
+                                            ? wallet.account?.slice(0, 4) +
+                                              '...' +
+                                              wallet.account?.slice(-4)
+                                            : 'Connect'}
+                                    </button>
                                 </div>
                             </Breakpoint>
                         </BreakpointProvider>
-
-                        <div className="mainside lg-style">
-                            <button className="btn-main">Switch Network</button>
-                            <button className="btn-main" onClick={handleConnect}>
-                                {wallet.status == 'connected'
-                                    ? wallet.account?.slice(0, 4) +
-                                      '...' +
-                                      wallet.account?.slice(-4)
-                                    : 'Connect'}
-                            </button>
-                        </div>
                     </div>
 
                     <button className="nav-icon" onClick={() => btn_icon(!showmenu)}>
