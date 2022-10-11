@@ -86,6 +86,11 @@ export default function Acitivity(props) {
                                                 <BiX />
                                                 <p>{'Unlisted'}</p>
                                             </StyledSpan>
+                                        ) : item.event === 'BidCreated' ? (
+                                            <StyledSpan style={{ color: 'green' }}>
+                                                <BiCheckCircle />
+                                                <p>{'BidCreated'}</p>
+                                            </StyledSpan>
                                         ) : (
                                             <StyledSpan style={{ color: 'green' }}>
                                                 <BiCheckCircle />
