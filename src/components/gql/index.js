@@ -21,6 +21,7 @@ const GET_COLLECTIONNFTS = gql`
             items {
                 metadata {
                     image
+                    coverImage
                     external_url1
                     external_url2
                     external_url3
@@ -72,6 +73,7 @@ const GET_ALLNFTS = gql`
             isOffchain
             metadata {
                 image
+                coverImage
                 external_url1
                 external_url2
                 external_url3
