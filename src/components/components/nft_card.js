@@ -37,7 +37,11 @@ export default function NFTCard(props) {
                 <div className="nft__item_wrap">
                     <span>
                         <img
-                            src={nft.metadata.coverImage || './img/collections/coll-item-3.jpg'}
+                            src={
+                                nft.metadata.coverImage ||
+                                nft.metadata.image ||
+                                './img/collections/coll-item-3.jpg'
+                            }
                             className="lazy nft__item_preview"
                             loading="lazy"
                             alt=""

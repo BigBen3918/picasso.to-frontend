@@ -195,7 +195,7 @@ export default function Homethree() {
                                     <div className="nft__item_wrap">
                                         <span>
                                             <img
-                                                src={nft.metadata.image}
+                                                src={nft.metadata.coverImage || nft.metadata.image}
                                                 className="lazy nft__item_preview"
                                                 alt=""
                                             />
