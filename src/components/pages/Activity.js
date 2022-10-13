@@ -21,6 +21,7 @@ export default function Acitivity(props) {
     const [hasMore, setHasMore] = useState(false);
 
     const activeData = useMemo(() => {
+        console.log(activitiesData);
         var result = activitiesData.slice(0, renderCount);
         if (result.length === activitiesData.length) setHasMore(false);
         else setHasMore(true);
@@ -48,8 +49,8 @@ export default function Acitivity(props) {
                                                         <img
                                                             key={index}
                                                             src={
-                                                                collect.items[item.tokenID].metadata
-                                                                    .image
+                                                                collect.items[item.tokenID]
+                                                                    ?.metadata?.image
                                                             }
                                                             alt=""
                                                         />
@@ -67,12 +68,13 @@ export default function Acitivity(props) {
                                                             collect.address === item.contractAddress
                                                         )
                                                             return styledText(
-                                                                collect.items[item.tokenID].metadata
-                                                                    .name
+                                                                collect.items[item.tokenID]
+                                                                    ?.metadata?.name
                                                             );
                                                     })}
                                                 </Link>
                                             </span>
+                                            ;
                                         </div>
                                     </td>
                                     <td>

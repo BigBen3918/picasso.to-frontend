@@ -26,7 +26,7 @@ const styledAddress = (s = '') => {
 };
 
 const styledText = (s) => {
-    if (s.length > 20) return s.slice(0, 15) + '...';
+    if (s && s.length > 20) return s.slice(0, 15) + '...';
     else return s;
 };
 
