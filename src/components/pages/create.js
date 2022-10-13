@@ -320,15 +320,12 @@ export default function Createpage() {
 
                                 <h5>{translateLang('choosecollection')}</h5>
                                 <p>This is the collection where your item will appear.</p>
-                                <select
-                                    className="form-control"
-                                    onChange={(e) => handleCollectionChange(e)}>
-                                    {collections.map((item, index) => (
-                                        <option key={index} value={item.owner}>
-                                            {item.name}
-                                        </option>
-                                    ))}
-                                </select>
+                                <input
+                                    type="text"
+                                    className="btn-main"
+                                    value={'PICASSO NFT'}
+                                    disabled
+                                />
 
                                 <div className="spacer-30"></div>
 
