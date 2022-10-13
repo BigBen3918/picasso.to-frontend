@@ -325,6 +325,7 @@ export default function Createpage() {
                                     className="form-control"
                                     value={'PICASSO NFT'}
                                     disabled
+                                    style={{ background: '#ddd' }}
                                 />
 
                                 <div className="spacer-30"></div>
@@ -332,54 +333,57 @@ export default function Createpage() {
                                 <h5>{translateLang('attribute')}</h5>
                                 <p>Textual traits that show up as rectangles</p>
                                 {Object.keys(attrItem).map((item, index) => (
-                                    <div className="attribute" key={index}>
-                                        <button
-                                            type="button"
-                                            className="form-control-button"
-                                            style={{ flex: '1 1 0' }}
-                                            onClick={() => deleteItem(item)}>
-                                            <i className="bg-color-2 i-boxed icon_close" />
-                                        </button>
-                                        <input
-                                            type="input"
-                                            className="form-control"
-                                            style={{ flex: '5 5 0' }}
-                                            placeholder="Character"
-                                            onChange={(e) => {
-                                                setAttrItem({
-                                                    ...attrItem,
-                                                    [item]: {
-                                                        ...attrItem[item],
-                                                        key: e.target.value
-                                                    }
-                                                });
-                                            }}
-                                            value={attrItem[item].key}
-                                        />
-                                        <input
-                                            type="input"
-                                            className="form-control"
-                                            style={{ flex: '5 5 0' }}
-                                            placeholder="Value"
-                                            onChange={(e) => {
-                                                setAttrItem({
-                                                    ...attrItem,
-                                                    [item]: {
-                                                        ...attrItem[item],
-                                                        value: e.target.value
-                                                    }
-                                                });
-                                            }}
-                                            value={attrItem[item].value}
-                                        />
-                                        <button
-                                            type="button"
-                                            className="form-control-button"
-                                            style={{ flex: '1 1 0' }}
-                                            onClick={addItem}>
-                                            <i className="bg-color-2 i-boxed icon_plus" />
-                                        </button>
-                                    </div>
+                                    <>
+                                        <div className="attribute" key={index}>
+                                            <button
+                                                type="button"
+                                                className="form-control-button"
+                                                style={{ flex: '1 1 0' }}
+                                                onClick={() => deleteItem(item)}>
+                                                <i className="bg-color-2 i-boxed icon_close" />
+                                            </button>
+                                            <input
+                                                type="input"
+                                                className="form-control"
+                                                style={{ flex: '5 5 0' }}
+                                                placeholder="Character"
+                                                onChange={(e) => {
+                                                    setAttrItem({
+                                                        ...attrItem,
+                                                        [item]: {
+                                                            ...attrItem[item],
+                                                            key: e.target.value
+                                                        }
+                                                    });
+                                                }}
+                                                value={attrItem[item].key}
+                                            />
+                                            <input
+                                                type="input"
+                                                className="form-control"
+                                                style={{ flex: '5 5 0' }}
+                                                placeholder="Value"
+                                                onChange={(e) => {
+                                                    setAttrItem({
+                                                        ...attrItem,
+                                                        [item]: {
+                                                            ...attrItem[item],
+                                                            value: e.target.value
+                                                        }
+                                                    });
+                                                }}
+                                                value={attrItem[item].value}
+                                            />
+                                            <button
+                                                type="button"
+                                                className="form-control-button"
+                                                style={{ flex: '1 1 0' }}
+                                                onClick={addItem}>
+                                                <i className="bg-color-2 i-boxed icon_plus" />
+                                            </button>
+                                        </div>
+                                        <div className="spacer-10"></div>
+                                    </>
                                 ))}
 
                                 <div className="spacer-30"></div>
