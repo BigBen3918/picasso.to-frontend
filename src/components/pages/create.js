@@ -322,7 +322,7 @@ export default function Createpage() {
                                 <p>This is the collection where your item will appear.</p>
                                 <input
                                     type="text"
-                                    className="btn-main"
+                                    className="form-control"
                                     value={'PICASSO NFT'}
                                     disabled
                                 />
