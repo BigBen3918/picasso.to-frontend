@@ -149,12 +149,12 @@ export default function Collection() {
                                                 </a>
                                             )}
                                             {correctItem.metadata?.external_url4 != '' && (
-                                                <a href={correctItem.metadata?.external_url3}>
+                                                <a href={correctItem.metadata?.external_url4}>
                                                     <BsTelegram />
                                                 </a>
                                             )}
                                             {correctItem.metadata?.external_url5 != '' && (
-                                                <a href={correctItem.metadata?.external_url3}>
+                                                <a href={correctItem.metadata?.external_url5}>
                                                     <BsDiscord />
                                                 </a>
                                             )}
