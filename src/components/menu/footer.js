@@ -20,12 +20,12 @@ const Footer = () => {
                     <span className="spacer-10"></span>
                     <div>
                         <span>
-                            <a href="/#">
+                            <a href="https://twitter.com/Picasso_FTM">
                                 <BsTwitter /> @PICASSO
                             </a>
                         </span>
                         <span>
-                            <a href="/#">
+                            <a href="https://discord.com/invite/pumpkins">
                                 <BsDiscord /> Discord
                             </a>
                         </span>
@@ -35,7 +35,7 @@ const Footer = () => {
                             </a>
                         </span>
                         <span>
-                            <a href="/#">
+                            <a href="https://t.me/+wkQI-V3vrhowODg0">
                                 <BsTelegram /> Telegram
                             </a>
                         </span>

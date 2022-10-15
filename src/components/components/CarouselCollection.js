@@ -97,24 +97,26 @@ export default function CarouselCollection() {
     };
 
     const someNFTs = useMemo(() => {
-        var count = 0;
+        // var count = 0;
         var result = [
             state.collectionNFT.find((item) => {
                 return item.address === addresses.NFT1;
             })
         ];
-        result = [
-            ...result,
-            ...state.collectionNFT.map((item) => {
-                if (count < 3 && item.address !== addresses.NFT1) {
-                    count++;
-                    return item;
-                } else {
-                    return null;
-                }
-            })
-        ];
-
+        result.push(state.collectionNFT[0]);
+        result.push(state.collectionNFT[3]);
+        result.push(state.collectionNFT[8]);
+        // result = [
+        //     ...result,
+        //     ...state.collectionNFT.map((item) => {
+        //         if (count < 3 && item.address !== addresses.NFT1) {
+        //             count++;
+        //             return item;
+        //         } else {
+        //             return null;
+        //         }
+        //     })
+        // ];
         return result.filter((item) => {
             if (item) {
                 return item;
