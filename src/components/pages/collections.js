@@ -57,7 +57,7 @@ export default function Collections() {
             </section>
 
             <div className="container">
-                <div className="row">
+                <div className="row collections_table_style">
                     <table className="collections_table">
                         <thead>
                             <tr>

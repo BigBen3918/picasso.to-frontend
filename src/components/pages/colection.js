@@ -7,7 +7,7 @@ import Footer from '../menu/footer';
 import { useBlockchainContext } from '../../context';
 import { copyToClipboard } from '../../utils';
 import { NotificationManager } from 'react-notifications';
-import { BsTwitter, BsFacebook, BsInstagram } from 'react-icons/bs';
+import { BsTwitter, BsFacebook, BsInstagram, BsTelegram, BsDiscord } from 'react-icons/bs';
 import { Tab, Tabs } from 'react-bootstrap';
 import Acitivity from './Activity';
 
@@ -110,7 +110,14 @@ export default function Collection() {
                                         <img src={correctItem.metadata.image} alt="" />
                                     </div>
 
-                                    <div className="profile_name">
+                                    <div
+                                        className="profile_name"
+                                        style={{
+                                            flexDirection: 'row',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            flexWrap: 'wrap'
+                                        }}>
                                         <span>
                                             <h2>{correctItem.metadata.name}</h2>
                                             <span id="wallet" className="profile_wallet">
@@ -139,6 +146,16 @@ export default function Collection() {
                                             {correctItem.metadata?.external_url3 != '' && (
                                                 <a href={correctItem.metadata?.external_url3}>
                                                     <BsInstagram />
+                                                </a>
+                                            )}
+                                            {correctItem.metadata?.external_url4 != '' && (
+                                                <a href={correctItem.metadata?.external_url3}>
+                                                    <BsTelegram />
+                                                </a>
+                                            )}
+                                            {correctItem.metadata?.external_url5 != '' && (
+                                                <a href={correctItem.metadata?.external_url3}>
+                                                    <BsDiscord />
                                                 </a>
                                             )}
                                         </div>

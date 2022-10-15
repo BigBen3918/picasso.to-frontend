@@ -5447,6 +5447,7 @@ img.img-rounded {
 .collection_info {
     span {
         display: flex;
+        flex-wrap: wrap;
         gap: 30px;
         justify-content: flex-start;
         margin-left: 20px;
@@ -5648,6 +5649,12 @@ img.img-rounded {
     }
 }
 
+.collections_table_style {
+    @media screen and (max-width: 700px) {
+        overflow-x: scroll;
+    }
+}
+
 .collections_table {
     table,
     th,
@@ -5681,6 +5688,10 @@ img.img-rounded {
             height: 50px;
             object-fit: contain;
         }
+    }
+
+    @media screen and (max-width: 700px) {
+        min-width: 700px;
     }
 }
 
