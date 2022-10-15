@@ -48,7 +48,7 @@ const Footer = () => {
                     <div>
                         <Link to="/explore">All NFTs</Link>
                         <Link to="/Collections">All Collections</Link>
-                        <Link to="/create/nft">Minting Now</Link>
+                        <Link to="/create/nft">Create NFT</Link>
                         <Link to="/create/collection">Submit Collection</Link>
                     </div>
                 </div>

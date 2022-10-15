@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useNavigate } from 'react-router-dom';
 import { useBlockchainContext } from '../../context';
+import addresses from '../../contracts/contracts/addresses.json';
 
 const settings = {
     infinite: true,
@@ -95,10 +96,36 @@ export default function CarouselCollection() {
         );
     };
 
+    const someNFTs = useMemo(() => {
+        var count = 0;
+        var result = [
+            state.collectionNFT.find((item) => {
+                return item.address === addresses.NFT1;
+            })
+        ];
+        result = [
+            ...result,
+            ...state.collectionNFT.map((item) => {
+                if (count < 3 && item.address !== addresses.NFT1) {
+                    count++;
+                    return item;
+                } else {
+                    return null;
+                }
+            })
+        ];
+
+        return result.filter((item) => {
+            if (item) {
+                return item;
+            }
+        });
+    }, [state.collectionNFT]);
+
     return (
         <div>
             <Slider {...settings}>
-                {state.collectionNFT.slice(0, 4).map((item, index) => (
+                {someNFTs.map((item, index) => (
                     <NFTItem
                         key={index}
                         id={index}

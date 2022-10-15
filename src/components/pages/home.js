@@ -100,7 +100,7 @@ export default function Homethree() {
                     <div className="row align-items-center slider-content">
                         <div className="col-lg-12">
                             <div className="spacer-single"></div>
-                            <Reveal
+                            {/* <Reveal
                                 className="onStep"
                                 keyframes={fadeInUp}
                                 delay={800}
@@ -110,7 +110,7 @@ export default function Homethree() {
                                     {translateLang('explore')}
                                 </Link>
                                 <div className="spacer-20"></div>
-                            </Reveal>
+                            </Reveal> */}
                             <Reveal
                                 className="onStep"
                                 keyframes={fadeInUp}
@@ -119,14 +119,14 @@ export default function Homethree() {
                                 triggerOnce>
                                 <h1 className="">{translateLang('home_txt1')}</h1>
                             </Reveal>
-                            <Reveal
+                            {/* <Reveal
                                 className="onStep"
                                 keyframes={fadeInUp}
                                 delay={600}
                                 duration={600}
                                 triggerOnce>
                                 <p className=" lead">{translateLang('home_txt2')}</p>
-                            </Reveal>
+                            </Reveal> */}
                             <div className="spacer-30"></div>
                         </div>
                     </div>

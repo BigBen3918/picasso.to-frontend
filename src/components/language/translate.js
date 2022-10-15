@@ -1,7 +1,7 @@
 export const translations = {
     en: {
         // home
-        home_txt1: "Where people come together to create and collect what's next",
+        home_txt1: 'Trade NFTs with 0% Service Fees',
         home_txt2:
             'PICASSO is the open marketplace for Bitcoin NFTs, powered by Stacks. Start building your collection today.',
         notablecollection: 'Notable Collections',
