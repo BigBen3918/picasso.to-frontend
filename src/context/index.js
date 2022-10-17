@@ -444,6 +444,13 @@ export default function Provider({ children }) {
         return true;
     };
 
+    const setRoyaltyCall = async (props) => {
+        const { nftaddress, royalty } = props;
+        const signedMarketplaceContract = marketplaceContract.connect(state.signer);
+        const tx = await signedMarketplaceContract.setRoyalty(nftaddress, String(royalty * 1e4));
+        await tx.wait();
+    };
+
     return (
         <BlockchainContext.Provider
             value={useMemo(
@@ -463,7 +470,8 @@ export default function Provider({ children }) {
                         translateLang,
                         approveNFT,
                         getCurrency,
-                        checkNFTApprove
+                        checkNFTApprove,
+                        setRoyaltyCall
                     }
                 ],
                 [
@@ -481,7 +489,8 @@ export default function Provider({ children }) {
                     translateLang,
                     approveNFT,
                     getCurrency,
-                    checkNFTApprove
+                    checkNFTApprove,
+                    setRoyaltyCall
                 ]
             )}>
             {children}

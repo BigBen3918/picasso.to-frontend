@@ -1582,6 +1582,19 @@
             "type": "function"
         },
         {
+            "inputs": [],
+            "name": "maxRoyaltyPerMillion",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
             "inputs": [
                 {
                     "internalType": "address",
@@ -1677,8 +1690,14 @@
             "type": "function"
         },
         {
-            "inputs": [],
-            "name": "royaltyPerMillion",
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "royaltyPerMillions",
             "outputs": [
                 {
                     "internalType": "uint256",
@@ -1711,6 +1730,24 @@
                 }
             ],
             "name": "setPaused",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_nftAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "fee",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setRoyalty",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"

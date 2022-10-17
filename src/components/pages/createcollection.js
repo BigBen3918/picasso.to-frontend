@@ -8,7 +8,7 @@ import Action from '../../service';
 import { useBlockchainContext } from '../../context';
 
 export default function CreateCollection() {
-    const [state, { translateLang }] = useBlockchainContext();
+    const [state, { translateLang, setRoyaltyCall }] = useBlockchainContext();
 
     const [logoImage, _setLogoImage] = useState(null);
     const [selectedLogoFile, setSeletedLogoFile] = useState(null);
@@ -24,6 +24,7 @@ export default function CreateCollection() {
     const [address, setAddress] = useState('');
     const [loading, setLoading] = useState(false);
     const [verify, setVerify] = useState(false);
+    const [royalty, setRoyalty] = useState(0);
 
     const handleVerify = async () => {
         if (address.trim() === '') {
@@ -90,6 +91,14 @@ export default function CreateCollection() {
             const uploadData = await Action.create_collection(formData);
             if (uploadData) {
                 NotificationManager.success(translateLang('createcollection_success'));
+                if (royalty > 0) {
+                    try {
+                        await setRoyaltyCall(address, royalty);
+                        NotificationManager.success('Successfully Set Royalty');
+                    } catch (err) {
+                        NotificationManager.error('Failed Set Royalty');
+                    }
+                }
                 reset();
             } else {
                 NotificationManager.error(translateLang('createcollection_error'));
@@ -113,6 +122,7 @@ export default function CreateCollection() {
         setExtLink2('');
         setExtLink3('');
         setDesc('');
+        setRoyalty(0);
         setVerify(false);
     };
 
@@ -378,6 +388,15 @@ export default function CreateCollection() {
                                     placeholder="provide a detailed description of your nft item"
                                     onChange={(e) => setDesc(e.target.value)}
                                     value={desc}
+                                />
+                                <div className="spacer-30"></div>
+                                <h5>{'Royalty'}</h5>
+                                <input
+                                    type="text"
+                                    name="item_royalty"
+                                    className="form-control"
+                                    onChange={(e) => setRoyalty(e.target.value)}
+                                    value={royalty}
                                 />
                                 <div className="spacer-30"></div>
                                 {!loading ? (
