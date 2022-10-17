@@ -9,6 +9,7 @@ import { keyframes } from '@emotion/react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useBlockchainContext } from '../../context';
 import NewNotable from '../components/SliderCarousel';
+import addresses from '../../contracts/contracts/addresses.json';
 
 const fadeInUp = keyframes`
   0% {
@@ -184,7 +185,7 @@ export default function Homethree() {
                 <div className="row">
                     {state.allNFT
                         .filter((item) => {
-                            return item.marketdata.price !== '';
+                            return item.marketdata.owner === addresses.Marketplace;
                         })
                         .slice(0, 10)
                         .map((nft, index) => (
