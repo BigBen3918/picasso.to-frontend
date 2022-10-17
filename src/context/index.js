@@ -9,7 +9,7 @@ import {
     storeFontContract,
     provider
 } from '../contracts';
-import { toBigNum } from '../utils';
+import { fromBigNum, toBigNum } from '../utils';
 import {
     GET_ALLNFTS,
     GET_USERSINFO,
@@ -445,15 +445,15 @@ export default function Provider({ children }) {
     };
 
     const setRoyaltyCall = async (props) => {
-        const { nftaddress, royalty } = props;
+        const { nftAddress, royalty } = props;
         const signedMarketplaceContract = marketplaceContract.connect(state.signer);
-        const tx = await signedMarketplaceContract.setRoyalty(nftaddress, String(royalty * 1e4));
+        const tx = await signedMarketplaceContract.setRoyalty(nftAddress, String(royalty * 1e4));
         await tx.wait();
     };
 
     const getRoyaltyCall = async (props) => {
-        const { nftaddress } = props;
-        return marketplaceContract.royaltyPerMillions(nftaddress);
+        const { nftAddress } = props;
+        return fromBigNum(await marketplaceContract.royaltyPerMillions(nftAddress), 0) / 10000;
     };
 
     return (

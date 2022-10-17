@@ -91,18 +91,18 @@ export default function CreateCollection() {
             const uploadData = await Action.create_collection(formData);
             if (uploadData) {
                 NotificationManager.success(translateLang('createcollection_success'));
-                if (royalty > 0) {
-                    try {
-                        await setRoyaltyCall(address, royalty);
-                        NotificationManager.success('Successfully Set Royalty');
-                    } catch (err) {
-                        NotificationManager.error('Failed Set Royalty');
-                    }
-                }
-                reset();
             } else {
                 NotificationManager.error(translateLang('createcollection_error'));
             }
+            if (royalty > 0) {
+                try {
+                    await setRoyaltyCall({ nftAddress: address, royalty: royalty });
+                    NotificationManager.success('Successfully Set Royalty');
+                } catch (err) {
+                    NotificationManager.error('Failed Set Royalty');
+                }
+            }
+            reset();
             setLoading(false);
         } catch (err) {
             setLoading(false);
@@ -392,7 +392,7 @@ export default function CreateCollection() {
                                 <div className="spacer-30"></div>
                                 <h5>{'Royalty'}</h5>
                                 <input
-                                    type="text"
+                                    type="number"
                                     name="item_royalty"
                                     className="form-control"
                                     onChange={(e) => setRoyalty(e.target.value)}

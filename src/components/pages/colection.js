@@ -48,7 +48,7 @@ export default function Collection() {
         setCorrectItem(itemData);
 
         (async () => {
-            setRoyalty(await getRoyaltyCall(collection));
+            setRoyalty(await getRoyaltyCall({ nftAddress: collection }));
         })();
     }, [collection]);
 
