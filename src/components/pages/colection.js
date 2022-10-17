@@ -14,13 +14,14 @@ import Acitivity from './Activity';
 export default function Collection() {
     const navigate = useNavigate();
     const { collection } = useParams();
-    const [state, { translateLang }] = useBlockchainContext();
+    const [state, { translateLang, getRoyaltyCall }] = useBlockchainContext();
     const [correctItem, setCorrectItem] = useState(null);
     const [owners, setOwners] = useState([]);
     const [avgAmount, setAvgAmount] = useState(0);
     const [floorPrice, setFloorPrice] = useState(0);
     const [volumn, setVolumn] = useState(0);
     const [option1, setOption1] = useState('OnSaled');
+    const [royalty, setRoyalty] = useState(0);
 
     useEffect(() => {
         if (state.orderList.length !== 0) {
@@ -45,6 +46,10 @@ export default function Collection() {
         });
         if (!itemData) navigate('/collections');
         setCorrectItem(itemData);
+
+        (async () => {
+            setRoyalty(await getRoyaltyCall(collection));
+        })();
     }, [collection]);
 
     useEffect(() => {
@@ -183,6 +188,10 @@ export default function Collection() {
                                             <div>
                                                 <h3>{floorPrice}</h3>
                                                 <p>{'Floor'}</p>
+                                            </div>
+                                            <div>
+                                                <h3>{royalty}%</h3>
+                                                <p>{'Royalty'}</p>
                                             </div>
                                             {/* <div>
                                                     <h3>

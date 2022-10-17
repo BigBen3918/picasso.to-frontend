@@ -451,6 +451,11 @@ export default function Provider({ children }) {
         await tx.wait();
     };
 
+    const getRoyaltyCall = async (props) => {
+        const { nftaddress } = props;
+        return marketplaceContract.royaltyPerMillions(nftaddress);
+    };
+
     return (
         <BlockchainContext.Provider
             value={useMemo(
@@ -471,7 +476,8 @@ export default function Provider({ children }) {
                         approveNFT,
                         getCurrency,
                         checkNFTApprove,
-                        setRoyaltyCall
+                        setRoyaltyCall,
+                        getRoyaltyCall
                     }
                 ],
                 [
@@ -490,7 +496,8 @@ export default function Provider({ children }) {
                     approveNFT,
                     getCurrency,
                     checkNFTApprove,
-                    setRoyaltyCall
+                    setRoyaltyCall,
+                    getRoyaltyCall
                 ]
             )}>
             {children}
