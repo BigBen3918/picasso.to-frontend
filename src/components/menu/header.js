@@ -418,9 +418,8 @@ export default function Header() {
                                             </button>
                                             {switchFocus && (
                                                 <div>
-                                                    <span>Bitcoin evm</span>
-                                                    <span>Spagetti testnet</span>
                                                     <span>Fantom</span>
+                                                    <span>Fantom Testnet</span>
                                                 </div>
                                             )}
                                         </div>
