@@ -1394,6 +1394,17 @@ p.lead {
             }
         }
     }
+
+        .chain_select {
+        a {
+            background-color: unset;
+            box-shadow: unset;
+
+            &:hover {
+                box-shadow: unset;
+            }
+        }
+    }
 }
 
 /* disable click active */

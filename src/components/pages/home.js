@@ -185,7 +185,7 @@ export default function Homethree() {
                 <div className="row">
                     {state.allNFT
                         .filter((item) => {
-                            return item.marketdata.owner === addresses.Marketplace;
+                            return item.owner === addresses.Marketplace;
                         })
                         .slice(0, 10)
                         .map((nft, index) => (

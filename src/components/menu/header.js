@@ -417,9 +417,15 @@ export default function Header() {
                                                 Switch Network
                                             </button>
                                             {switchFocus && (
-                                                <div>
-                                                    <span>Fantom</span>
-                                                    <span>Fantom Testnet</span>
+                                                <div className="chain_select">
+                                                    <span>
+                                                        <a href="https://picasso.to">Fantom</a>
+                                                    </span>
+                                                    <span>
+                                                        <a href="https://ftmtestnet.picasso.to">
+                                                            Fantom Testnet
+                                                        </a>
+                                                    </span>
                                                 </div>
                                             )}
                                         </div>
