@@ -418,13 +418,14 @@ export default function Header() {
                                             </button>
                                             {switchFocus && (
                                                 <div className="chain_select">
-                                                    <span>
-                                                        <a href="https://picasso.to">Fantom</a>
-                                                    </span>
-                                                    <span>
-                                                        <a href="https://ftmtestnet.picasso.to">
-                                                            Fantom Testnet
-                                                        </a>
+                                                    <span>Fantom</span>
+                                                    <span
+                                                        onClick={() =>
+                                                            window.open(
+                                                                'https://ftmtestnet.picasso.to'
+                                                            )
+                                                        }>
+                                                        Fantom Testnet
                                                     </span>
                                                 </div>
                                             )}
